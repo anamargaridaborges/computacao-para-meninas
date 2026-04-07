@@ -1,0 +1,35 @@
+name: computacao-para-meninas
+
+options:
+  bundleIdPrefix: com.meg
+  deploymentTarget:
+    iOS: "16.0"
+
+targets:
+  computacao-para-meninas:
+    type: application
+    platform: iOS
+    sources:
+      - computacao-para-meninas
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.meg.computacao-para-meninas
+
+  computacao-para-meninasTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - computacao-para-meninasTests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.meg.computacao-para-meninasTests
+    dependencies:
+      - target: computacao-para-meninas
+
+  computacao-para-meninasUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - computacao-para-meninasUITests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.meg.computacao-para-meninasUITests
+    dependencies:
+      - target: computacao-para-meninas
