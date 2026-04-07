@@ -1,0 +1,21 @@
+[
+    {
+      "tipo": {
+        "case": "tipo3",
+        "values": {
+          "primeiroArray": [0, 1, 2],
+          "segundoArray": [5, 3, 4]
+        }
+      },
+      "enunciado": "Ligue a variável com seu tipo",
+      "alternativas": [
+        "x = [1, 2, 3]",
+        "y = 3.14",
+        "z = \"Olá Mundo!\"",
+        "float",
+        "str",
+        "list"
+      ],
+      "explicacao": "A variável x é um número inteiro, "
+    }
+]
