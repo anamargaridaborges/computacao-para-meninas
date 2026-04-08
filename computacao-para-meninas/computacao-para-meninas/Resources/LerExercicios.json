@@ -1,12 +1,11 @@
 [
     {
-      "tipo": {
-        "case": "tipo3",
-        "values": {
-          "primeiroArray": [0, 1, 2],
-          "segundoArray": [5, 3, 4]
-        }
-      },
+    "tipo": {
+        "tipo": "tipo3",
+        "valores1": [0, 1, 2],
+        "valores2": [5, 3, 4],
+    },
+    
       "enunciado": "Ligue a variável com seu tipo",
       "alternativas": [
         "x = [1, 2, 3]",
