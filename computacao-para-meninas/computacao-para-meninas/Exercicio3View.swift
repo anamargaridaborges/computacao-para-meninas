@@ -52,7 +52,9 @@ struct Exercicio3View: View {
                                     if desativado[i] {
                                         return
                                     }
-                                    selecionado1 = i
+                                    withAnimation {
+                                        selecionado1 = i
+                                    }
                                 }
                         }
                     }
@@ -65,7 +67,9 @@ struct Exercicio3View: View {
                                     if desativado[i] {
                                         return
                                     }
-                                    selecionado2 = i
+                                    withAnimation {
+                                        selecionado2 = i
+                                    }
                                 }
                         }
                     }
