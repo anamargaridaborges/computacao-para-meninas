@@ -17,7 +17,10 @@ struct BarraDeProgresso: View {
             ForEach(0..<numeroExercicios, id: \.self) { i in
                 RoundedRectangle(cornerRadius: 20)
                     .fill(i == exercicioAtual ? Color("LightGray") : Color("AccentColor"))
-                    .stroke(Color("AccentColor"), lineWidth: (i == exercicioAtual ? 4 : 0))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color("AccentColor"), lineWidth: (i == exercicioAtual ? 4 : 0))
+                    )
                     .frame(width: 40, height: 15)
                     .padding(2)
             }
