@@ -16,12 +16,12 @@ jobs:
       - name: Install XcodeGen
         run: brew install xcodegen
 
-      - name: Generate project
-        run: xcodegen generate
-
       - name: Run tests
-        run:
+        run: |
           cd computacao-para-meninas
+          xcodegen generate
           xcodebuild test \
+            -project computacao-para-meninas.xcodeproj \
             -scheme computacao-para-meninas \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
+            CODE_SIGNING_ALLOWED=NO
