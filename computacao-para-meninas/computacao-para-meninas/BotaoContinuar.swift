@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct BotaoContinuar: View {
+    
+    let continuarDesativado: Bool
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color("AccentColor"))
+                .fill((continuarDesativado ? Color("Gray") : Color("AccentColor")))
                 .frame(width: 350, height: 50)
             Text("Continuar")
                 .foregroundStyle(Color.white)
