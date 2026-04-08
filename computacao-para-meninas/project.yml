@@ -1,7 +1,7 @@
 name: computacao-para-meninas
 
 options:
-  bundleIdPrefix: com.meg
+  bundleIdPrefix: meg
   deploymentTarget:
     iOS: "16.0"
 
@@ -12,7 +12,16 @@ targets:
     sources:
       - computacao-para-meninas
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.meg.computacao-para-meninas
+      PRODUCT_BUNDLE_IDENTIFIER: meg.computacao-para-meninas
+      base:
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1.0.0"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_CFBundleVersion: "1"
+        PRODUCT_NAME: computacao-para-meninas
+        INFOPLIST_KEY_UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
 
   computacao-para-meninasTests:
     type: bundle.unit-test
@@ -20,7 +29,7 @@ targets:
     sources:
       - computacao-para-meninasTests
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.meg.computacao-para-meninasTests
+      PRODUCT_BUNDLE_IDENTIFIER: meg.computacao-para-meninasTests
     dependencies:
       - target: computacao-para-meninas
 
@@ -30,6 +39,6 @@ targets:
     sources:
       - computacao-para-meninasUITests
     settings:
-      PRODUCT_BUNDLE_IDENTIFIER: com.meg.computacao-para-meninasUITests
+      PRODUCT_BUNDLE_IDENTIFIER: meg.computacao-para-meninasUITests
     dependencies:
       - target: computacao-para-meninas
