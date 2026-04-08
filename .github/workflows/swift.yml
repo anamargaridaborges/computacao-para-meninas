@@ -15,6 +15,7 @@ jobs:
 
       - name: Run tests
         run: |
+          cd ..
           xcodebuild test \
             -scheme computacao-para-meninas \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
