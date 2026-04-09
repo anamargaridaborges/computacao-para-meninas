@@ -20,8 +20,8 @@ struct BotaoContinuar: View {
                 .foregroundStyle(Color.white)
                 .bold()
         }
+        .accessibilityIdentifier("Continuar")
     }
-
 }
 
 #Preview {

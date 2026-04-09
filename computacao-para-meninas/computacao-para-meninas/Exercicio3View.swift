@@ -47,30 +47,36 @@ struct Exercicio3View: View {
                 HStack {
                     VStack {
                         ForEach(0..<exercicios[idExercicio].alternativas.count / 2, id : \.self) { i in
-                            CardAlternativaExercicio3(idx: i, idExercicio: idExercicio, selecionado: selecionado1, erro: erro1, desativado: desativado[i])
-                                .onTapGesture {
-                                    if desativado[i] {
-                                        return
-                                    }
-                                    withAnimation {
-                                        selecionado1 = i
-                                    }
+                            Button (action: {
+                                if desativado[i] {
+                                    return
                                 }
+                                withAnimation {
+                                    selecionado1 = i
+                                }
+                            }) {
+                                CardAlternativaExercicio3(idx: i, idExercicio: idExercicio, selecionado: selecionado1, erro: erro1, desativado: desativado[i])
+                            }
+                            .accessibilityIdentifier("card_\(i)")
+                            .disabled(desativado[i])
                         }
                     }
                     .padding(5)
 
                     VStack {
                         ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
-                            CardAlternativaExercicio3(idx: i, idExercicio: idExercicio, selecionado: selecionado2, erro: erro2, desativado: desativado[i])
-                                .onTapGesture {
-                                    if desativado[i] {
-                                        return
-                                    }
-                                    withAnimation {
-                                        selecionado2 = i
-                                    }
+                            Button (action: {
+                                if desativado[i] {
+                                    return
                                 }
+                                withAnimation {
+                                    selecionado2 = i
+                                }
+                            }) {
+                                CardAlternativaExercicio3(idx: i, idExercicio: idExercicio, selecionado: selecionado2, erro: erro2, desativado: desativado[i])
+                            }
+                            .accessibilityIdentifier("card_\(i)")
+                            .disabled(desativado[i])
                         }
                     }
                     .padding(5)
