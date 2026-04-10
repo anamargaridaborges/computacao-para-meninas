@@ -1,22 +1,33 @@
-# This workflow will build a Swift project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
-
-name: Swift
+name: Swift CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  build:
-
-    runs-on: macos-latest
+  test:
+    runs-on: macos-15
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Select Xcode 16
+        run: sudo xcode-select -s /Applications/Xcode_16.4.app
+
+      - name: Generate xcodeproj
+        working-directory: computacao-para-meninas
+        run: xcodegen generate
+
+      - name: Run tests
+        working-directory: computacao-para-meninas
+        run: |
+          xcodebuild test \
+            -project computacao-para-meninas.xcodeproj \
+            -scheme computacao-para-meninas \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            CODE_SIGNING_ALLOWED=NO
