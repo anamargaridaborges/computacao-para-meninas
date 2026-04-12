@@ -1,0 +1,35 @@
+name: CI - Computação para Meninas
+
+on:
+  push:
+    branches: [ "main", "feature/*" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+
+      - name: Gerar Projeto
+        run: xcodegen generate
+
+      - name: Etapa 1 - Build (Construção)
+        run: |
+          xcodebuild build \
+            -project computacao-para-meninas.xcodeproj \
+            -scheme computacao-para-meninas \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest'
+
+      - name: Etapa 2 - Testes Automatizados
+        run: |
+          xcodebuild test \
+            -project computacao-para-meninas.xcodeproj \
+            -scheme computacao-para-meninas \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest'
