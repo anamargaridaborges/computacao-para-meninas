@@ -5,19 +5,38 @@
 //  Created by Ana Macedo on 12/04/26.
 //
 
+import Foundation
 import SwiftUI
 
 class TrilhaViewModel: ObservableObject {
-    @AppStorage("nivelProgresso") var nivelProgresso: Int = 0
-    let exerciciosIds: [Int] = [0, 1, 2, 3]
-    
-    func estaDesbloqueado(index: Int) -> Bool {
-        return index <= nivelProgresso
+    @AppStorage("atividadesConcluidas") var atividadesConcluidasData: Data = Data()
+    @Published var idsConcluidos: Set<String> = []
+
+    init() {
+        loadProgress()
     }
-    
-    func concluirExercicio(atual: Int) {
-        if atual == nivelProgresso {
-            nivelProgresso += 1
+
+    // carrega o progresso salvo
+    func loadProgress() {
+        if let decoded = try? JSONDecoder().decode(Set<String>.self, from: atividadesConcluidasData) {
+            idsConcluidos = decoded
         }
+    }
+
+    // salva o progresso da usuario
+    func saveProgress() {
+        if let encoded = try? JSONEncoder().encode(idsConcluidos) {
+            atividadesConcluidasData = encoded
+        }
+    }
+
+    func estaDesbloqueada(idAtividade: String, idDependencia: String?) -> Bool {
+        guard let dependencia = idDependencia else { return true }
+        return idsConcluidos.contains(dependencia)
+    }
+
+    func concluirAtividade(id: String) {
+        idsConcluidos.insert(id)
+        saveProgress()
     }
 }

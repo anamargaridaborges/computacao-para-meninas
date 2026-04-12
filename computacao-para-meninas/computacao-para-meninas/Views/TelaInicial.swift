@@ -12,48 +12,46 @@ struct HomeView: View {
     let nomeModulo: String = "Variáveis"
     
     struct BotaoTrilha {
+        let id: String
+        let idDependencia: String?
         let titulo: String
         let icone: String
-        let desbloqueado: Bool
-        let destino: AnyView
         let offsetX: CGFloat
     }
     
     var botoesTrilha: [BotaoTrilha] {
         [
             BotaoTrilha(
+                id: "atv_1",
+                idDependencia: nil,
                 titulo: "Exercício 1",
                 icone: "</>",
-                desbloqueado: viewModel.estaDesbloqueado(index: 0),
-                destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 0)),
                 offsetX: -80
             ),
             BotaoTrilha(
+                id: "atv_2",
+                idDependencia: "atv_1",
                 titulo: "Exercício 2",
                 icone: "#",
-                desbloqueado: viewModel.estaDesbloqueado(index: 1),
-                destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 1)),
                 offsetX: 110
             ),
             BotaoTrilha(
+                id: "atv_4",
+                idDependencia: "atv_3",
                 titulo: "Exercício 4",
                 icone: "%",
-                desbloqueado: viewModel.estaDesbloqueado(index: 3),
-                destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 3)),
                 offsetX: -30
             ),
         ]
     }
     
     var body: some View {
-        
         NavigationStack {
             ZStack {
                 Color("Background").ignoresSafeArea()
                 
                 VStack(spacing: 0) {
-                    
-                    //Topo da tela
+                    // Topo da tela
                     HStack {
                         Text("Olá, seja bem-vinda!")
                             .font(.system(.title2, design: .rounded, weight: .bold))
@@ -64,11 +62,9 @@ struct HomeView: View {
                     .padding(.vertical, 14)
                     .background(Color("AccentColor").opacity(0.25))
                     
-                    Rectangle()
-                        .fill(Color("Text"))
-                        .frame(height: 3)
+                    Rectangle().fill(Color("Text")).frame(height: 3)
                     
-                    //Título do módulo
+                    // Título do módulo
                     HStack {
                         VStack { Divider() }
                         Text(nomeModulo)
@@ -77,33 +73,30 @@ struct HomeView: View {
                             .padding(.horizontal, 8)
                         VStack { Divider() }
                     }
-                    .padding(.horizontal, 20)
-                    .padding(.top, 24)
+                    .padding(.horizontal, 20).padding(.top, 24)
                     
-                    //Trilha
+                    // Trilha
                     ScrollView {
                         VStack(spacing: 8) {
                             ForEach(Array(botoesTrilha.enumerated()), id: \.offset) { index, botao in
                                 
-                                NavigationLink(destination: botao.destino) {
+                                let estaLivre = viewModel.estaDesbloqueada(idAtividade: botao.id, idDependencia: botao.idDependencia)
+                                
+                                NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: botao.id)) {
                                     VStack(spacing: 8) {
                                         ZStack {
                                             // Sombra
                                             RoundedRectangle(cornerRadius: 16)
-                                                .fill(botao.desbloqueado ? Color("Color2Button") : Color("Gray"))
-                                                .frame(width: 80, height: 80)
-                                                .offset(x: 5, y: 5)
+                                                .fill(estaLivre ? Color("Color2Button") : Color("Gray"))
+                                                .frame(width: 80, height: 80).offset(x: 5, y: 5)
                                             
                                             // Tecla principal
                                             RoundedRectangle(cornerRadius: 16)
-                                                .fill(botao.desbloqueado ? Color("Color1Button") : Color("Color3Button"))
+                                                .fill(estaLivre ? Color("Color1Button") : Color("Color3Button"))
                                                 .frame(width: 80, height: 80)
                                                 .overlay(
                                                     RoundedRectangle(cornerRadius: 16)
-                                                        .stroke(
-                                                            botao.desbloqueado ? Color("Color2Button") : Color("Gray"),
-                                                            lineWidth: 3
-                                                        )
+                                                        .stroke(estaLivre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
                                                 )
                                             
                                             Text(botao.icone)
@@ -112,39 +105,35 @@ struct HomeView: View {
                                         }
                                         Text(botao.titulo)
                                             .font(.system(.caption, design: .rounded, weight: .bold))
-                                            .foregroundStyle(botao.desbloqueado ? Color("AccentColor") : Color("Gray"))
+                                            .foregroundStyle(estaLivre ? Color("AccentColor") : Color("Gray"))
                                     }
                                 }
-                                .disabled(!botao.desbloqueado)
+                                .disabled(!estaLivre)
                                 .offset(x: botao.offsetX)
                                 
                                 // Ada e exercício 3
                                 if index == 1 {
                                     HStack(alignment: .bottom) {
                                         Image("AdaLovelace")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 150)
-                                            .padding(.leading, 30)
-                                            .offset(y: -80)
+                                            .resizable().scaledToFit().frame(width: 150)
+                                            .padding(.leading, 30).offset(y: -80)
                                         
                                         Spacer()
                                         
-                                        let ex3Desbloqueado = viewModel.estaDesbloqueado(index: 2)
+                                        let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
                                         
-                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 2)) {
+                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
                                             VStack(spacing: 8) {
                                                 ZStack {
                                                     RoundedRectangle(cornerRadius: 16)
-                                                        .fill(ex3Desbloqueado ? Color("Color2Button") : Color("Gray"))
-                                                        .frame(width: 80, height: 80)
-                                                        .offset(x: 5, y: 5)
+                                                        .fill(ex3Livre ? Color("Color2Button") : Color("Gray"))
+                                                        .frame(width: 80, height: 80).offset(x: 5, y: 5)
                                                     RoundedRectangle(cornerRadius: 16)
-                                                        .fill(ex3Desbloqueado ? Color("Color1Button") : Color("Color3Button"))
+                                                        .fill(ex3Livre ? Color("Color1Button") : Color("Color3Button"))
                                                         .frame(width: 80, height: 80)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 16)
-                                                                .stroke(ex3Desbloqueado ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
+                                                                .stroke(ex3Livre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
                                                         )
                                                     Text("{ }")
                                                         .font(.system(size: 32, weight: .bold, design: .rounded))
@@ -152,18 +141,16 @@ struct HomeView: View {
                                                 }
                                                 Text("Exercício 3")
                                                     .font(.system(.caption, design: .rounded, weight: .bold))
-                                                    .foregroundStyle(ex3Desbloqueado ? Color("AccentColor") : Color("Gray"))
+                                                    .foregroundStyle(ex3Livre ? Color("AccentColor") : Color("Gray"))
                                             }
                                         }
-                                        .disabled(!ex3Desbloqueado)
-                                        .padding(.trailing, 100)
-                                        .padding(.bottom, 70)
+                                        .disabled(!ex3Livre)
+                                        .padding(.trailing, 100).padding(.bottom, 70)
                                     }
                                 }
                             }
                         }
-                        .padding(.top, 16)
-                        .padding(.bottom, 40)
+                        .padding(.top, 16).padding(.bottom, 40)
                     }
                     
                     Spacer()
