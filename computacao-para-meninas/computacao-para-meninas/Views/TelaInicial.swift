@@ -26,7 +26,6 @@ struct HomeView: View {
                 icone: "</>",
                 desbloqueado: viewModel.estaDesbloqueado(index: 0),
                 destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 0)),
-                // ----------------------------------------------
                 offsetX: -80
             ),
             BotaoTrilha(

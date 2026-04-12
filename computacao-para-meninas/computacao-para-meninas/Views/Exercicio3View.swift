@@ -145,5 +145,13 @@ struct Exercicio3View: View {
 }
 
 #Preview {
-    //Exercicio3View(idExercicio: 0)
+    Exercicio3View(
+        viewModel: TrilhaViewModel(),
+        idExercicio: 0,
+        numeroExercicios: 5,
+        exercicioAtual: 1,
+        vetor1: [0, 1],
+        vetor2: [2, 3],
+        desativado: [false, false, false, false]
+    )
 }

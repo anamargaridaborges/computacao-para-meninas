@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ExercicioGeralView: View {
-    
+    @ObservedObject var viewModel: TrilhaViewModel
     var idx: Int
-
     var body: some View {
         VStack {
             switch exercicios[idx].tipo {
             case .tipo3(let primeiro, let segundo):
-                Exercicio3View(idExercicio: idx, numeroExercicios: 5, exercicioAtual: 1, vetor1: primeiro, vetor2: segundo, desativado: Array(repeating: false, count: exercicios[idx].alternativas.count))
+                Exercicio3View(
+                    viewModel: viewModel,
+                    idExercicio: idx,
+                    numeroExercicios: 5,
+                    exercicioAtual: idx + 1,
+                    vetor1: primeiro,
+                    vetor2: segundo,
+                    desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
+                )
             }
         }
     }
@@ -23,5 +30,5 @@ struct ExercicioGeralView: View {
 }
 
 #Preview {
-    
+    ExercicioGeralView(viewModel: TrilhaViewModel(), idx: 0)
 }
