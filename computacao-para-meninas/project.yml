@@ -35,15 +35,3 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: computacao-para-meninas
-
-  computacao-para-meninasUITests:
-    type: bundle.ui-testing
-    platform: iOS
-    sources:
-      - computacao-para-meninasUITests
-    settings:
-      PRODUCT_BUNDLE_IDENTIFIER: meg.computacao-para-meninasUITests
-      base:
-        GENERATE_INFOPLIST_FILE: YES
-    dependencies:
-      - target: computacao-para-meninas
