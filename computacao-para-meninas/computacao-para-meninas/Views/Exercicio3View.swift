@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct Exercicio3View: View {
-    
+    @ObservedObject var viewModel: TrilhaViewModel
+    @Environment(\.dismiss) var dismiss
+    let idAtividade: String
+    var aoConcluirRodada: () -> Void
     let idExercicio: Int
     let numeroExercicios: Int
     let exercicioAtual: Int
@@ -24,7 +27,8 @@ struct Exercicio3View: View {
     var body: some View {
             VStack {
                 HStack {
-                    Button (action: {}) {
+                    // se clicar em voltar, sai de tudo e volta para a home
+                    Button (action: { dismiss() }) {
                         Image("ActivityBack")
                     }
                     .padding()
@@ -81,7 +85,10 @@ struct Exercicio3View: View {
                     }
                     .padding(5)
                 }
-                Button(action: {}) {
+                
+                Button(action: {
+                    aoConcluirRodada()
+                }) {
                     BotaoContinuar(continuarDesativado: continuarDesativado)
                 }
                 .padding()
@@ -98,11 +105,9 @@ struct Exercicio3View: View {
     
     private func checkAcerto() async {
         if (selecionado1 != -1 && selecionado2 != -1) {
-            // comparar e ver se é a resposta certa ou errada
             let idx1 = vetor1.firstIndex(where: {$0 == selecionado1})
             let idx2 = vetor2.firstIndex(where: {$0 == selecionado2})
             if (idx1 == idx2) {
-                // acertou
                 withAnimation {
                     desativado[selecionado1] = true
                     desativado[selecionado2] = true
@@ -111,7 +116,6 @@ struct Exercicio3View: View {
                 selecionado2 = -1
             }
             else {
-                // errou
                 withAnimation {
                     erro1 = selecionado1
                     erro2 = selecionado2
@@ -139,5 +143,15 @@ struct Exercicio3View: View {
 }
 
 #Preview {
-    //Exercicio3View(idExercicio: 0)
+    Exercicio3View(
+        viewModel: TrilhaViewModel(),
+        idAtividade: "atv_exemplo",
+        aoConcluirRodada: {},
+        idExercicio: 0,
+        numeroExercicios: 5,
+        exercicioAtual: 1,
+        vetor1: [0, 1],
+        vetor2: [2, 3],
+        desativado: [false, false, false, false]
+    )
 }

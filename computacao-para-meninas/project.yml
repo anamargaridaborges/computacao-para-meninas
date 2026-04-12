@@ -4,6 +4,7 @@ options:
   bundleIdPrefix: meg
   deploymentTarget:
     iOS: "17.0"
+  createSharedSchemes: true
 
 targets:
   computacao-para-meninas:
@@ -30,15 +31,7 @@ targets:
       - computacao-para-meninasTests
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: meg.computacao-para-meninasTests
-    dependencies:
-      - target: computacao-para-meninas
-
-  computacao-para-meninasUITests:
-    type: bundle.ui-testing
-    platform: iOS
-    sources:
-      - computacao-para-meninasUITests
-    settings:
-      PRODUCT_BUNDLE_IDENTIFIER: meg.computacao-para-meninasUITests
+      base:
+        GENERATE_INFOPLIST_FILE: YES
     dependencies:
       - target: computacao-para-meninas

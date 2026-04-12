@@ -14,19 +14,18 @@ struct BarraDeProgresso: View {
 
     var body: some View {
         HStack {
-            ForEach(0..<numeroExercicios, id: \.self) { i in
+            ForEach(1...numeroExercicios, id: \.self) { i in
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(i == exercicioAtual ? Color("LightGray") : Color("AccentColor"))
+                    .fill(i <= exercicioAtual ? Color("AccentColor") : Color("LightGray"))
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color("AccentColor"), lineWidth: (i == exercicioAtual ? 4 : 0))
+                            .stroke(Color("AccentColor"), lineWidth: (i == exercicioAtual ? 3 : 0))
                     )
                     .frame(width: 40, height: 15)
                     .padding(2)
             }
         }
     }
-
 }
 
 #Preview {
