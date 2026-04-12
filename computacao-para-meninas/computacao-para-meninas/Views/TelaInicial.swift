@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    
+    @StateObject private var viewModel = TrilhaViewModel()
     let nomeModulo: String = "Variáveis"
     
     struct BotaoTrilha {
@@ -24,22 +24,23 @@ struct HomeView: View {
             BotaoTrilha(
                 titulo: "Exercício 1",
                 icone: "</>",
-                desbloqueado: true,
-                destino: AnyView(ExercicioGeralView(idx: 0)),
+                desbloqueado: viewModel.estaDesbloqueado(index: 0),
+                destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 0)),
+                // ----------------------------------------------
                 offsetX: -80
             ),
             BotaoTrilha(
                 titulo: "Exercício 2",
                 icone: "#",
-                desbloqueado: false,
-                destino: AnyView(EmptyView()),
+                desbloqueado: viewModel.estaDesbloqueado(index: 1),
+                destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 1)),
                 offsetX: 110
             ),
             BotaoTrilha(
                 titulo: "Exercício 4",
                 icone: "%",
-                desbloqueado: false,
-                destino: AnyView(EmptyView()),
+                desbloqueado: viewModel.estaDesbloqueado(index: 3),
+                destino: AnyView(ExercicioGeralView(viewModel: viewModel, idx: 3)),
                 offsetX: -30
             ),
         ]
@@ -128,22 +129,23 @@ struct HomeView: View {
                                             .padding(.leading, 30)
                                             .offset(y: -80)
                                         
-                                        
                                         Spacer()
                                         
-                                        NavigationLink(destination: EmptyView()) {
+                                        let ex3Desbloqueado = viewModel.estaDesbloqueado(index: 2)
+                                        
+                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 2)) {
                                             VStack(spacing: 8) {
                                                 ZStack {
                                                     RoundedRectangle(cornerRadius: 16)
-                                                        .fill(Color("Gray"))
+                                                        .fill(ex3Desbloqueado ? Color("Color2Button") : Color("Gray"))
                                                         .frame(width: 80, height: 80)
                                                         .offset(x: 5, y: 5)
                                                     RoundedRectangle(cornerRadius: 16)
-                                                        .fill(Color("Color3Button"))
+                                                        .fill(ex3Desbloqueado ? Color("Color1Button") : Color("Color3Button"))
                                                         .frame(width: 80, height: 80)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 16)
-                                                                .stroke(Color("Gray"), lineWidth: 3)
+                                                                .stroke(ex3Desbloqueado ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
                                                         )
                                                     Text("{ }")
                                                         .font(.system(size: 32, weight: .bold, design: .rounded))
@@ -151,10 +153,10 @@ struct HomeView: View {
                                                 }
                                                 Text("Exercício 3")
                                                     .font(.system(.caption, design: .rounded, weight: .bold))
-                                                    .foregroundStyle(Color("Gray"))
+                                                    .foregroundStyle(ex3Desbloqueado ? Color("AccentColor") : Color("Gray"))
                                             }
                                         }
-                                        .disabled(true)
+                                        .disabled(!ex3Desbloqueado)
                                         .padding(.trailing, 100)
                                         .padding(.bottom, 70)
                                     }

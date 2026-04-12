@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Exercicio3View: View {
+    @ObservedObject var viewModel: TrilhaViewModel
+    @Environment(\.dismiss) var dismiss
     
     let idExercicio: Int
     let numeroExercicios: Int
@@ -24,7 +26,7 @@ struct Exercicio3View: View {
     var body: some View {
             VStack {
                 HStack {
-                    Button (action: {}) {
+                    Button (action: { dismiss() }) {
                         Image("ActivityBack")
                     }
                     .padding()
@@ -81,7 +83,11 @@ struct Exercicio3View: View {
                     }
                     .padding(5)
                 }
-                Button(action: {}) {
+                
+                Button(action: {
+                    viewModel.concluirExercicio(atual: idExercicio)
+                    dismiss()
+                }) {
                     BotaoContinuar(continuarDesativado: continuarDesativado)
                 }
                 .padding()

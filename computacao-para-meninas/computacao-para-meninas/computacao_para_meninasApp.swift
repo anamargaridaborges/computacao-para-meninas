@@ -13,7 +13,7 @@ struct computacao_para_meninasApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ExercicioGeralView(idx: 0)
+            HomeView()
         }
     }
 }
