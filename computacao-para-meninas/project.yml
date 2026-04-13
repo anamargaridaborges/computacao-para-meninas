@@ -3,7 +3,7 @@ name: computacao-para-meninas
 options:
   bundleIdPrefix: meg
   deploymentTarget:
-    iOS: "16.0"
+    iOS: "17.0"
 
 targets:
   computacao-para-meninas:
