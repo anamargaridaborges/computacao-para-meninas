@@ -1,0 +1,20 @@
+[
+    {
+    "tipo": {
+        "tipo": "tipo3",
+        "valores1": [0, 1, 2],
+        "valores2": [5, 3, 4]
+    },
+    
+      "enunciado": "Ligue a variável com seu tipo",
+      "alternativas": [
+        "x = [1, 2, 3]",
+        "y = 3.14",
+        "z = \"Olá Mundo!\"",
+        "float",
+        "str",
+        "list"
+      ],
+      "explicacao": "A variável x é um número inteiro, "
+    }
+]
