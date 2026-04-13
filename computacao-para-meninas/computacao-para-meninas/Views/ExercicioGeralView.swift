@@ -12,6 +12,7 @@ struct ExercicioGeralView: View {
     var idx: Int
     let idAtividade: String
     @State private var rodadaAtual: Int = 1
+    @State private var idxx: Int = 0
     let totalDeRodadas: Int = 5
     
     @Environment(\.dismiss) var dismiss
@@ -19,7 +20,7 @@ struct ExercicioGeralView: View {
     var body: some View {
         VStack {
             // aqui vai resetando os cards a cada licao
-            switch exercicios[idx].tipo {
+            switch exercicios[idxx].tipo {
             case .tipo3(let primeiro, let segundo):
                 Exercicio3View(
                     viewModel: viewModel,
@@ -27,7 +28,7 @@ struct ExercicioGeralView: View {
                     aoConcluirRodada: {
                         proximaEtapa()
                     },
-                    idExercicio: idx,
+                    idExercicio: idxx,
                     numeroExercicios: totalDeRodadas,
                     exercicioAtual: rodadaAtual,
                     vetor1: primeiro,
@@ -35,7 +36,23 @@ struct ExercicioGeralView: View {
                     desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
                 )
                 .id(rodadaAtual)
+                
+            case .tipo1(let primeiro, let segundo):
+                Exercicio1View(
+                    viewModel: viewModel,
+                    idAtividade: idAtividade,
+                    aoConcluirRodada: {
+                        proximaEtapa()
+                    },
+                    idExercicio: idxx,
+                    numeroExercicios: totalDeRodadas,
+                    exercicioAtual: rodadaAtual,
+                    resposta: primeiro,
+                    codigo: segundo,
+                )
+                .id(rodadaAtual)
             }
+            
         }
     }
     
@@ -48,6 +65,8 @@ struct ExercicioGeralView: View {
             viewModel.concluirAtividade(id: idAtividade)
             dismiss()
         }
+        
+        idxx = (idxx + 1) % 2
     }
 }
 #Preview {
