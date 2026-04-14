@@ -1,5 +1,5 @@
 //
-//  CardAlternativaExercicio3.swift
+//  CardAlternativaExercicio1.swift
 //  computacao-para-meninas
 //
 //  Created by Ana Margarida Diniz Silva Borges on 08/04/26.
