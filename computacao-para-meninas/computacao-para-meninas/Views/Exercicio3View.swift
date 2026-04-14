@@ -98,22 +98,22 @@ struct Exercicio3View: View {
                 await checkAcerto()
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                        if estadoFeedback != .neutro {
-                            BarraFeedback(
-                                mensagem: mensagemErro,
-                                estado: estadoFeedback,
-                                aoTocar: {
-                                    if estadoFeedback == .acerto {
-                                        aoConcluirRodada()
-                                    }
-                                    withAnimation { estadoFeedback = .neutro }
-                                }
-                            )
-                            .ignoresSafeArea(edges: .bottom)
-                            .transition(.move(edge: .bottom))
+                if estadoFeedback != .neutro {
+                    BarraFeedback(
+                        mensagem: mensagemErro,
+                        estado: estadoFeedback,
+                        aoTocar: {
+                            if estadoFeedback == .acerto {
+                                aoConcluirRodada()
+                            }
+                            withAnimation { estadoFeedback = .neutro }
                         }
-                    }
-                    .animation(.spring(response: 0.35), value: estadoFeedback)
+                    )
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.move(edge: .bottom))
+                }
+            }
+            .animation(.spring(response: 0.35), value: estadoFeedback)
     }
     
     private func checkAcerto() async {
@@ -139,7 +139,7 @@ struct Exercicio3View: View {
                     erro2 = selecionado2
                     
                     estadoFeedback = .erro
-                    mensagemErro = "Essas variáveis não correspondem.Tente outra combinação."
+                    mensagemErro = "Essas variáveis não correspondem. Tente outra combinação."
 
                 }
 
