@@ -8,56 +8,49 @@
 import SwiftUI
 
 struct BarraFeedback: View {
-    let estado: EstadoFeedback
     let mensagem: String
+    let estado: EstadoFeedback
     let aoTocar: () -> Void
-
-    @Environment(\.safeAreaInsets) private var safeAreaInsets
+    
     private var isAcerto: Bool { estado == .acerto }
     private var cor: Color { isAcerto ? Color("AccentColor") : Color("Wrong") }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 6) {
-                Image(systemName: isAcerto ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .foregroundStyle(cor)
-                Text(isAcerto ? "Excelente!!" : "Incorreto")
-                    .font(.system(.subheadline, design: .rounded, weight: .bold))
-                    .foregroundStyle(cor)
-            }
-
-            if !isAcerto && !mensagem.isEmpty {
-                Text(mensagem)
-                    .font(.system(.callout, design: .rounded))
-                    .foregroundStyle(Color("Text"))
-            }
-
-            Button(action: aoTocar) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(cor)
-                        .frame(height: 50)
-                    Text(isAcerto ? "Continuar" : "Tentar de novo")
-                        .foregroundStyle(Color.white)
-                        .font(.system(.body, design: .rounded, weight: .bold))
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 6) {
+                    Image(systemName: isAcerto ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundStyle(cor)
+                    Text(isAcerto ? "Excelente!!" : "Incorreto")
+                        .font(.system(.subheadline, design: .rounded, weight: .bold))
+                        .foregroundStyle(cor)
+                }
+                
+                if !isAcerto && !mensagem.isEmpty {
+                    Text(mensagem)
+                        .font(.system(.callout, design: .rounded))
+                        .foregroundStyle(Color("Text"))
+                }
+                
+                Button(action: aoTocar) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(cor)
+                            .frame(height: 50)
+                        Text(isAcerto ? "Continuar" : "Tentar de novo")
+                            .foregroundStyle(Color.white)
+                            .font(.system(.body, design: .rounded, weight: .bold))
+                    }
                 }
             }
+            .padding(.horizontal, 20) // conteúdo com margem
         }
-        .padding(20)
+        .padding(.top, 20)
+        .padding(.bottom, 20) // 👈 pode usar safeArea depois se quiser
         .frame(maxWidth: .infinity)
         .background(cor.opacity(0.15))
         .clipShape(UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20))
-    }
-}
-
-private struct SafeAreaInsetsKey: EnvironmentKey {
-    static var defaultValue: EdgeInsets = .init()
-}
-
-extension EnvironmentValues {
-    var safeAreaInsets: EdgeInsets {
-        get { self[SafeAreaInsetsKey.self] }
-        set { self[SafeAreaInsetsKey.self] = newValue }
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 
@@ -67,7 +60,7 @@ extension EnvironmentValues {
         Color.purple.opacity(0.15)
             .ignoresSafeArea(edges: .bottom)
             .frame(height: 34)
-        BarraFeedback(estado: .acerto, mensagem: "") {}
+        BarraFeedback(mensagem: "", estado: .acerto) {}
     }
 }
 
@@ -78,8 +71,8 @@ extension EnvironmentValues {
             .ignoresSafeArea(edges: .bottom)
             .frame(height: 34)
         BarraFeedback(
-            estado: .erro,
-            mensagem: "Cada variável tem apenas um tipo certo. Olhe o valor dela — listas usam colchetes [ ], números com ponto são float, e textos ficam entre aspas."
+            mensagem: "Cada variável tem apenas um tipo certo. Olhe o valor dela — listas usam colchetes [ ], números com ponto são float, e textos ficam entre aspas.",
+            estado: .erro
         ) {}
     }
 }
