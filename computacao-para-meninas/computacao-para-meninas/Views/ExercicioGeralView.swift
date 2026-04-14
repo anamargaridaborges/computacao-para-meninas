@@ -18,42 +18,62 @@ struct ExercicioGeralView: View {
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
-        VStack {
-            // aqui vai resetando os cards a cada licao
-            switch exercicios[idxx].tipo {
-            case .tipo3(let primeiro, let segundo):
-                Exercicio3View(
-                    viewModel: viewModel,
-                    idAtividade: idAtividade,
-                    aoConcluirRodada: {
-                        proximaEtapa()
-                    },
-                    idExercicio: idxx,
-                    numeroExercicios: totalDeRodadas,
-                    exercicioAtual: rodadaAtual,
-                    vetor1: primeiro,
-                    vetor2: segundo,
-                    desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
-                )
-                .id(rodadaAtual)
+            VStack {
+                // aqui vai resetando os cards a cada licao
+                switch exercicios[idxx].tipo {
+                case .tipo3(let primeiro, let segundo):
+                    Exercicio3View(
+                        viewModel: viewModel,
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: idxx,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        vetor1: primeiro,
+                        vetor2: segundo,
+                        desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
+                    )
+                    .id(rodadaAtual)
+                    
+                case .tipo1(let primeiro, let segundo):
+                    Exercicio1View(
+                        viewModel: viewModel,
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: idxx,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        resposta: primeiro,
+                        codigo: segundo,
+                    )
+                    .id(rodadaAtual)
+                }
                 
-            case .tipo1(let primeiro, let segundo):
-                Exercicio1View(
-                    viewModel: viewModel,
-                    idAtividade: idAtividade,
-                    aoConcluirRodada: {
-                        proximaEtapa()
-                    },
-                    idExercicio: idxx,
-                    numeroExercicios: totalDeRodadas,
-                    exercicioAtual: rodadaAtual,
-                    resposta: primeiro,
-                    codigo: segundo,
-                )
-                .id(rodadaAtual)
             }
-            
-        }
+            .safeAreaInset(edge: .top) {
+                VStack {
+                    HStack {
+                        // se clicar em voltar, sai de tudo e volta para a home
+                        Button (action: { dismiss() }) {
+                            Image("ActivityBack")
+                        }
+                        .padding()
+                        Spacer()
+                        BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual)
+                        Spacer()
+                        Button (action: {}) {
+                            Image("Doubt")
+                        }
+                        .padding()
+                    }
+                    Spacer()
+                }
+            }
+        
     }
     
     func proximaEtapa() {

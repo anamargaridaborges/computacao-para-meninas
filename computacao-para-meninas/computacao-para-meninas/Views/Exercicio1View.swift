@@ -24,24 +24,11 @@ struct Exercicio1View: View {
     var body: some View {
             VStack {
                 HStack {
-                    // se clicar em voltar, sai de tudo e volta para a home
-                    Button (action: { dismiss() }) {
-                        Image("ActivityBack")
-                    }
-                    .padding()
-                    Spacer()
-                    BarraDeProgresso(numeroExercicios: numeroExercicios, exercicioAtual: exercicioAtual)
-                    Spacer()
-                    Button (action: {}) {
-                        Image("Doubt")
-                    }
-                    .padding()
-                }
-                HStack {
                     Text(exercicios[idExercicio].enunciado)
                         .font(.title2)
                         .bold()
                         .padding(.horizontal)
+                        .fixedSize(horizontal: false, vertical: true)
                     Spacer()
                 }
                 .padding()
@@ -69,7 +56,7 @@ struct Exercicio1View: View {
                         }
                     }
                     .padding(2)
-
+                    
                     HStack {
                         ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
                             Button (action: {
@@ -83,6 +70,8 @@ struct Exercicio1View: View {
                     }
                     .padding(2)
                 }
+                
+                Spacer()
                 
                 Button(action: {
                     aoConcluirRodada()

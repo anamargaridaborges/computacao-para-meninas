@@ -27,20 +27,6 @@ struct Exercicio3View: View {
     var body: some View {
             VStack {
                 HStack {
-                    // se clicar em voltar, sai de tudo e volta para a home
-                    Button (action: { dismiss() }) {
-                        Image("ActivityBack")
-                    }
-                    .padding()
-                    Spacer()
-                    BarraDeProgresso(numeroExercicios: numeroExercicios, exercicioAtual: exercicioAtual)
-                    Spacer()
-                    Button (action: {}) {
-                        Image("Doubt")
-                    }
-                    .padding()
-                }
-                HStack {
                     Text(exercicios[idExercicio].enunciado)
                         .font(.title2)
                         .bold()
@@ -85,6 +71,8 @@ struct Exercicio3View: View {
                     }
                     .padding(5)
                 }
+                
+                Spacer()
                 
                 Button(action: {
                     aoConcluirRodada()
