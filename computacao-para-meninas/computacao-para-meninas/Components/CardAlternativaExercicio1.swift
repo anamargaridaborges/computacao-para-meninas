@@ -11,14 +11,15 @@ struct CardAlternativaExercicio1: View {
     
     let idx: Int
     let idExercicio: Int
-    let selecionado: Bool
+    let idSelecionado: Int
     let resposta: Int
+    let continuado: Bool
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color("LightestGray"))
-                .stroke(Color("Gray"), lineWidth: 2)
+                .stroke(strokeColor(), lineWidth: (idSelecionado == idx ? 4 : 2))
                 .frame(width: 80, height: 60)
             Text(exercicios[idExercicio].alternativas[idx])
                 .foregroundStyle(Color.black)
@@ -29,18 +30,22 @@ struct CardAlternativaExercicio1: View {
         .padding()
     }
     
-//    private func strokeColor() -> Color {
-//        if (desativado) {
-//            return Color("DarkGreen")
-//        }
-//        else if (erro == idx) {
-//            return Color("Wrong")
-//        }
-//        else if (selecionado == idx) {
-//            return Color("AccentColor")
-//        }
-//        return Color("Gray")
-//    }
+    private func strokeColor() -> Color {
+        
+        if (idSelecionado != idx) {
+            return Color("Gray")
+        }
+        
+        if (continuado) {
+            if (resposta == idx) {
+                return Color("DarkGreen")
+            }
+            
+            return Color("Wrong")
+        }
+        
+        return Color("AccentColor")
+    }
 }
 
 #Preview {

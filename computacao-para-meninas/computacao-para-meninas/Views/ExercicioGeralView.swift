@@ -58,7 +58,7 @@ struct ExercicioGeralView: View {
     
     func proximaEtapa() {
         if rodadaAtual < totalDeRodadas {
-            withAnimation {
+            withAnimation(.spring(response: 1.0, dampingFraction: 0.7)) {
                 rodadaAtual += 1
             }
         } else {

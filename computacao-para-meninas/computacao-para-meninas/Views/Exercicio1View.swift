@@ -18,6 +18,8 @@ struct Exercicio1View: View {
     let resposta: Int
     let codigo: String
     @State var botaoAtivo: Bool = false
+    @State var idSelecionado: Int = -1
+    @State var continuado: Bool = false
 
     var body: some View {
             VStack {
@@ -59,8 +61,9 @@ struct Exercicio1View: View {
                         ForEach(0..<exercicios[idExercicio].alternativas.count/2, id : \.self) { i in
                             Button (action: {
                                 botaoAtivo = true
+                                idSelecionado = i
                             }) {
-                                CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, selecionado: false, resposta: resposta)
+                                CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
                             }
                             .accessibilityIdentifier("card1_\(i)")
                         }
@@ -71,8 +74,9 @@ struct Exercicio1View: View {
                         ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
                             Button (action: {
                                 botaoAtivo = true
+                                idSelecionado = i
                             }) {
-                                CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, selecionado: false, resposta: resposta)
+                                CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
                             }
                             .accessibilityIdentifier("card1_\(i)")
                         }
@@ -82,6 +86,7 @@ struct Exercicio1View: View {
                 
                 Button(action: {
                     aoConcluirRodada()
+                    continuado = true
                 }) {
                     BotaoContinuar(continuarDesativado: !botaoAtivo)
                 }
