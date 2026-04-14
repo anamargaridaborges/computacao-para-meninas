@@ -105,6 +105,7 @@ struct Exercicio3View: View {
     
     private func checkAcerto() async {
         if (selecionado1 != -1 && selecionado2 != -1) {
+            guard selecionado1 < desativado.count, selecionado2 < desativado.count else { return }
             let idx1 = vetor1.firstIndex(where: {$0 == selecionado1})
             let idx2 = vetor2.firstIndex(where: {$0 == selecionado2})
             if (idx1 == idx2) {
@@ -150,8 +151,8 @@ struct Exercicio3View: View {
         idExercicio: 0,
         numeroExercicios: 5,
         exercicioAtual: 1,
-        vetor1: [0, 1],
-        vetor2: [2, 3],
-        desativado: [false, false, false, false]
+        vetor1: [0, 1, 2],
+        vetor2: [3, 4, 5],
+        desativado: [false, false, false, false, false, false] 
     )
 }
