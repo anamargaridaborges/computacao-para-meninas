@@ -108,6 +108,8 @@ struct HomeView: View {
                                             .foregroundStyle(estaLivre ? Color("AccentColor") : Color("Gray"))
                                     }
                                 }
+                                .accessibilityIdentifier("activity_\(botao.id)")
+                                .accessibilityAddTraits(.isButton)
                                 .disabled(!estaLivre)
                                 .offset(x: botao.offsetX)
                                 
