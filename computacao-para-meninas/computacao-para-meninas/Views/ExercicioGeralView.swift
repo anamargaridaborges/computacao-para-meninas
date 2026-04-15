@@ -64,6 +64,7 @@ struct ExercicioGeralView: View {
                         .padding()
                         Spacer()
                         BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual)
+                            .animation(.spring(response: 1.0, dampingFraction: 0.7), value: rodadaAtual)
                         Spacer()
                         Button (action: {}) {
                             Image("Doubt")
@@ -78,9 +79,7 @@ struct ExercicioGeralView: View {
     
     func proximaEtapa() {
         if rodadaAtual < totalDeRodadas {
-            withAnimation(.spring(response: 1.0, dampingFraction: 0.7)) {
-                rodadaAtual += 1
-            }
+            rodadaAtual += 1
         } else {
             viewModel.concluirAtividade(id: idAtividade)
             dismiss()
