@@ -16,5 +16,21 @@
         "list"
       ],
       "explicacao": "A variável x é um número inteiro, "
+    },
+    {
+    "tipo": {
+        "tipo": "ordenar",
+        "linhas": [
+                "x = input()",
+                "if (x > 10):",
+                "    print(\"x é grande\")",
+                "else:",
+                "    print(\"x é pequeno\")"
+        ],
+    },
+    
+      "enunciado": "Ligue a variável com seu tipo",
+      "alternativas": [],
+      "explicacao": "A variável x é um número inteiro, "
     }
 ]

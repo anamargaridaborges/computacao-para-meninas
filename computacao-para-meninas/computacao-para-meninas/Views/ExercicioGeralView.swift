@@ -11,15 +11,36 @@ struct ExercicioGeralView: View {
     @ObservedObject var viewModel: TrilhaViewModel
     var idx: Int
     let idAtividade: String
-    @State private var rodadaAtual: Int = 1
-    let totalDeRodadas: Int = 5
+    @State private var rodadaAtual: Int = 0
+    let totalDeRodadas: Int
     
     @Environment(\.dismiss) var dismiss
+    
+    init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
+        self.viewModel = viewModel
+        self.idx = idx
+        self.idAtividade = idAtividade
+        self.rodadaAtual = rodadaAtual
+        
+        self.totalDeRodadas = exercicios.count
+    }
 
     var body: some View {
         VStack {
             // aqui vai resetando os cards a cada licao
-            switch exercicios[idx].tipo {
+            switch exercicios[rodadaAtual].tipo {
+            case .ordenar(let vetor):
+                ExercicioOrdenarView(
+                    idAtividade: idAtividade,
+                    aoConcluirRodada: {
+                        proximaEtapa()
+                    },
+                    idExercicio: idx,
+                    numeroExercicios: totalDeRodadas,
+                    exercicioAtual: rodadaAtual,
+                    vetor: vetor
+                )
+                .id(rodadaAtual)
             case .tipo3(let primeiro, let segundo):
                 Exercicio3View(
                     viewModel: viewModel,
@@ -40,7 +61,7 @@ struct ExercicioGeralView: View {
     }
     
     func proximaEtapa() {
-        if rodadaAtual < totalDeRodadas {
+        if rodadaAtual < totalDeRodadas - 1 {
             withAnimation {
                 rodadaAtual += 1
             }
