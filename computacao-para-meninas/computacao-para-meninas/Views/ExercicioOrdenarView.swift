@@ -12,10 +12,12 @@ struct ExercicioOrdenarView: View {
     let exercicioAtual: Int
     
     @State var draggedItem: String? = nil
+    @State var draggedIndex: Int? = nil
     @State var targetIndex: Int? = nil
     @State var currentDragOffset: CGSize = .zero
     @State var listTopY: CGFloat = 0
     @State var dragStartY: CGFloat = 0
+    @GestureState var isDragging: Bool = false
     
     let vetor: [String]
     let rowHeight: CGFloat = 50
@@ -81,7 +83,8 @@ struct ExercicioOrdenarView: View {
                 VStack(spacing: rowSpacing) {
                     // Ajuste de performance: ForEach id: \.self nos índices
                     ForEach(0...lines.count, id: \.self) { index in
-                        if draggedItem != nil && targetIndex == index {
+                        if draggedItem != nil && targetIndex == index && index != draggedIndex,
+                           let draggedIndex, index != draggedIndex + 1 {
                             DropPlaceholder()
                                 .transition(.asymmetric(
                                     insertion: .scale(scale: 0.97).combined(with: .opacity),
@@ -91,8 +94,8 @@ struct ExercicioOrdenarView: View {
 
                         if index < lines.count {
                             CodeRow(text: lines[index])
-                                .opacity(draggedItem == lines[index] ? 0 : 1) // Melhora o flicker
                                 .gesture(dragGesture(for: index))
+                                .opacity(draggedIndex == index ? 0 : 1)
                         }
                     }
                     Spacer()
@@ -119,18 +122,37 @@ struct ExercicioOrdenarView: View {
                     floatingRow(text: item, atIndex: to)
                 }
             }
-            .navigationBarBackButtonHidden()
+            .onChange(of: isDragging) {
+                print(isDragging)
+                if !isDragging {
+                    // If the gesture was cancelled, onEnded is skipped.
+                    // This manually triggers the drop if draggedItem isn't nil.
+                    if let item = draggedItem, let to = targetIndex, let from = draggedIndex {
+                        draggedItem = lines.remove(at: from)
+                        lines.insert(item, at: to.clamped(to: 0...lines.count))
+                        draggedItem = nil
+                        targetIndex = nil
+                        draggedIndex = nil
+                        currentDragOffset = .zero
+                        dragStartY = 0
+                    }
+                }
+            }
             .navigationBarBackButtonHidden()
     }
     
     func dragGesture(for index: Int) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .named("list"))
+            .updating($isDragging) { _, state, _ in
+                state = true
+            }
             .onChanged { value in
                 if draggedItem == nil {
                     // Mudança: .interactiveSpring() é muito mais performático para drag
                     withAnimation(.interactiveSpring(response: 0.22, dampingFraction: 0.75)) {
-                        draggedItem = lines.remove(at: index)
+                        draggedItem = lines[index]
                         targetIndex = index
+                        draggedIndex = index
                         currentDragOffset = .zero
                         dragStartY = value.startLocation.y
                     }
@@ -151,11 +173,14 @@ struct ExercicioOrdenarView: View {
                 }
             }
             .onEnded { _ in
+                print(targetIndex)
 //                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                    if let item = draggedItem, let to = targetIndex {
+                    if let item = draggedItem, let to = targetIndex, let from = draggedIndex {
+                        draggedItem = lines.remove(at: from)
                         lines.insert(item, at: to.clamped(to: 0...lines.count))
                     }
                     draggedItem = nil
+                    draggedIndex = nil
                     targetIndex = nil
                     currentDragOffset = .zero
                     dragStartY = 0
@@ -227,3 +252,4 @@ extension Comparable {
         min(max(self, range.lowerBound), range.upperBound)
     }
 }
+
