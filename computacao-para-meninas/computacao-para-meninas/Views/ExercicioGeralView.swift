@@ -12,15 +12,24 @@ struct ExercicioGeralView: View {
     var idx: Int
     let idAtividade: String
     @State private var rodadaAtual: Int = 1
-    @State private var idxx: Int = 0
-    let totalDeRodadas: Int = 5
+    let totalDeRodadas: Int
     
     @Environment(\.dismiss) var dismiss
 
+    
+    init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
+        self.viewModel = viewModel
+        self.idx = idx
+        self.idAtividade = idAtividade
+        self.rodadaAtual = rodadaAtual
+        
+        self.totalDeRodadas = exercicios.count
+    }
+    
     var body: some View {
             VStack {
                 // aqui vai resetando os cards a cada licao
-                switch exercicios[idxx].tipo {
+                switch exercicios[rodadaAtual].tipo {
                 case .tipo3(let primeiro, let segundo):
                     Exercicio3View(
                         viewModel: viewModel,
@@ -28,7 +37,7 @@ struct ExercicioGeralView: View {
                         aoConcluirRodada: {
                             proximaEtapa()
                         },
-                        idExercicio: idxx,
+                        idExercicio: rodadaAtual,
                         numeroExercicios: totalDeRodadas,
                         exercicioAtual: rodadaAtual,
                         vetor1: primeiro,
@@ -44,7 +53,7 @@ struct ExercicioGeralView: View {
                         aoConcluirRodada: {
                             proximaEtapa()
                         },
-                        idExercicio: idxx,
+                        idExercicio: rodadaAtual,
                         numeroExercicios: totalDeRodadas,
                         exercicioAtual: rodadaAtual,
                         resposta: primeiro,
@@ -63,7 +72,7 @@ struct ExercicioGeralView: View {
                         }
                         .padding()
                         Spacer()
-                        BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual)
+                        BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual+1)
                             .animation(.spring(response: 1.0, dampingFraction: 0.7), value: rodadaAtual)
                         Spacer()
                         Button (action: {}) {
@@ -78,14 +87,12 @@ struct ExercicioGeralView: View {
     }
     
     func proximaEtapa() {
-        if rodadaAtual < totalDeRodadas {
+        if rodadaAtual < totalDeRodadas - 1 {
             rodadaAtual += 1
         } else {
             viewModel.concluirAtividade(id: idAtividade)
             dismiss()
         }
-        
-        idxx = (idxx + 1) % 2
     }
 }
 #Preview {
