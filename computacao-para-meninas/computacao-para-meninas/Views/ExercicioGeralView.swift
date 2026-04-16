@@ -13,6 +13,9 @@ struct ExercicioGeralView: View {
     let idAtividade: String
     @State private var rodadaAtual: Int = 1
     let totalDeRodadas: Int
+    @State var estadoFeedback: EstadoFeedback = .neutro
+    let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
+    @State var idSelecionado: Int = -1
     
     @Environment(\.dismiss) var dismiss
 
@@ -58,6 +61,8 @@ struct ExercicioGeralView: View {
                         exercicioAtual: rodadaAtual,
                         resposta: resposta,
                         codigo: codigo,
+                        idSelecionado: $idSelecionado,
+                        estadoFeedback: $estadoFeedback
                     )
                     .id(rodadaAtual)
                 }
@@ -82,6 +87,24 @@ struct ExercicioGeralView: View {
                     }
                 }
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if estadoFeedback != .neutro, case .tipo1 = exercicios[rodadaAtual].tipo {
+                    BarraFeedback(
+                        mensagem: mensagemErro,
+                        estado: estadoFeedback,
+                        aoTocar: {
+                            if estadoFeedback == .acerto {
+                                proximaEtapa()
+                            }
+                            withAnimation { estadoFeedback = .neutro
+                            idSelecionado = -1 }
+                        }
+                    )
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.move(edge: .bottom))
+                }
+            }
+            .animation(.spring(response: 0.35), value: estadoFeedback)
         
     }
     
