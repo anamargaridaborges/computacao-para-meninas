@@ -14,6 +14,9 @@ struct ExercicioGeralView: View {
     @State private var rodadaAtual: Int = 0
 
     let totalDeRodadas: Int
+    @State var estadoFeedback: EstadoFeedback = .neutro
+    let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
+    @State var idSelecionado: Int = -1
     
     @Environment(\.dismiss) var dismiss
     
@@ -28,53 +31,43 @@ struct ExercicioGeralView: View {
     }
     
     var body: some View {
-        VStack {
-            // aqui vai resetando os cards a cada licao
-            switch exercicios[rodadaAtual].tipo {
-            case .ordenar(let vetor):
-                ExercicioOrdenarView(
-                    idAtividade: idAtividade,
-                    aoConcluirRodada: {
-                        proximaEtapa()
-                    },
-                    idExercicio: idx,
-                    numeroExercicios: totalDeRodadas,
-                    exercicioAtual: rodadaAtual,
-                    vetor: vetor
-                )
-                .id(rodadaAtual)
-            case .tipo3(let primeiro, let segundo):
-                Exercicio3View(
-                    viewModel: viewModel,
-                    idAtividade: idAtividade,
-                    aoConcluirRodada: {
-                        proximaEtapa()
-                    },
-                    idExercicio: idx,
-                    numeroExercicios: totalDeRodadas,
-                    exercicioAtual: rodadaAtual,
-                    vetor1: primeiro,
-                    vetor2: segundo,
-                    desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
-                )
-                .id(rodadaAtual)
-                
-            case .tipo1(let resposta, let codigo):
-                Exercicio1View(
-                    viewModel: viewModel,
-                    idAtividade: idAtividade,
-                    aoConcluirRodada: {
-                        proximaEtapa()
-                    },
-                    idExercicio: rodadaAtual,
-                    numeroExercicios: totalDeRodadas,
-                    exercicioAtual: rodadaAtual,
-                    resposta: resposta,
-                    codigo: codigo,
-                )
-                .id(rodadaAtual)
-            }
-            Spacer()
+            VStack {
+                // aqui vai resetando os cards a cada licao
+                switch exercicios[rodadaAtual].tipo {
+                case .tipo3(let primeiro, let segundo):
+                    Exercicio3View(
+                        viewModel: viewModel,
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: rodadaAtual,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        vetor1: primeiro,
+                        vetor2: segundo,
+                        desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
+                    )
+                    .id(rodadaAtual)
+                    
+                case .tipo1(let resposta, let codigo):
+                    Exercicio1View(
+                        viewModel: viewModel,
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: rodadaAtual,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        resposta: resposta,
+                        codigo: codigo,
+                        idSelecionado: $idSelecionado,
+                        estadoFeedback: $estadoFeedback
+                    )
+                    .id(rodadaAtual)
+                }
+                Spacer()
             }
             .safeAreaInset(edge: .top) {
                 VStack {
@@ -95,6 +88,25 @@ struct ExercicioGeralView: View {
                     }
                 }
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if estadoFeedback != .neutro, case .tipo1 = exercicios[rodadaAtual].tipo {
+                    BarraFeedback(
+                        mensagem: mensagemErro,
+                        estado: estadoFeedback,
+                        aoTocar: {
+                            if estadoFeedback == .acerto {
+                                proximaEtapa()
+                            }
+                            withAnimation { estadoFeedback = .neutro
+                            idSelecionado = -1 }
+                        }
+                    )
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.move(edge: .bottom))
+                    .frame(maxHeight: (estadoFeedback == .acerto ? 80 : .infinity))
+                }
+            }
+            .animation(.spring(response: 0.35), value: estadoFeedback)
         
     }
     

@@ -18,10 +18,13 @@ struct Exercicio1View: View {
     let resposta: Int
     let codigo: String
     @State var botaoAtivo: Bool = false
-    @State var idSelecionado: Int = -1
+    @Binding var idSelecionado: Int
     @State var continuado: Bool = false
+    @Binding var estadoFeedback: EstadoFeedback
+    let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
 
     var body: some View {
+        ZStack (alignment: .bottom) {
             VStack {
                 HStack {
                     Text(exercicios[idExercicio].enunciado)
@@ -32,56 +35,81 @@ struct Exercicio1View: View {
                     Spacer()
                 }
                 .padding()
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color("DarkGray"))
-                            .frame(width: 350, height: 200)
-                        Text(codigo)
-                            .foregroundStyle(Color.white)
-                            .frame(width: 300)
-                            .multilineTextAlignment(.leading)
-                            .monospaced()
-                    }
-                    
-                    HStack {
-                        ForEach(0..<exercicios[idExercicio].alternativas.count/2, id : \.self) { i in
-                            Button (action: {
-                                botaoAtivo = true
-                                idSelecionado = i
-                            }) {
-                                CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
-                            }
-                            .accessibilityIdentifier("card1_\(i)")
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color("DarkGray"))
+                        .frame(width: 350, height: 200)
+                    Text(codigo)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 300)
+                        .multilineTextAlignment(.leading)
+                        .monospaced()
+                }
+                
+                HStack {
+                    ForEach(0..<exercicios[idExercicio].alternativas.count/2, id : \.self) { i in
+                        Button (action: {
+                            botaoAtivo = true
+                            idSelecionado = i
+                        }) {
+                            CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
                         }
+                        .accessibilityIdentifier("card1_\(i)")
                     }
-                    .padding(2)
-                    
-                    HStack {
-                        ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
-                            Button (action: {
-                                botaoAtivo = true
-                                idSelecionado = i
-                            }) {
-                                CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
-                            }
-                            .accessibilityIdentifier("card1_\(i)")
+                }
+                .padding(2)
+                
+                HStack {
+                    ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
+                        Button (action: {
+                            botaoAtivo = true
+                            idSelecionado = i
+                        }) {
+                            CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
                         }
+                        .accessibilityIdentifier("card1_\(i)")
                     }
-                    .padding(2)
+                }
+                .padding(2)
                 
                 
                 Spacer()
                 
-                Button(action: {
-                    aoConcluirRodada()
-                    continuado = true
-                }) {
-                    BotaoContinuar(continuarDesativado: !botaoAtivo)
+                if estadoFeedback == .neutro {
+                    Button(action: {
+                        if (idSelecionado == resposta) {
+                            estadoFeedback = .acerto
+                        }
+                        else {
+                            estadoFeedback = .erro
+                        }
+                    }) {
+                        BotaoContinuar(continuarDesativado: !botaoAtivo)
+                    }
+                    .padding()
+                    .disabled(!botaoAtivo)
                 }
-                .padding()
-                .disabled(!botaoAtivo)
             }
             .navigationBarBackButtonHidden()
+        }
+//            .safeAreaInset(edge: .bottom, spacing: 0) {
+//                if estadoFeedback != .neutro {
+//                    BarraFeedback(
+//                        mensagem: mensagemErro,
+//                        estado: estadoFeedback,
+//                        aoTocar: {
+//                            if estadoFeedback == .acerto {
+//                                aoConcluirRodada()
+//                            }
+//                            withAnimation { estadoFeedback = .neutro
+//                            idSelecionado = -1 }
+//                        }
+//                    )
+//                    .ignoresSafeArea(edges: .bottom)
+//                    .transition(.move(edge: .bottom))
+//                }
+//            }
+//            .animation(.spring(response: 0.35), value: estadoFeedback)
     }
 
 }
