@@ -19,6 +19,8 @@ struct ExercicioOrdenarView: View {
     @State var dragStartY: CGFloat = 0
     @GestureState var isDragging: Bool = false
     
+    @State private var estadoFeedback: EstadoFeedback = .neutro
+    
     let vetor: [String]
     let rowHeight: CGFloat = 50
     let rowSpacing: CGFloat = 8
@@ -109,12 +111,20 @@ struct ExercicioOrdenarView: View {
                     }
                 )
                 
-                Button(action: {
-                    aoConcluirRodada()
-                }) {
-                    BotaoContinuar(texto: "Checar")
+                if estadoFeedback == .neutro {
+                    Button(action: {
+                        withAnimation {
+                            if lines == vetor {
+                                estadoFeedback = .acerto
+                            } else {
+                                estadoFeedback = .erro
+                            }
+                        }
+                    }) {
+                        BotaoContinuar(texto: "Checar")
+                    }
+                    .padding()
                 }
-                .padding()
             }
             .coordinateSpace(name: "list")
             .overlay {
@@ -139,6 +149,25 @@ struct ExercicioOrdenarView: View {
                 }
             }
             .navigationBarBackButtonHidden()
+            .animation(.spring(response: 0.35), value: estadoFeedback)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if estadoFeedback != .neutro {
+                    let mensagem = estadoFeedback == .acerto ? "" : "O código deve estar ordenado de forma correta!"
+                    
+                    BarraFeedback(
+                        mensagem: mensagem,
+                        estado: estadoFeedback,
+                        aoTocar: {
+                            if estadoFeedback == .acerto {
+                                aoConcluirRodada()
+                            }
+                            withAnimation { estadoFeedback = .neutro }
+                        }
+                    )
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.move(edge: .bottom))
+                }
+            }
     }
     
     func dragGesture(for index: Int) -> some Gesture {
@@ -173,7 +202,6 @@ struct ExercicioOrdenarView: View {
                 }
             }
             .onEnded { _ in
-                print(targetIndex)
 //                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                     if let item = draggedItem, let to = targetIndex, let from = draggedIndex {
                         draggedItem = lines.remove(at: from)
