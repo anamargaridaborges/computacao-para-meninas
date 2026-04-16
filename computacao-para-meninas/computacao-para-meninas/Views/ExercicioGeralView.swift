@@ -46,7 +46,7 @@ struct ExercicioGeralView: View {
                     )
                     .id(rodadaAtual)
                     
-                case .tipo1(let primeiro, let segundo):
+                case .tipo1(let resposta, let codigo):
                     Exercicio1View(
                         viewModel: viewModel,
                         idAtividade: idAtividade,
@@ -56,12 +56,12 @@ struct ExercicioGeralView: View {
                         idExercicio: rodadaAtual,
                         numeroExercicios: totalDeRodadas,
                         exercicioAtual: rodadaAtual,
-                        resposta: primeiro,
-                        codigo: segundo,
+                        resposta: resposta,
+                        codigo: codigo,
                     )
                     .id(rodadaAtual)
                 }
-                
+                Spacer()
             }
             .safeAreaInset(edge: .top) {
                 VStack {
@@ -80,7 +80,6 @@ struct ExercicioGeralView: View {
                         }
                         .padding()
                     }
-                    Spacer()
                 }
             }
         

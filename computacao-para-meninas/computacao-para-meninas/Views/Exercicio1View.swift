@@ -32,7 +32,6 @@ struct Exercicio1View: View {
                     Spacer()
                 }
                 .padding()
-                VStack {
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color("DarkGray"))
@@ -69,7 +68,7 @@ struct Exercicio1View: View {
                         }
                     }
                     .padding(2)
-                }
+                
                 
                 Spacer()
                 
