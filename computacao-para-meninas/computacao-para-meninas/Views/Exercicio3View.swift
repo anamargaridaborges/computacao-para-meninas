@@ -23,6 +23,8 @@ struct Exercicio3View: View {
     let vetor2: [Int]
     @State var desativado: [Bool]
     @State var continuarDesativado: Bool = true
+    @State private var estadoFeedback: EstadoFeedback = .neutro
+    @State private var mensagemErro: String = ""
 
     var body: some View {
             VStack {
@@ -73,14 +75,6 @@ struct Exercicio3View: View {
                 }
                 
                 Spacer()
-                
-                Button(action: {
-                    aoConcluirRodada()
-                }) {
-                    BotaoContinuar(continuarDesativado: continuarDesativado)
-                }
-                .padding()
-                .disabled(continuarDesativado)
             }
             .navigationBarBackButtonHidden()
             .task(id: selecionado1) {
@@ -89,10 +83,32 @@ struct Exercicio3View: View {
             .task(id: selecionado2) {
                 await checkAcerto()
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if estadoFeedback != .neutro {
+                    BarraFeedback(
+                        mensagem: mensagemErro,
+                        estado: estadoFeedback,
+                        aoTocar: {
+                            if estadoFeedback == .acerto {
+                                aoConcluirRodada()
+                            }
+                            withAnimation { estadoFeedback = .neutro }
+                        }
+                    )
+                    .ignoresSafeArea(edges: .bottom)
+                    .transition(.move(edge: .bottom))
+                }
+            }
+            .animation(.spring(response: 0.35), value: estadoFeedback)
     }
     
     private func checkAcerto() async {
+        if estadoFeedback != .neutro {
+            return
+        }
+        
         if (selecionado1 != -1 && selecionado2 != -1) {
+            guard selecionado1 < desativado.count, selecionado2 < desativado.count else { return }
             let idx1 = vetor1.firstIndex(where: {$0 == selecionado1})
             let idx2 = vetor2.firstIndex(where: {$0 == selecionado2})
             if (idx1 == idx2) {
@@ -107,8 +123,14 @@ struct Exercicio3View: View {
                 withAnimation {
                     erro1 = selecionado1
                     erro2 = selecionado2
+                    
+                    estadoFeedback = .erro
+                    mensagemErro = "Essas variáveis não correspondem. Tente outra combinação."
+
                 }
+
                 try? await Task.sleep(nanoseconds: 1_000_000_000)
+
                 withAnimation {
                     erro1 = -1
                     erro2 = -1
@@ -116,14 +138,13 @@ struct Exercicio3View: View {
                     selecionado2 = -1
                 }
             }
-            var check = true
-            for des in desativado {
-                if (!des) {
-                    check = false
-                }
-            }
-            if (check) {
+            if desativado.allSatisfy({ $0 }) {
                 continuarDesativado = false
+                
+                withAnimation {
+                    estadoFeedback = .acerto
+                    mensagemErro = ""
+                }
             }
         }
     }
@@ -138,8 +159,8 @@ struct Exercicio3View: View {
         idExercicio: 0,
         numeroExercicios: 5,
         exercicioAtual: 1,
-        vetor1: [0, 1],
-        vetor2: [2, 3],
-        desativado: [false, false, false, false]
+        vetor1: [0, 1, 2],
+        vetor2: [3, 4, 5],
+        desativado: [false, false, false, false, false, false]
     )
 }

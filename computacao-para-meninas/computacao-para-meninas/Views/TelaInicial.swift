@@ -64,20 +64,24 @@ struct HomeView: View {
                     
                     Rectangle().fill(Color("Text")).frame(height: 3)
                     
-                    // Título do módulo
-                    HStack {
-                        VStack { Divider() }
-                        Text(nomeModulo)
-                            .font(.system(.title3, design: .rounded, weight: .bold))
-                            .foregroundStyle(Color("Text").opacity(0.5))
-                            .padding(.horizontal, 8)
-                        VStack { Divider() }
-                    }
-                    .padding(.horizontal, 20).padding(.top, 24)
+                    
                     
                     // Trilha
                     ScrollView {
                         VStack(spacing: 8) {
+                            // Título do módulo
+                            HStack {
+                                VStack { Divider() }
+                                Text(nomeModulo)
+                                    .font(.system(.title3, design: .rounded, weight: .bold))
+                                    .foregroundStyle(Color("Text").opacity(0.5))
+                                    .padding(.horizontal, 8)
+                                VStack { Divider() }
+                            }
+                            .padding(.horizontal, 20).padding(.top, 24)
+                            
+                            Spacer()
+                            
                             ForEach(Array(botoesTrilha.enumerated()), id: \.offset) { index, botao in
                                 
                                 let estaLivre = viewModel.estaDesbloqueada(idAtividade: botao.id, idDependencia: botao.idDependencia)

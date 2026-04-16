@@ -15,7 +15,7 @@
         "str",
         "list"
       ],
-      "explicacao": "A variável x é um número inteiro, "
+      "explicacao": "Cada variável tem apenas um tipo certo. Olhe o valor dela — listas usam colchetes [ ], números com ponto são float, e textos ficam entre aspas."
     },
     {
     "tipo": {
