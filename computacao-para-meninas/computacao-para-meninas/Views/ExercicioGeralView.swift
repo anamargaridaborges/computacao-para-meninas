@@ -34,6 +34,18 @@ struct ExercicioGeralView: View {
             VStack {
                 // aqui vai resetando os cards a cada licao
                 switch exercicios[rodadaAtual].tipo {
+                case .ordenar(let vetor):
+                    ExercicioOrdenarView(
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: idx,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        vetor: vetor
+                    )
+                    .id(rodadaAtual)
                 case .tipo3(let primeiro, let segundo):
                     Exercicio3View(
                         viewModel: viewModel,
