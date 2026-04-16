@@ -1,36 +1,51 @@
 [
     {
-    "tipo": {
-        "tipo": "tipo3",
-        "valores1": [0, 1, 2],
-        "valores2": [5, 3, 4]
-    },
-    
-      "enunciado": "Ligue a variável com seu tipo",
-      "alternativas": [
-        "x = [1, 2, 3]",
-        "y = 3.14",
-        "z = \"Olá Mundo!\"",
-        "float",
-        "str",
-        "list"
-      ],
-      "explicacao": "Cada variável tem apenas um tipo certo. Olhe o valor dela — listas usam colchetes [ ], números com ponto são float, e textos ficam entre aspas."
+        "tipo": {
+            "tipo": "tipo3",
+            "valores1": [0, 1, 2],
+            "valores2": [5, 3, 4]
+        },
+          "enunciado": "Ligue a variável com seu tipo",
+          "alternativas": [
+            "x = [1, 2, 3]",
+            "y = 3.14",
+            "z = \"Olá Mundo!\"",
+            "float",
+            "str",
+            "list"
+          ],
+          "explicacao": "Cada variável tem apenas um tipo certo. Olhe o valor dela — listas usam colchetes [ ], números com ponto são float, e textos ficam entre aspas."
     },
     {
-    "tipo": {
-        "tipo": "ordenar",
-        "linhas": [
+        "tipo": {
+            "tipo": "ordenar",
+            "linhas": [
                 "x = input()",
                 "if (x > 10):",
                 "    print(\"x é grande\")",
                 "else:",
                 "    print(\"x é pequeno\")"
-        ],
+            ],
+        },
+        "enunciado": "Ordene o código",
+        "alternativas": [],
+        "explicacao": "Ordene o código"
     },
-    
-      "enunciado": "Ligue a variável com seu tipo",
-      "alternativas": [],
-      "explicacao": "A variável x é um número inteiro, "
+    {
+          "tipo": {
+            "tipo": "tipo1",
+            "resposta": 1,
+            "codigo": "num1 = ”5”\nnum2 = 2\nresultado = ____(num1) + num2\nprint(resultado)"
+          },
+          "enunciado": "Selecione a opção que completa o código",
+          "alternativas": [
+            "str",
+            "int",
+            "len",
+            "type",
+            "abs",
+            "count"
+          ],
+          "explicacao": "A variável x é um número inteiro,"
     }
 ]

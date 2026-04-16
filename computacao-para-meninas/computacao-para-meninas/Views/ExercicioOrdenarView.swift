@@ -60,20 +60,6 @@ struct ExercicioOrdenarView: View {
     var body: some View {
             VStack {
                 HStack {
-                    // se clicar em voltar, sai de tudo e volta para a home
-                    Button (action: { dismiss() }) {
-                        Image("ActivityBack")
-                    }
-                    .padding()
-                    Spacer()
-                    BarraDeProgresso(numeroExercicios: numeroExercicios, exercicioAtual: exercicioAtual)
-                    Spacer()
-                    Button (action: {}) {
-                        Image("Doubt")
-                    }
-                    .padding()
-                }
-                HStack {
                     Text(exercicios[idExercicio].enunciado)
                         .font(.title2)
                         .bold()
@@ -83,7 +69,6 @@ struct ExercicioOrdenarView: View {
                 .padding()
 
                 VStack(spacing: rowSpacing) {
-                    // Ajuste de performance: ForEach id: \.self nos índices
                     ForEach(0...lines.count, id: \.self) { index in
                         if draggedItem != nil && targetIndex == index && index != draggedIndex,
                            let draggedIndex, index != draggedIndex + 1 {
@@ -135,8 +120,6 @@ struct ExercicioOrdenarView: View {
             .onChange(of: isDragging) {
                 print(isDragging)
                 if !isDragging {
-                    // If the gesture was cancelled, onEnded is skipped.
-                    // This manually triggers the drop if draggedItem isn't nil.
                     if let item = draggedItem, let to = targetIndex, let from = draggedIndex {
                         draggedItem = lines.remove(at: from)
                         lines.insert(item, at: to.clamped(to: 0...lines.count))
@@ -212,12 +195,9 @@ struct ExercicioOrdenarView: View {
                     targetIndex = nil
                     currentDragOffset = .zero
                     dragStartY = 0
-//                }
                     hapticGenerator.impactOccurred()
             }
     }
-
-    // MARK: - Floating ghost row
 
     func floatingRow(text: String, atIndex: Int) -> some View {
         return CodeRow(text: text)
@@ -233,9 +213,7 @@ struct ExercicioOrdenarView: View {
 
 }
 
-// MARK: - CodeRow (Mantido Original)
-
-struct CodeRow: View {
+fileprivate struct CodeRow: View {
     let text: String
 
     var body: some View {
@@ -260,9 +238,7 @@ struct CodeRow: View {
     }
 }
 
-// MARK: - DropPlaceholder (Mantido Original)
-
-struct DropPlaceholder: View {
+fileprivate struct DropPlaceholder: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .strokeBorder(
@@ -273,9 +249,7 @@ struct DropPlaceholder: View {
     }
 }
 
-// MARK: - Helpers
-
-extension Comparable {
+fileprivate extension Comparable {
     func clamped(to range: ClosedRange<Self>) -> Self {
         min(max(self, range.lowerBound), range.upperBound)
     }

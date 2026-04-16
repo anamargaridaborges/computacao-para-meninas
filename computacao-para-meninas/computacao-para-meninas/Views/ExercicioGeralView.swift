@@ -12,9 +12,11 @@ struct ExercicioGeralView: View {
     var idx: Int
     let idAtividade: String
     @State private var rodadaAtual: Int = 0
+
     let totalDeRodadas: Int
     
     @Environment(\.dismiss) var dismiss
+    
     
     init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
         self.viewModel = viewModel
@@ -24,7 +26,7 @@ struct ExercicioGeralView: View {
         
         self.totalDeRodadas = exercicios.count
     }
-
+    
     var body: some View {
         VStack {
             // aqui vai resetando os cards a cada licao
@@ -56,15 +58,49 @@ struct ExercicioGeralView: View {
                     desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
                 )
                 .id(rodadaAtual)
+                
+            case .tipo1(let resposta, let codigo):
+                Exercicio1View(
+                    viewModel: viewModel,
+                    idAtividade: idAtividade,
+                    aoConcluirRodada: {
+                        proximaEtapa()
+                    },
+                    idExercicio: rodadaAtual,
+                    numeroExercicios: totalDeRodadas,
+                    exercicioAtual: rodadaAtual,
+                    resposta: resposta,
+                    codigo: codigo,
+                )
+                .id(rodadaAtual)
             }
-        }
+            Spacer()
+            }
+            .safeAreaInset(edge: .top) {
+                VStack {
+                    HStack {
+                        // se clicar em voltar, sai de tudo e volta para a home
+                        Button (action: { dismiss() }) {
+                            Image("ActivityBack")
+                        }
+                        .padding()
+                        Spacer()
+                        BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual+1)
+                            .animation(.spring(response: 1.0, dampingFraction: 0.7), value: rodadaAtual)
+                        Spacer()
+                        Button (action: {}) {
+                            Image("Doubt")
+                        }
+                        .padding()
+                    }
+                }
+            }
+        
     }
     
     func proximaEtapa() {
         if rodadaAtual < totalDeRodadas - 1 {
-            withAnimation {
-                rodadaAtual += 1
-            }
+            rodadaAtual += 1
         } else {
             viewModel.concluirAtividade(id: idAtividade)
             dismiss()
