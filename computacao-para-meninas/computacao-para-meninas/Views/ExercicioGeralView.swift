@@ -11,14 +11,15 @@ struct ExercicioGeralView: View {
     @ObservedObject var viewModel: TrilhaViewModel
     var idx: Int
     let idAtividade: String
-    @State private var rodadaAtual: Int = 1
+    @State private var rodadaAtual: Int = 0
+
     let totalDeRodadas: Int
     @State var estadoFeedback: EstadoFeedback = .neutro
     let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
     @State var idSelecionado: Int = -1
     
     @Environment(\.dismiss) var dismiss
-
+    
     
     init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
         self.viewModel = viewModel
