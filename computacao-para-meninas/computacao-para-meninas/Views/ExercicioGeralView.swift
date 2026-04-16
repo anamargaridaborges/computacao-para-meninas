@@ -12,38 +12,82 @@ struct ExercicioGeralView: View {
     var idx: Int
     let idAtividade: String
     @State private var rodadaAtual: Int = 1
-    let totalDeRodadas: Int = 5
+    let totalDeRodadas: Int
     
     @Environment(\.dismiss) var dismiss
 
+    
+    init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
+        self.viewModel = viewModel
+        self.idx = idx
+        self.idAtividade = idAtividade
+        self.rodadaAtual = rodadaAtual
+        
+        self.totalDeRodadas = exercicios.count
+    }
+    
     var body: some View {
-        VStack {
-            // aqui vai resetando os cards a cada licao
-            switch exercicios[idx].tipo {
-            case .tipo3(let primeiro, let segundo):
-                Exercicio3View(
-                    viewModel: viewModel,
-                    idAtividade: idAtividade,
-                    aoConcluirRodada: {
-                        proximaEtapa()
-                    },
-                    idExercicio: idx,
-                    numeroExercicios: totalDeRodadas,
-                    exercicioAtual: rodadaAtual,
-                    vetor1: primeiro,
-                    vetor2: segundo,
-                    desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
-                )
-                .id(rodadaAtual)
+            VStack {
+                // aqui vai resetando os cards a cada licao
+                switch exercicios[rodadaAtual].tipo {
+                case .tipo3(let primeiro, let segundo):
+                    Exercicio3View(
+                        viewModel: viewModel,
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: rodadaAtual,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        vetor1: primeiro,
+                        vetor2: segundo,
+                        desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
+                    )
+                    .id(rodadaAtual)
+                    
+                case .tipo1(let resposta, let codigo):
+                    Exercicio1View(
+                        viewModel: viewModel,
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: rodadaAtual,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        resposta: resposta,
+                        codigo: codigo,
+                    )
+                    .id(rodadaAtual)
+                }
+                Spacer()
             }
-        }
+            .safeAreaInset(edge: .top) {
+                VStack {
+                    HStack {
+                        // se clicar em voltar, sai de tudo e volta para a home
+                        Button (action: { dismiss() }) {
+                            Image("ActivityBack")
+                        }
+                        .padding()
+                        Spacer()
+                        BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual+1)
+                            .animation(.spring(response: 1.0, dampingFraction: 0.7), value: rodadaAtual)
+                        Spacer()
+                        Button (action: {}) {
+                            Image("Doubt")
+                        }
+                        .padding()
+                    }
+                }
+            }
+        
     }
     
     func proximaEtapa() {
-        if rodadaAtual < totalDeRodadas {
-            withAnimation {
-                rodadaAtual += 1
-            }
+        if rodadaAtual < totalDeRodadas - 1 {
+            rodadaAtual += 1
         } else {
             viewModel.concluirAtividade(id: idAtividade)
             dismiss()
