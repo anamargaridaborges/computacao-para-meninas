@@ -102,6 +102,7 @@ struct ExercicioGeralView: View {
                     )
                     .ignoresSafeArea(edges: .bottom)
                     .transition(.move(edge: .bottom))
+                    .frame(maxHeight: (estadoFeedback == .acerto ? 80 : .infinity))
                 }
             }
             .animation(.spring(response: 0.35), value: estadoFeedback)
