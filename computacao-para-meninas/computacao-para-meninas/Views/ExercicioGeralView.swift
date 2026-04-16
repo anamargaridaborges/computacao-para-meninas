@@ -11,11 +11,12 @@ struct ExercicioGeralView: View {
     @ObservedObject var viewModel: TrilhaViewModel
     var idx: Int
     let idAtividade: String
-    @State private var rodadaAtual: Int = 1
+    @State private var rodadaAtual: Int = 0
+
     let totalDeRodadas: Int
     
     @Environment(\.dismiss) var dismiss
-
+    
     
     init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
         self.viewModel = viewModel
@@ -27,41 +28,53 @@ struct ExercicioGeralView: View {
     }
     
     var body: some View {
-            VStack {
-                // aqui vai resetando os cards a cada licao
-                switch exercicios[rodadaAtual].tipo {
-                case .tipo3(let primeiro, let segundo):
-                    Exercicio3View(
-                        viewModel: viewModel,
-                        idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: rodadaAtual,
-                        numeroExercicios: totalDeRodadas,
-                        exercicioAtual: rodadaAtual,
-                        vetor1: primeiro,
-                        vetor2: segundo,
-                        desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
-                    )
-                    .id(rodadaAtual)
-                    
-                case .tipo1(let resposta, let codigo):
-                    Exercicio1View(
-                        viewModel: viewModel,
-                        idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: rodadaAtual,
-                        numeroExercicios: totalDeRodadas,
-                        exercicioAtual: rodadaAtual,
-                        resposta: resposta,
-                        codigo: codigo,
-                    )
-                    .id(rodadaAtual)
-                }
-                Spacer()
+        VStack {
+            // aqui vai resetando os cards a cada licao
+            switch exercicios[rodadaAtual].tipo {
+            case .ordenar(let vetor):
+                ExercicioOrdenarView(
+                    idAtividade: idAtividade,
+                    aoConcluirRodada: {
+                        proximaEtapa()
+                    },
+                    idExercicio: idx,
+                    numeroExercicios: totalDeRodadas,
+                    exercicioAtual: rodadaAtual,
+                    vetor: vetor
+                )
+                .id(rodadaAtual)
+            case .tipo3(let primeiro, let segundo):
+                Exercicio3View(
+                    viewModel: viewModel,
+                    idAtividade: idAtividade,
+                    aoConcluirRodada: {
+                        proximaEtapa()
+                    },
+                    idExercicio: idx,
+                    numeroExercicios: totalDeRodadas,
+                    exercicioAtual: rodadaAtual,
+                    vetor1: primeiro,
+                    vetor2: segundo,
+                    desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
+                )
+                .id(rodadaAtual)
+                
+            case .tipo1(let resposta, let codigo):
+                Exercicio1View(
+                    viewModel: viewModel,
+                    idAtividade: idAtividade,
+                    aoConcluirRodada: {
+                        proximaEtapa()
+                    },
+                    idExercicio: rodadaAtual,
+                    numeroExercicios: totalDeRodadas,
+                    exercicioAtual: rodadaAtual,
+                    resposta: resposta,
+                    codigo: codigo,
+                )
+                .id(rodadaAtual)
+            }
+            Spacer()
             }
             .safeAreaInset(edge: .top) {
                 VStack {

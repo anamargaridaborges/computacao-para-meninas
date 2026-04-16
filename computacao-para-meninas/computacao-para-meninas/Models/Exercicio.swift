@@ -7,12 +7,14 @@
 
 enum TipoExercicio: Decodable {
     case tipo3([Int], [Int])
+    case ordenar([String])
     case tipo1(Int, String)
 
     enum CodingKeys: String, CodingKey {
         case tipo
         case valores1
         case valores2
+        case linhas
         case resposta
         case codigo
     }
@@ -26,6 +28,9 @@ enum TipoExercicio: Decodable {
             let v1 = try container.decode([Int].self, forKey: .valores1)
             let v2 = try container.decode([Int].self, forKey: .valores2)
             self = .tipo3(v1, v2)
+        case "ordenar":
+            let v1 = try container.decode([String].self, forKey: .linhas)
+            self = .ordenar(v1)
         case "tipo1":
             let v1 = try container.decode(Int.self, forKey: .resposta)
             let v2 = try container.decode(String.self, forKey: .codigo)
