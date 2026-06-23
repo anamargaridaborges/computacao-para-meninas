@@ -86,13 +86,10 @@ private struct FimDaHistoriaView: View {
         VStack(spacing: 28) {
             Spacer()
 
-            Image("AdaLovelace")
+            Image("AdaComemorando")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 160)
-
-            Text("🎉")
-                .font(.system(size: 52))
 
             Text(mensagem)
                 .font(.system(.title3, design: .rounded, weight: .bold))
