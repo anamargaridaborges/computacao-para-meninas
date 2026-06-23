@@ -175,3 +175,67 @@ Mimo é um aplicativo voltado para o ensino de programação de forma lúdica e 
 - Os elementos de UI para engajar o usuário (como animações e sons) não são muito bons e nem muito presentes;  
 - Possui apenas uma trilha, que é a trilha de JavaScript;  
 - Possui vidas, que limitam a quantidade de conteúdo aprendida no aplicativo. 
+
+## **3. Duolingo**
+
+Duolingo é um aplicativo voltado para ensino de línguas, contudo, por ser tão famoso e provavelmente um dos aplicativos de educação mais populares, resolvemos utiliza-lo em nosso benchmarking. Abaixo estão algumas análises sobre o que o app apresenta:
+
+- Existem muitas telas de gamificação, com interações variadas que aparecem logo após uma atividade ser concluída.
+<p>
+  <img src="assets/duolingo1.png" width="200">
+    <img src="assets/duolingo2.png" width="200">
+</p>
+
+- O app possui anúncios na versão free, porém todos os anúncios são do próprio Duolingo.
+<p>
+  <img src="assets/duolingo3.png" width="200">
+    <img src="assets/duolingo4.png" width="200">
+</p>
+
+- Há uma ofensiva de ensino, ou seja, uma sequência de dias em que o usuário fez atividades no app. E é possível manter uma ofensiva junto com um amigo.
+<p>
+  <img src="assets/duolingo5.png" width="200">
+    <img src="assets/duolingo6.png" width="200">
+</p>
+
+- O app funciona mesmo sem login, embora com algumas funcionalidades a menos. 
+<p>
+  <img src="assets/duolingo7.png" width="200">
+    <img src="assets/duolingo8.png" width="200">
+</p>
+
+- Feedback de acerto/erro
+<p>
+  <img src="assets/duolingo9.png" width="200">
+    <img src="assets/duolingo10.png" width="200">
+</p>
+
+- Em alguns exercícios, o usuário tem acesso à uma explicação maior sobre a resposta.
+<p>
+  <img src="assets/duolingo11.png" width="200">
+    <img src="assets/duolingo12.png" width="200">
+</p>
+
+- É possível aprender o significado de palavras no meio do exercício, clicando nela. Isso pode ser útil no nosso app, ao explicar por exemplo, que while significa enquanto e quando ele é utilizado.
+<p>
+  <img src="assets/duolingo13.png" width="200">
+</p>
+
+- O app possui notificações para o usuário não perder a ofensiva.
+<p>
+  <img src="assets/duolingo14.png" width="200">
+</p>
+
+
+**Pontos positivos:**
+
+- Muitas interações engajantes;  
+- Interações muito polidas, com muito feedback háptico;
+- É possível usar o app mesmo sem login;
+- Notificações para o usuário não perder a ofensiva;
+- Ofensiva com amigos, que traz uma motivação maior para o usuário não perder a ofensiva;
+
+**Pontos negativos:**
+
+- Os elementos engajantes por vezes parecem distrair e tirar o foco do principal: o aprendizado;  
+- Muitos elementos para servir de engajamento, mas que não servem para nada, entre atividades. Em determinado momento, ao terminar uma atividade, tive que: acender uma chama (ofensiva), abrir um baú, ver um anúncio de vídeo, ver um anúncio de imagem, criar um lembrete para eu não perder minha ofensiva e abrir outro baú.
