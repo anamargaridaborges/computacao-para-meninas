@@ -21,13 +21,13 @@ struct DialogoView: View {
                     .scaledToFit()
                     .frame(width: 120)
                     .padding(.leading, 16)
-
+                
                 VStack(alignment: .leading, spacing: 8) {
                     if let fala = no.fala {
                         BalaoDeFala(texto: fala)
                             .transition(.opacity.combined(with: .move(edge: .trailing)))
                     }
-
+                    
                     if let codigo = no.codigoExemplo {
                         Text(codigo)
                             .font(.system(.body, design: .monospaced, weight: .medium))
@@ -37,6 +37,7 @@ struct DialogoView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .background(Color.black.opacity(0.85))
                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .padding(.horizontal, 12)
                     }
                 }
                 .padding(.horizontal, 12)
@@ -92,8 +93,8 @@ struct BalaoDeFala: View {
     
     var body: some View {
         Text(texto)
-            .font(.system(.body, design: .rounded))
-            .foregroundStyle(Color("Text"))
+            .font(.system(.body, design: .rounded, weight: .semibold))
+            .foregroundStyle(Color.black)
             .fixedSize(horizontal: false, vertical: true)
             .padding(16)
             .background(Color("LightestGray"))

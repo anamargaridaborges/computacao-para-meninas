@@ -1,106 +1,182 @@
 {
-  "id": "historia_1",
-  "titulo": "O Bug de Ada",
-  "noInicial": "n_intro",
-  "nos": [
-    {
-      "id": "n_intro",
-      "tipo": "dialogo",
-      "fala": "Olá! Eu sou Ada Lovelace. Dizem que fui a primeira programadora da história, e hoje tenho um bug pra resolver.",
-      "proximoNo": "n_escolha_topa"
-    },
-    {
-      "id": "n_escolha_topa",
-      "tipo": "escolha",
-      "fala": "Você topa me ajudar a encontrar esse bug?",
-      "escolhas": [
-        { "id": "sim", "texto": "Claro, Ada! Adoro um desafio! 🙋", "proximoNo": "n_contexto" },
-        { "id": "nao", "texto": "Hmm… o que é um bug mesmo?", "proximoNo": "n_explica_bug" }
-      ]
-    },
-    {
-      "id": "n_explica_bug",
-      "tipo": "dialogo",
-      "fala": "Um bug é um erro no código que faz o programa se comportar de forma inesperada. O nome veio de um inseto real que parou um computador nos anos 1940! Agora que você sabe, vamos encontrar o nosso?",
-      "proximoNo": "n_contexto"
-    },
-    {
-      "id": "n_contexto",
-      "tipo": "dialogo",
-      "fala": "O código que eu fiz guarda o nome de uma programadora famosa. Veja:",
-      "codigoExemplo": "nome = 'Ada'",
-      "proximoNo": "n_pergunta_1"
-    },
-    {
-      "id": "n_pergunta_1",
-      "tipo": "escolha",
-      "fala": "Qual é o tipo de nome = 'Ada'?",
-      "escolhas": [
-        { "id": "str", "texto": "str (texto)", "proximoNo": "n_acerto_1" },
-        { "id": "int", "texto": "int (número inteiro)", "proximoNo": "n_erro_1" },
-        { "id": "float", "texto": "float (número decimal)", "proximoNo": "n_erro_1" }
-      ]
-    },
-    {
-      "id": "n_erro_1",
-      "tipo": "dialogo",
-      "fala": "Quase! Quando um valor está entre aspas, como 'Ada', ele é sempre um texto — ou seja, str. Vamos tentar de novo?",
-      "proximoNo": "n_pergunta_1"
-    },
-    {
-      "id": "n_acerto_1",
-      "tipo": "dialogo",
-      "fala": "Exato! 'Ada' está entre aspas, então é str. Agora o próximo: escrevi ano = 1815 para guardar meu ano de nascimento. Qual é o tipo?",
-      "proximoNo": "n_pergunta_2"
-    },
-    {
-      "id": "n_pergunta_2",
-      "tipo": "escolha",
-      "fala": "Qual é o tipo de ano = 1815?",
-      "escolhas": [
-        { "id": "int", "texto": "int (número inteiro)", "proximoNo": "n_acerto_2" },
-        { "id": "float", "texto": "float (número decimal)", "proximoNo": "n_erro_2" },
-        { "id": "str", "texto": "str (texto)", "proximoNo": "n_erro_2" }
-      ]
-    },
-    {
-      "id": "n_erro_2",
-      "tipo": "dialogo",
-      "fala": "Não dessa vez! 1815 é um número inteiro, sem vírgula e sem aspas — então é int. Tente novamente!",
-      "proximoNo": "n_pergunta_2"
-    },
-    {
-      "id": "n_acerto_2",
-      "tipo": "dialogo",
-      "fala": "Perfeito! Sem aspas e sem vírgula, é int. Último desafio: altura = 1.65. Esse é o valor da minha altura. Qual o tipo?",
-      "proximoNo": "n_pergunta_3"
-    },
-    {
-      "id": "n_pergunta_3",
-      "tipo": "escolha",
-      "fala": "Qual é o tipo de altura = 1.65?",
-      "escolhas": [
-        { "id": "float", "texto": "float (número decimal)", "proximoNo": "n_acerto_3" },
-        { "id": "int", "texto": "int (número inteiro)", "proximoNo": "n_erro_3" },
-        { "id": "str", "texto": "str (texto)", "proximoNo": "n_erro_3" }
-      ]
-    },
-    {
-      "id": "n_erro_3",
-      "tipo": "dialogo",
-      "fala": "Quase! Quando o número tem vírgula — ou ponto, em Python — ele é float. Tente de novo!",
-      "proximoNo": "n_pergunta_3"
-    },
-    {
-      "id": "n_acerto_3",
-      "tipo": "dialogo",
-      "fala": "Isso! Número com ponto decimal é sempre float. Você identificou os três tipos: str, int e float. O bug está resolvido!",
-      "proximoNo": "n_fim"
-    },
-    {
-      "id": "n_fim",
-      "tipo": "fim",
-      "mensagemFinal": "Incrível! Com a sua ajuda, Ada resolveu o bug. Você aprendeu a identificar os tipos str, int e float em Python. Continue assim! 🌟"
-    }
-  ]
+"id": "historia_1",
+"titulo": "O Desafio dos Tipos",
+"noInicial": "n_intro",
+"nos": [
+{
+"id": "n_intro",
+"tipo": "dialogo",
+"fala": "Olá! Eu sou Ada Lovelace, e fui a primeira programadora da história.",
+"proximoNo": "n_escolha_topa"
+},
+{
+"id": "n_escolha_topa",
+"tipo": "escolha",
+"fala": "Hoje estou aprendendo sobre tipos de variáveis em Python. Você pode me ajudar?",
+"escolhas": [
+{
+"id": "sim",
+"texto": "Claro, Ada! Adoro um desafio!",
+"proximoNo": "n_contexto"
+},
+{
+"id": "curioso",
+"texto": "O que são tipos de variáveis?",
+"proximoNo": "n_explica_tipos_1"
+}
+]
+},
+{
+"id": "n_explica_tipos_1",
+"tipo": "dialogo",
+"fala": "Em Python, cada valor possui um tipo. Os tipos ajudam o computador a entender como usar cada informação.",
+"proximoNo": "n_explica_tipos_2"
+},
+{
+"id": "n_explica_tipos_2",
+"tipo": "dialogo",
+"fala": "Por exemplo, textos, números inteiros e números com casas decimais possuem tipos diferentes.",
+"proximoNo": "n_explica_tipos_3"
+},
+{
+"id": "n_explica_tipos_3",
+"tipo": "dialogo",
+"fala": "Vamos observar alguns exemplos e descobrir juntos qual é o tipo de cada valor?",
+"proximoNo": "n_contexto"
+},
+{
+"id": "n_contexto",
+"tipo": "dialogo",
+"fala": "Vamos começar observando alguns valores usados em Python. Veja este exemplo:",
+"codigoExemplo": "nome = 'Ada'",
+"proximoNo": "n_pergunta_1"
+},
+{
+"id": "n_pergunta_1",
+"tipo": "escolha",
+"fala": "Qual é o tipo da variável 'Ada'?",
+"escolhas": [
+{
+"id": "str",
+"texto": "str (texto)",
+"proximoNo": "n_acerto_1"
+},
+{
+"id": "int",
+"texto": "int (número inteiro)",
+"proximoNo": "n_erro_1"
+},
+{
+"id": "float",
+"texto": "float (número decimal)",
+"proximoNo": "n_erro_1"
+}
+]
+},
+{
+"id": "n_erro_1",
+"tipo": "dialogo",
+"fala": "Quase! Repare se o valor está entre aspas ou não.",
+"proximoNo": "n_pergunta_1"
+},
+{
+"id": "n_acerto_1",
+"tipo": "dialogo",
+"fala": "Muito bem! 'Ada' está entre aspas, então é str.",
+"proximoNo": "n_acerto_1b"
+},
+{
+"id": "n_acerto_1b",
+"tipo": "dialogo",
+"fala": "Agora o próximo: escrevi ano = 1815 para guardar meu ano de nascimento.",
+"codigoExemplo": "ano = 1815",
+"proximoNo": "n_pergunta_2"
+},
+{
+"id": "n_pergunta_2",
+"tipo": "escolha",
+"fala": "Qual é o tipo de ano = 1815?",
+"escolhas": [
+{
+"id": "int",
+"texto": "int (número inteiro)",
+"proximoNo": "n_acerto_2"
+},
+{
+"id": "float",
+"texto": "float (número decimal)",
+"proximoNo": "n_erro_2"
+},
+{
+"id": "str",
+"texto": "str (texto)",
+"proximoNo": "n_erro_2"
+}
+]
+},
+{
+"id": "n_erro_2",
+"tipo": "dialogo",
+"fala": "Boa tentativa! Verifique se o valor tem aspas, ponto ou apenas números.",
+"proximoNo": "n_pergunta_2"
+},
+{
+"id": "n_acerto_2",
+"tipo": "dialogo",
+"fala": "Perfeito! Sem aspas e sem ponto decimal, o tipo é int.",
+"proximoNo": "n_acerto_2b"
+},
+{
+"id": "n_acerto_2b",
+"tipo": "dialogo",
+"fala": "Último desafio: altura = 1.65. Esse é o valor da minha altura.",
+"codigoExemplo": "altura = 1.65",
+"proximoNo": "n_pergunta_3"
+},
+{
+"id": "n_pergunta_3",
+"tipo": "escolha",
+"fala": "Qual é o tipo de altura = 1.65?",
+"escolhas": [
+{
+"id": "float",
+"texto": "float (número decimal)",
+"proximoNo": "n_acerto_3"
+},
+{
+"id": "int",
+"texto": "int (número inteiro)",
+"proximoNo": "n_erro_3"
+},
+{
+"id": "str",
+"texto": "str (texto)",
+"proximoNo": "n_erro_3"
+}
+]
+},
+{
+"id": "n_erro_3",
+"tipo": "dialogo",
+"fala": "Quase! O ponto no número é uma pista importante.",
+"proximoNo": "n_pergunta_3"
+},
+{
+"id": "n_acerto_3",
+"tipo": "dialogo",
+"fala": "Isso mesmo! Número com ponto decimal é do tipo float.",
+"proximoNo": "n_acerto_3b"
+},
+{
+"id": "n_acerto_3b",
+"tipo": "dialogo",
+"fala": "Parabéns! Você identificou os tipos str, int e float corretamente.",
+"proximoNo": "n_fim"
+},
+{
+"id": "n_fim",
+"tipo": "fim",
+"mensagemFinal": "Incrível! Você aprendeu a identificar os tipos str, int e float em Python. Continue explorando o mundo da programação!"
+}
+]
 }
