@@ -11,12 +11,18 @@ struct HomeView: View {
     @StateObject private var viewModel = TrilhaViewModel()
     let nomeModulo: String = "Variáveis"
     
+    enum TipoBotaoTrilha {
+        case exercicio
+        case historia
+    }
+    
     struct BotaoTrilha {
         let id: String
         let idDependencia: String?
         let titulo: String
         let icone: String
         let offsetX: CGFloat
+        var tipo: TipoBotaoTrilha = .exercicio
     }
     
     var botoesTrilha: [BotaoTrilha] {
@@ -41,6 +47,14 @@ struct HomeView: View {
                 titulo: "Exercício 4",
                 icone: "%",
                 offsetX: -30
+            ),
+            BotaoTrilha(
+                id: "historia_1",
+                idDependencia: nil,
+                titulo: "História da Ada",
+                icone: "★",
+                offsetX: 90,
+                tipo: .historia
             ),
         ]
     }
@@ -86,30 +100,16 @@ struct HomeView: View {
                                 
                                 let estaLivre = viewModel.estaDesbloqueada(idAtividade: botao.id, idDependencia: botao.idDependencia)
                                 
-                                NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: botao.id)) {
-                                    VStack(spacing: 8) {
-                                        ZStack {
-                                            // Sombra
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(estaLivre ? Color("Color2Button") : Color("Gray"))
-                                                .frame(width: 80, height: 80).offset(x: 5, y: 5)
-                                            
-                                            // Tecla principal
-                                            RoundedRectangle(cornerRadius: 16)
-                                                .fill(estaLivre ? Color("Color1Button") : Color("Color3Button"))
-                                                .frame(width: 80, height: 80)
-                                                .overlay(
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .stroke(estaLivre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
-                                                )
-                                            
-                                            Text(botao.icone)
-                                                .font(.system(size: 32, weight: .bold, design: .rounded))
-                                                .foregroundStyle(Color.black)
+                                Group {
+                                    switch botao.tipo {
+                                    case .historia:
+                                        NavigationLink(destination: HistoriaView(trilhaViewModel: viewModel, idAtividade: botao.id)) {
+                                            BotaoTrilhaVisual(icone: botao.icone, titulo: botao.titulo, estaLivre: estaLivre, isHistoria: true)
                                         }
-                                        Text(botao.titulo)
-                                            .font(.system(.caption, design: .rounded, weight: .bold))
-                                            .foregroundStyle(estaLivre ? Color("AccentColor") : Color("Gray"))
+                                    case .exercicio:
+                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: botao.id)) {
+                                            BotaoTrilhaVisual(icone: botao.icone, titulo: botao.titulo, estaLivre: estaLivre, isHistoria: false)
+                                        }
                                     }
                                 }
                                 .accessibilityIdentifier("activity_\(botao.id)")
@@ -162,6 +162,40 @@ struct HomeView: View {
                     Spacer()
                 }
             }
+        }
+    }
+}
+
+struct BotaoTrilhaVisual: View {
+    let icone: String
+    let titulo: String
+    let estaLivre: Bool
+    var isHistoria: Bool = false
+
+    var body: some View {
+        VStack(spacing: 8) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(estaLivre ? Color("Color2Button") : Color("Gray"))
+                    .frame(width: 80, height: 80)
+                    .offset(x: 5, y: 5)
+
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(estaLivre ? Color("Color1Button") : Color("Color3Button"))
+                    .frame(width: 80, height: 80)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(estaLivre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
+                    )
+
+                Text(icone)
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .foregroundStyle(Color.black)
+            }
+
+            Text(titulo)
+                .font(.system(.caption, design: .rounded, weight: .bold))
+                .foregroundStyle(estaLivre ? Color("AccentColor") : Color("Gray"))
         }
     }
 }

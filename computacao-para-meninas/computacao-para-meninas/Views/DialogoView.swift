@@ -21,13 +21,26 @@ struct DialogoView: View {
                     .scaledToFit()
                     .frame(width: 120)
                     .padding(.leading, 16)
-                
-                if let fala = no.fala {
-                    BalaoDeFala(texto: fala)
-                        .padding(.horizontal, 12)
-                        .padding(.bottom, 16)
-                        .transition(.opacity.combined(with: .move(edge: .trailing)))
+
+                VStack(alignment: .leading, spacing: 8) {
+                    if let fala = no.fala {
+                        BalaoDeFala(texto: fala)
+                            .transition(.opacity.combined(with: .move(edge: .trailing)))
+                    }
+
+                    if let codigo = no.codigoExemplo {
+                        Text(codigo)
+                            .font(.system(.body, design: .monospaced, weight: .medium))
+                            .foregroundStyle(Color.green)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .background(Color.black.opacity(0.85))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
                 }
+                .padding(.horizontal, 12)
+                .padding(.bottom, 16)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -36,17 +49,21 @@ struct DialogoView: View {
                     VStack(spacing: 10) {
                         ForEach(escolhas) { escolha in
                             Button {
-                                withAnimation {viewModel.escolher(escolha)}
+                                withAnimation { viewModel.escolher(escolha) }
                             } label: {
                                 Text(escolha.texto)
                                     .font(.system(.body, design: .rounded, weight: .semibold))
-                                    .foregroundStyle(Color.white)
+                                    .foregroundStyle(Color.black)
                                     .multilineTextAlignment(.center)
                                     .frame(maxWidth: .infinity)
                                     .padding(.vertical, 14)
                                     .padding(.horizontal, 20)
-                                    .background(Color("AccentColor"))
+                                    .background(Color("LightGray"))
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 16)
+                                            .stroke(Color("Gray"), lineWidth: 2)
+                                    )
                             }
                             .accessibilityIdentifier("escolha_\(escolha.id)")
                         }

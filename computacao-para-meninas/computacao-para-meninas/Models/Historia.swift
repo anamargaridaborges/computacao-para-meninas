@@ -26,6 +26,7 @@ struct NoHistoria: Codable, Identifiable {
     var escolhas: [Escolha]?
     var proximoNo: String?
     var mensagemFinal: String?
+    var codigoExemplo: String?
 }
 
 struct Historia: Codable, Identifiable {
