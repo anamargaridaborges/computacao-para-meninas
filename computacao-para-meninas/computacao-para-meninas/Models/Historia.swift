@@ -10,7 +10,6 @@ import Foundation
 enum TipoNo: String, Codable {
     case dialogo
     case escolha
-    case exercicio
     case fim
 }
 
@@ -25,7 +24,6 @@ struct NoHistoria: Codable, Identifiable {
     var tipo: TipoNo
     var fala: String?
     var escolhas: [Escolha]?
-    var idExercicio: Int?
     var proximoNo: String?
     var mensagemFinal: String?
 }
