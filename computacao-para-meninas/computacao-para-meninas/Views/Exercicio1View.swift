@@ -26,15 +26,15 @@ struct Exercicio1View: View {
     var body: some View {
         ZStack (alignment: .bottom) {
             VStack {
-                HStack {
-                    Text(exercicios[idExercicio].enunciado)
-                        .font(.title2)
-                        .bold()
-                        .padding(.horizontal)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Spacer()
-                }
-                .padding()
+//                HStack {
+//                    Text(exercicios[idExercicio].enunciado)
+//                        .font(.title2)
+//                        .bold()
+//                        .padding(.horizontal)
+//                        .fixedSize(horizontal: false, vertical: true)
+//                    Spacer()
+//                }
+//                .padding()
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color("DarkGray"))

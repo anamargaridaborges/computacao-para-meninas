@@ -98,6 +98,26 @@ struct ExercicioGeralView: View {
                         }
                         .padding()
                     }
+                    
+                    // Personagem no canto do enunciado
+                    HStack(alignment: .bottom, spacing: 12) {
+                        Image(rodadaAtual % 2 == 0 ? "AdaLovelace" : "KatherineExercicio")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 100)
+                            .padding(.leading, 12)
+
+                        Text(exercicios[rodadaAtual].enunciado)
+                            .font(.title2)
+                            .bold()
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.trailing, 12)
+                            .padding(.bottom, 8)
+
+                        Spacer()
+                    }
+                    .padding(.bottom, 12)
+                    
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {

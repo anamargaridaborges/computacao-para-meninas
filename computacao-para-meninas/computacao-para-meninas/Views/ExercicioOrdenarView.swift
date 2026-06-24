@@ -59,14 +59,14 @@ struct ExercicioOrdenarView: View {
     
     var body: some View {
             VStack {
-                HStack {
-                    Text(exercicios[idExercicio].enunciado)
-                        .font(.title2)
-                        .bold()
-                        .padding(.horizontal)
-                    Spacer()
-                }
-                .padding()
+//                HStack {
+//                    Text(exercicios[idExercicio].enunciado)
+//                        .font(.title2)
+//                        .bold()
+//                        .padding(.horizontal)
+//                    Spacer()
+//                }
+//                .padding()
 
                 VStack(spacing: rowSpacing) {
                     ForEach(0...lines.count, id: \.self) { index in
