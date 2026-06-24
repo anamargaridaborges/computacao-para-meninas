@@ -28,14 +28,14 @@ struct Exercicio3View: View {
 
     var body: some View {
             VStack {
-                HStack {
-                    Text(exercicios[idExercicio].enunciado)
-                        .font(.title2)
-                        .bold()
-                        .padding(.horizontal)
-                    Spacer()
-                }
-                .padding()
+//                HStack {
+//                    Text(exercicios[idExercicio].enunciado)
+//                        .font(.title2)
+//                        .bold()
+//                        .padding(.horizontal)
+//                    Spacer()
+//                }
+//                .padding()
                 HStack {
                     VStack {
                         ForEach(0..<exercicios[idExercicio].alternativas.count / 2, id : \.self) { i in
