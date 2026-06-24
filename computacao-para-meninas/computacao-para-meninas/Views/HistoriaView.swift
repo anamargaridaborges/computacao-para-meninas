@@ -68,9 +68,9 @@ private struct BarraSuperiorHistoria: View {
             }
             .padding()
             Spacer()
-            Text("Ada Lovelace")
+            Text("O Desafio dos Tipos")
                 .font(.system(.subheadline, design: .rounded, weight: .bold))
-                .foregroundStyle(Color("Text"))
+                .foregroundStyle(Color.black)
             Spacer()
             Color.clear.frame(width: 44, height: 44)
         }

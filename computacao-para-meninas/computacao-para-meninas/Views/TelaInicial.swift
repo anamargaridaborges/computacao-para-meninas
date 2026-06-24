@@ -52,7 +52,7 @@ struct HomeView: View {
             BotaoTrilha(
                 id: "historia_1",
                 idDependencia: "atv_4",
-                titulo: "História da Ada",
+                titulo: "O Desafio dos Tipos",
                 icone: "book.pages.fill",
                 offsetX: -100,
                 tipo: .historia,
