@@ -23,6 +23,7 @@ struct HomeView: View {
         let icone: String
         let offsetX: CGFloat
         var tipo: TipoBotaoTrilha = .exercicio
+        var usaSFSymbol: Bool = false
     }
     
     var botoesTrilha: [BotaoTrilha] {
@@ -50,11 +51,12 @@ struct HomeView: View {
             ),
             BotaoTrilha(
                 id: "historia_1",
-                idDependencia: nil,
-                titulo: "História da Ada",
-                icone: "★",
-                offsetX: 90,
-                tipo: .historia
+                idDependencia: "atv_4",
+                titulo: "O Desafio dos Tipos",
+                icone: "book.pages.fill",
+                offsetX: -100,
+                tipo: .historia,
+                usaSFSymbol: true
             ),
         ]
     }
@@ -116,6 +118,7 @@ struct HomeView: View {
                                 .accessibilityAddTraits(.isButton)
                                 .disabled(!estaLivre)
                                 .offset(x: botao.offsetX)
+                                .padding(.top, botao.id == "historia_1" ? 70 : 0)
                                 
                                 // Ada e exercício 3
                                 if index == 1 {
@@ -154,6 +157,21 @@ struct HomeView: View {
                                         .padding(.trailing, 100).padding(.bottom, 70)
                                     }
                                 }
+                                
+                                // Personagem e história interativa
+                                if index == 3 {
+                                    HStack(alignment: .bottom) {
+                                        Image("KatherineJohnson")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 150)
+                                            .padding(.leading, 30)
+                                            .offset(y: -200)
+                                            .offset(x: 180)
+                                        
+                                        Spacer()
+                                    }
+                                }
                             }
                         }
                         .padding(.top, 16).padding(.bottom, 40)
@@ -188,9 +206,15 @@ struct BotaoTrilhaVisual: View {
                             .stroke(estaLivre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
                     )
 
-                Text(icone)
-                    .font(.system(size: 32, weight: .bold, design: .rounded))
-                    .foregroundStyle(Color.black)
+                if isHistoria {
+                    Image(systemName: icone)
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundStyle(estaLivre ? Color.black : Color.black)
+                } else {
+                    Text(icone)
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .foregroundStyle(Color.black)
+                }
             }
 
             Text(titulo)
