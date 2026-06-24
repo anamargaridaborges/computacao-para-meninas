@@ -209,7 +209,7 @@ struct BotaoTrilhaVisual: View {
                 if isHistoria {
                     Image(systemName: icone)
                         .font(.system(size: 28, weight: .bold))
-                        .foregroundStyle(estaLivre ? Color("AccentColor") : Color.black)
+                        .foregroundStyle(estaLivre ? Color.black : Color.black)
                 } else {
                     Text(icone)
                         .font(.system(size: 32, weight: .bold, design: .rounded))

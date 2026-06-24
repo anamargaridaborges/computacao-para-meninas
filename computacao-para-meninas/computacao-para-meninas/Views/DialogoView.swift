@@ -16,7 +16,8 @@ struct DialogoView: View {
             Spacer()
             
             HStack(alignment: .bottom, spacing: 0) {
-                Image("AdaLovelace")
+                Image(no.tipoFeedback == .acerto ? "AdaCorrect" :
+                      no.tipoFeedback == .erro ? "AdaIncorrect" : "AdaLovelace")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 120)

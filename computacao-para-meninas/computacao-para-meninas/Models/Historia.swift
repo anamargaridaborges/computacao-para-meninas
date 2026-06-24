@@ -13,6 +13,11 @@ enum TipoNo: String, Codable {
     case fim
 }
 
+enum TipoFeedback: String, Codable {
+    case acerto
+    case erro
+}
+
 struct Escolha: Codable, Identifiable {
     var id: String
     var texto: String
@@ -27,6 +32,7 @@ struct NoHistoria: Codable, Identifiable {
     var proximoNo: String?
     var mensagemFinal: String?
     var codigoExemplo: String?
+    var tipoFeedback: TipoFeedback?
 }
 
 struct Historia: Codable, Identifiable {
@@ -47,3 +53,4 @@ func carregarHistoria(_ filename: String) -> Historia {
         fatalError("Erro ao ler o arquivo \(filename): \(error)")
     }
 }
+
