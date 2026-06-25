@@ -25,8 +25,8 @@ struct ExercicioGeralView: View {
         self.viewModel = viewModel
         self.idx = idx
         self.idAtividade = idAtividade
-        self.rodadaAtual = rodadaAtual
-        
+        _rodadaAtual = State(initialValue: rodadaAtual)
+
         self.totalDeRodadas = exercicios.count
     }
     
@@ -78,6 +78,12 @@ struct ExercicioGeralView: View {
                         estadoFeedback: $estadoFeedback
                     )
                     .id(rodadaAtual)
+                case .curiosidade(let conteudo):
+                    ExercicioCuriosidadeView(
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                    curiosidade: conteudo)
                 }
                 Spacer()
             }

@@ -47,5 +47,14 @@
             "count"
           ],
           "explicacao": "A variável x é um número inteiro,"
+    },
+    {
+          "tipo": {
+            "tipo": "curiosidade",
+            "conteudo": "Ada Lovelace é conhecida como a primeira programadora"
+          },
+          "enunciado": "Você sabia?",
+          "alternativas": [],
+          "explicacao": ""
     }
 ]
