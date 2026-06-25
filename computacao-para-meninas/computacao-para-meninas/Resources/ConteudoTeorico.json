@@ -62,7 +62,7 @@
     {
         "tipo": {
             "tipo": "conteudoTeorico",
-            "texto": "Operadores são símbolos que nos ajudam a fazer cálculos e comparações.\n• Matemáticos: +,-,* (multiplicação), / (divisão).\n• Comparação: == (igual a), != (diferente de),> (maior que),< (menor que).",
+            "texto": "Operadores são símbolos que nos ajudam a fazer cálculos e comparações.\n• Matemáticos: +, -, * (multiplicação), / (divisão).\n• Comparação: == (igual a), != (diferente de), > (maior que), < (menor que).",
             "dica": "Um único = serve para guardar um valor (variável). Dois == servem para testar se duas coisas são iguais!"
         },
         "enunciado": "Comparando e somando",

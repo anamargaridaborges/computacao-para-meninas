@@ -3,8 +3,7 @@
         "tipo": {
             "tipo": "conteudoTeorico",
             "texto": "Na programação, uma variável é como uma caixa com uma etiqueta. Você guarda um valor dentro dela para usar depois.",
-            "imagem": "ImagemVariavel",
-            "dica": "Em Python usamos o padrão snake_case — palavras separadas por underline. Ex.: total_pontos = 100"
+            "imagem": "ImagemVariavel"
         },
         "enunciado": "Variáveis",
         "alternativas": [],
@@ -13,7 +12,8 @@
     {
         "tipo": {
             "tipo": "conteudoTeorico",
-            "texto": "O valor dentro da caixa pode mudar (por isso se chama variável!). Mas atenção: o nome da etiqueta não pode ter espaços ou começar com números."
+            "texto": "O valor dentro da caixa pode mudar (por isso se chama variável!). Mas atenção: o nome da etiqueta não pode ter espaços ou começar com números.",
+            "dica": "Em Python usamos o padrão snake_case — palavras separadas por underline. Ex.: total_pontos = 100"
         },
         "enunciado": "O nome certo",
         "alternativas": [],
