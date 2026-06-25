@@ -10,6 +10,7 @@ enum TipoExercicio: Decodable {
     case ordenar([String])
     case tipo1(Int, String)
     case curiosidade(String)
+    case conteudoTeorico(texto: String, imagem: String?, dica: String?)
 
     enum CodingKeys: String, CodingKey {
         case tipo
@@ -19,6 +20,9 @@ enum TipoExercicio: Decodable {
         case resposta
         case codigo
         case conteudo
+        case texto
+        case imagem
+        case dica
     }
 
     init(from decoder: Decoder) throws {
@@ -40,6 +44,11 @@ enum TipoExercicio: Decodable {
         case "curiosidade":
             let conteudo = try container.decode(String.self, forKey: .conteudo)
             self = .curiosidade(conteudo)
+        case "conteudoTeorico":
+            let texto = try container.decode(String.self, forKey: .texto)
+            let imagem = try container.decodeIfPresent(String.self, forKey: .imagem)
+            let dica = try container.decodeIfPresent(String.self, forKey: .dica)
+            self = .conteudoTeorico(texto: texto, imagem: imagem, dica: dica)
         default:
             throw DecodingError.dataCorruptedError(
                 forKey: .tipo,

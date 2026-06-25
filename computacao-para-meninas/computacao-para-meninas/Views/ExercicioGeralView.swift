@@ -20,6 +20,13 @@ struct ExercicioGeralView: View {
     
     @Environment(\.dismiss) var dismiss
     
+
+    var ehConteudoTeorico: Bool {
+        if case .conteudoTeorico = exercicios[rodadaAtual].tipo { return true }
+        return false
+    }
+
+
     init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
         self.viewModel = viewModel
         self.idx = idx
@@ -83,6 +90,21 @@ struct ExercicioGeralView: View {
                             proximaEtapa()
                         },
                     curiosidade: conteudo)
+
+                case .conteudoTeorico(let texto, let imagem, let dica):
+                    ExercicioTeoricoView(
+                        idAtividade: idAtividade,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                        idExercicio: rodadaAtual,
+                        numeroExercicios: totalDeRodadas,
+                        exercicioAtual: rodadaAtual,
+                        texto: texto,
+                        imagem: imagem,
+                        dica: dica
+                    )
+                    .id(rodadaAtual)
                 }
                 Spacer()
             }
@@ -90,7 +112,14 @@ struct ExercicioGeralView: View {
                 VStack {
                     HStack {
                         // se clicar em voltar, sai de tudo e volta para a home
-                        Button (action: { dismiss() }) {
+                        Button (action: {
+                            if (rodadaAtual == 0) {
+                                dismiss()
+                            }
+                            else {
+                                rodadaAtual -= 1
+                            }
+                        }) {
                             Image("ActivityBack")
                         }
                         .padding()
@@ -104,25 +133,27 @@ struct ExercicioGeralView: View {
                         .padding()
                     }
                     
-                    // Personagem no canto do enunciado
-                    HStack(alignment: .bottom, spacing: 12) {
-                        Image(rodadaAtual % 2 == 0 ? "AdaLovelace" : "KatherineExercicio")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 100)
-                            .padding(.leading, 12)
+                    // Personagem no canto do enunciado (escondido no conteúdo teórico)
+                    if !ehConteudoTeorico {
+                        HStack(alignment: .bottom, spacing: 12) {
+                            Image(rodadaAtual % 2 == 0 ? "AdaLovelace" : "KatherineExercicio")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 100)
+                                .padding(.leading, 12)
 
-                        Text(exercicios[rodadaAtual].enunciado)
-                            .font(.title2)
-                            .bold()
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.trailing, 12)
-                            .padding(.bottom, 8)
+                            Text(exercicios[rodadaAtual].enunciado)
+                                .font(.title2)
+                                .bold()
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding(.trailing, 12)
+                                .padding(.bottom, 8)
 
-                        Spacer()
+                            Spacer()
+                        }
+                        .padding(.bottom, 12)
                     }
-                    .padding(.bottom, 12)
-                    
+
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
