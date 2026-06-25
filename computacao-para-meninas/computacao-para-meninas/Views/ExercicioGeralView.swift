@@ -19,6 +19,7 @@ struct ExercicioGeralView: View {
     @State var idSelecionado: Int = -1
     
     @Environment(\.dismiss) var dismiss
+    
 
     var ehConteudoTeorico: Bool {
         if case .conteudoTeorico = exercicios[rodadaAtual].tipo { return true }
@@ -30,8 +31,8 @@ struct ExercicioGeralView: View {
         self.viewModel = viewModel
         self.idx = idx
         self.idAtividade = idAtividade
-        self.rodadaAtual = rodadaAtual
-        
+        _rodadaAtual = State(initialValue: rodadaAtual)
+
         self.totalDeRodadas = exercicios.count
     }
     
@@ -83,6 +84,12 @@ struct ExercicioGeralView: View {
                         estadoFeedback: $estadoFeedback
                     )
                     .id(rodadaAtual)
+                case .curiosidade(let conteudo):
+                    ExercicioCuriosidadeView(
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        },
+                    curiosidade: conteudo)
 
                 case .conteudoTeorico(let texto, let imagem, let dica):
                     ExercicioTeoricoView(

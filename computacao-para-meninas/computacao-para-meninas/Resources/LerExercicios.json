@@ -1,5 +1,14 @@
 [
     {
+          "tipo": {
+            "tipo": "curiosidade",
+            "conteudo": "Hedy Lamarr, atriz de Hollywood, coinventou uma técnica de salto de frequência que serviu de base para tecnologias modernas como Wi-Fi, Bluetooth e GPS.",
+          },
+          "enunciado": "Você sabia?",
+          "alternativas": [],
+          "explicacao": ""
+    },
+    {
         "tipo": {
             "tipo": "conteudoTeorico",
             "texto": "Na programação, uma variável é como uma caixa com uma etiqueta. Você guarda um valor dentro dela para usar depois.",
@@ -67,5 +76,5 @@
             "count"
           ],
           "explicacao": "A variável x é um número inteiro,"
-    }
+    },
 ]
