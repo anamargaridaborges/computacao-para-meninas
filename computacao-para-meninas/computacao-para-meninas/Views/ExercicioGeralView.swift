@@ -20,7 +20,6 @@ struct ExercicioGeralView: View {
     
     @Environment(\.dismiss) var dismiss
     
-    
     init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
         self.viewModel = viewModel
         self.idx = idx
@@ -58,7 +57,7 @@ struct ExercicioGeralView: View {
                         exercicioAtual: rodadaAtual,
                         vetor1: primeiro,
                         vetor2: segundo,
-                        desativado: Array(repeating: false, count: exercicios[idx].alternativas.count)
+                        desativado: Array(repeating: false, count: exercicios[rodadaAtual].alternativas.count)
                     )
                     .id(rodadaAtual)
                     

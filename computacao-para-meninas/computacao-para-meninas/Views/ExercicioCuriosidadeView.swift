@@ -13,9 +13,10 @@ struct ExercicioCuriosidadeView: View {
     
     var body: some View {
         VStack {
-            Spacer()
-            
             Text(curiosidade)
+                .font(.system(.title3, design: .rounded, weight: .bold))
+                .foregroundStyle(.black)
+                .padding(.horizontal, 20)
             
             Spacer()
             
@@ -28,3 +29,4 @@ struct ExercicioCuriosidadeView: View {
         .navigationBarBackButtonHidden()
     }
 }
+
