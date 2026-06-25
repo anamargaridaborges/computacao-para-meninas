@@ -14,7 +14,7 @@ struct ExercicioCuriosidadeView: View {
     var body: some View {
         VStack {
             Text(curiosidade)
-                .font(.system(.title3, design: .rounded, weight: .bold))
+                .font(.system(.title3, design: .rounded))
                 .foregroundStyle(.black)
                 .padding(.horizontal, 20)
             
