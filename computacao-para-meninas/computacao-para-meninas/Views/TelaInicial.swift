@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = TrilhaViewModel()
-    let nomeModulo: String = "Variáveis"
+    let nomeModulo: String = "Programação"
     
     enum TipoBotaoTrilha {
         case exercicio
@@ -31,21 +31,49 @@ struct HomeView: View {
             BotaoTrilha(
                 id: "atv_1",
                 idDependencia: nil,
-                titulo: "Exercício 1",
+                titulo: "Variáveis",
                 icone: "</>",
                 offsetX: -80
             ),
             BotaoTrilha(
                 id: "atv_2",
                 idDependencia: "atv_1",
-                titulo: "Exercício 2",
+                titulo: "Tipos de Dados",
                 icone: "#",
                 offsetX: 110
             ),
             BotaoTrilha(
                 id: "atv_4",
                 idDependencia: "atv_3",
-                titulo: "Exercício 4",
+                titulo: "Condicionais",
+                icone: "%",
+                offsetX: -30
+            ),
+            BotaoTrilha(
+                id: "atv_5",
+                idDependencia: "atv_4",
+                titulo: "Operadores",
+                icone: "%",
+                offsetX: -30
+            ),
+            BotaoTrilha(
+                id: "atv_6",
+                idDependencia: "atv_5",
+                titulo: "Laços",
+                icone: "%",
+                offsetX: -30
+            ),
+            BotaoTrilha(
+                id: "atv_7",
+                idDependencia: "atv_6",
+                titulo: "Listas",
+                icone: "%",
+                offsetX: -30
+            ),
+            BotaoTrilha(
+                id: "atv_8",
+                idDependencia: "atv_7",
+                titulo: "Funções",
                 icone: "%",
                 offsetX: -30
             ),

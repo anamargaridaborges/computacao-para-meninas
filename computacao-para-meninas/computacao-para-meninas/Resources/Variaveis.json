@@ -1,0 +1,143 @@
+[
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Na programação, uma variável é como uma caixa com uma etiqueta. Você guarda um valor dentro dela para usar depois.",
+            "imagem": "ImagemVariavel"
+        },
+        "enunciado": "Variáveis",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "O valor dentro da caixa pode mudar (por isso se chama variável!). Mas atenção: o nome da etiqueta não pode ter espaços ou começar com números.",
+            "dica": "Em Python usamos o padrão snake_case — palavras separadas por underline. Ex.: total_pontos = 100"
+        },
+        "enunciado": "O nome certo",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "O Python é super inteligente e sabe diferenciar os tipos de informação que guardamos. Os três principais são:\n• String (str): Textos (sempre entre aspas).\n• Integer (int): Números inteiros (como sua idade).\n• Float: Números com ponto decimal (como a altura)."
+        },
+        "enunciado": "Cada coisa no seu lugar",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Existe um tipo de dado crucial para a lógica: o Boolean (bool). Ele só aceita dois valores: True (Verdadeiro) ou False (Falso).",
+            "imagem": "ImagemBool",
+            "dica": "Em Python, a primeira letra precisa ser sempre maiúscula!"
+        },
+        "enunciado": "O tipo da verdade",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Na programação, seu código precisa tomar decisões, igual a você quando olha a previsão do tempo. Usamos o if (se) para dizer ao programa o que fazer se algo for verdade.",
+            "imagem": "ImagemCondicional"
+        },
+        "enunciado": "Tomando decisões",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Quando a condição do if não é atendida, podemos usar o else (senão) para dar uma alternativa. Se tivermos mais de duas opções, usamos o elif (uma mistura de else com if).",
+            "imagem": "ImagemElifElse"
+        },
+        "enunciado": "E se não for verdade?",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Operadores são símbolos que nos ajudam a fazer cálculos e comparações.\n• Matemáticos: +, -, * (multiplicação), / (divisão).\n• Comparação: == (igual a), != (diferente de), > (maior que), < (menor que).",
+            "dica": "Um único = serve para guardar um valor (variável). Dois == servem para testar se duas coisas são iguais!"
+        },
+        "enunciado": "Comparando e somando",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "E se você precisar checar duas coisas ao mesmo tempo? É aí que entram os operadores lógicos:\n• and: True apenas se todas as condições forem verdadeiras.\n• or: True se pelo menos uma das condições for verdadeira.",
+            "imagem": "ImagemOperadorLogico"
+        },
+        "enunciado": "Operadores lógicos",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Computadores são ótimos em fazer tarefas repetitivas. Em vez de escrever a mesma linha de código 10 vezes, usamos um Laço (Loop). O laço for repete uma ação para cada item de uma sequência.",
+            "imagem": "ImagemFor"
+        },
+        "enunciado": "Não repita, use laços!",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Além do for, temos o laço while (enquanto). Ele continua repetindo o código enquanto uma condição for verdadeira.",
+            "dica": "Se a condição nunca mudar para False, seu código fica preso para sempre no temido loop infinito!"
+        },
+        "enunciado": "Até que a condição mude: o while",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Às vezes, uma caixinha (variável) só não basta. E se quisermos guardar vários dados juntos e de forma organizada? Usamos uma Lista! Em Python, criamos listas colocando os itens entre colchetes [] e separados por vírgula.",
+            "imagem": "ImagemLista"
+        },
+        "enunciado": "Organizando sua mochila!",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Você pode adicionar novos elementos à sua lista a qualquer momento usando o comando .append(). Ele coloca o novo item bem no final da fila.",
+            "imagem": "ImagemAppend"
+        },
+        "enunciado": "Listas são vivas",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Uma Função é um bloco de código que realiza uma tarefa específica e que você pode reutilizar quantas vezes quiser. É como uma receita de bolo: você define os passos uma vez e pode fazer o bolo sempre que der vontade, sem precisar reescrever a receita. Em Python, começamos com a palavra def.",
+            "imagem": "ImagemFuncao"
+        },
+        "enunciado": "Seus próprios blocos de montar",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Funções podem receber informações para trabalhar, chamadas de parâmetros. Assim, a mesma função pode dar resultados personalizados!",
+            "imagem": "ImagemParametros"
+        },
+        "enunciado": "Personalizando com parâmetros",
+        "alternativas": [],
+        "explicacao": ""
+    }
+]
+
