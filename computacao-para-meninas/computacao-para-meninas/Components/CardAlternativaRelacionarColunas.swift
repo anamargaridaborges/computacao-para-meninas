@@ -1,5 +1,5 @@
 //
-//  CardAlternativaExercicio3.swift
+//  CardAlternativaRelacionarColunas.swift
 //  computacao-para-meninas
 //
 //  Created by Ana Margarida Diniz Silva Borges on 08/04/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardAlternativaExercicio3: View {
+struct CardAlternativaRelacionarColunas: View {
     
     let idx: Int
     let idExercicio: Int

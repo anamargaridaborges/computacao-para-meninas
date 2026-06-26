@@ -30,7 +30,7 @@
     },
     {
         "tipo": {
-            "tipo": "tipo3",
+            "tipo": "relacionarColunas",
             "valores1": [0, 1, 2],
             "valores2": [5, 3, 4]
         },

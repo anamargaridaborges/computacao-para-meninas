@@ -52,9 +52,8 @@ struct ExercicioGeralView: View {
                         vetor: vetor
                     )
                     .id(rodadaAtual)
-                case .tipo3(let primeiro, let segundo):
-                    Exercicio3View(
-                        viewModel: viewModel,
+                case .relacionarColunas(let primeiro, let segundo):
+                    RelacionarColunasView(
                         idAtividade: idAtividade,
                         aoConcluirRodada: {
                             proximaEtapa()
@@ -63,8 +62,7 @@ struct ExercicioGeralView: View {
                         numeroExercicios: totalDeRodadas,
                         exercicioAtual: rodadaAtual,
                         vetor1: primeiro,
-                        vetor2: segundo,
-                        desativado: Array(repeating: false, count: exercicios[rodadaAtual].alternativas.count)
+                        vetor2: segundo
                     )
                     .id(rodadaAtual)
                     
