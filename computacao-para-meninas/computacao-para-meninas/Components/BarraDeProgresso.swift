@@ -21,7 +21,7 @@ struct BarraDeProgresso: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color("AccentColor"), lineWidth: (i == exercicioAtual ? 3 : 0))
                     )
-                    .frame(width: 40, height: 15)
+                    .frame(width: 20, height: 15)
                     .padding(2)
             }
         }
