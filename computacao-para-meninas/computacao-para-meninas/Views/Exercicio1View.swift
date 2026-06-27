@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Exercicio1View: View {
-    @ObservedObject var viewModel: TrilhaViewModel
+    var viewModel: TrilhaViewModel
     @Environment(\.dismiss) var dismiss
     let idAtividade: String
     var aoConcluirRodada: () -> Void

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExercicioGeralView: View {
-    @ObservedObject var viewModel: TrilhaViewModel
+    var viewModel: TrilhaViewModel
     var idx: Int
     let idAtividade: String
     @State private var rodadaAtual: Int = 0
