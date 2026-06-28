@@ -41,16 +41,17 @@ struct ExercicioGeralView: View {
                 // aqui vai resetando os cards a cada licao
                 switch exercicios[rodadaAtual].tipo {
                 case .ordenar(let vetor):
-                    ExercicioOrdenarView(
+                    let vm = OrdenarViewModel(
                         idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: idx,
+                        idExercicio: rodadaAtual,
                         numeroExercicios: totalDeRodadas,
                         exercicioAtual: rodadaAtual,
-                        vetor: vetor
+                        vetor: vetor,
+                        aoConcluirRodada: {
+                            proximaEtapa()
+                        }
                     )
+                    ExercicioOrdenarView(ordenarViewModel: vm)
                     .id(rodadaAtual)
                 case .tipo3(let primeiro, let segundo):
                     Exercicio3View(
