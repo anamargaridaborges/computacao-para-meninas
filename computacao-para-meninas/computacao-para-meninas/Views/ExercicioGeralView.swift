@@ -33,6 +33,11 @@ struct ExercicioGeralView: View {
         self.idAtividade = idAtividade
         _rodadaAtual = State(initialValue: rodadaAtual)
 
+        // Minimal change: load per-activity exercises if available
+        if let activityExercises: [Exercicio] = loadExercisesForActivity(idAtividade: idAtividade) {
+            exercicios = activityExercises
+        }
+
         self.totalDeRodadas = exercicios.count
     }
     
@@ -189,3 +194,4 @@ struct ExercicioGeralView: View {
 }
 #Preview {
     ExercicioGeralView(viewModel: TrilhaViewModel(), idx: 0, idAtividade: "atv_1")}
+
