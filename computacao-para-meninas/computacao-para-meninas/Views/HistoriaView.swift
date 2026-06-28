@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HistoriaView: View {
-    @ObservedObject var trilhaViewModel: TrilhaViewModel
+    var trilhaViewModel: TrilhaViewModel
     @StateObject private var historiaViewModel: HistoriaViewModel
     @Environment(\.dismiss) var dismiss
 
