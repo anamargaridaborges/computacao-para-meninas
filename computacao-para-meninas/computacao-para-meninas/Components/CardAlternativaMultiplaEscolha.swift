@@ -1,5 +1,5 @@
 //
-//  CardAlternativaExercicio1.swift
+//  CardAlternativaMultiplaEscolha.swift
 //  computacao-para-meninas
 //
 //  Created by Ana Margarida Diniz Silva Borges on 08/04/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardAlternativaExercicio1: View {
+struct CardAlternativaMultiplaEscolha: View {
     
     let idx: Int
     let idExercicio: Int
@@ -15,21 +15,25 @@ struct CardAlternativaExercicio1: View {
     let resposta: Int
     let continuado: Bool
 
+    private var acertouEsta: Bool {
+        continuado && idSelecionado == idx && resposta == idx
+    }
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color("LightestGray"))
+                .fill(acertouEsta ? Color("LightGreen") : Color("LightestGray"))
                 .stroke(strokeColor(), lineWidth: (idSelecionado == idx ? 4 : 2))
                 .frame(width: 80, height: 60)
             Text(exercicios[idExercicio].alternativas[idx])
-                .foregroundStyle(Color.black)
+                .foregroundStyle(acertouEsta ? Color("DarkGreen") : Color.black)
                 .frame(width: 60)
                 .multilineTextAlignment(.leading)
                 .monospaced()
         }
         .padding()
     }
-    
+
     private func strokeColor() -> Color {
         
         if (idSelecionado != idx) {

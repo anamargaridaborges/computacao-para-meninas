@@ -8,7 +8,7 @@
 enum TipoExercicio: Decodable {
     case relacionarColunas([Int], [Int])
     case ordenar([String])
-    case tipo1(Int, String)
+    case multiplaEscolha(Int, String)
     case curiosidade(String)
     case conteudoTeorico(texto: String, imagem: String?, dica: String?)
 
@@ -37,10 +37,10 @@ enum TipoExercicio: Decodable {
         case "ordenar":
             let v1 = try container.decode([String].self, forKey: .linhas)
             self = .ordenar(v1)
-        case "tipo1":
+        case "multiplaEscolha":
             let v1 = try container.decode(Int.self, forKey: .resposta)
             let v2 = try container.decode(String.self, forKey: .codigo)
-            self = .tipo1(v1, v2)
+            self = .multiplaEscolha(v1, v2)
         case "curiosidade":
             let conteudo = try container.decode(String.self, forKey: .conteudo)
             self = .curiosidade(conteudo)

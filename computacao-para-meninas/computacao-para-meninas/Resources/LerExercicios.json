@@ -62,7 +62,7 @@
     },
     {
           "tipo": {
-            "tipo": "tipo1",
+            "tipo": "multiplaEscolha",
             "resposta": 1,
             "codigo": "num1 = ”5”\nnum2 = 2\nresultado = ____(num1) + num2\nprint(resultado)"
           },
