@@ -8,27 +8,48 @@
 import SwiftUI
 
 struct ExercicioTeoricoView: View {
+    @StateObject private var viewModel: ExercicioTeoricoViewModel
     let idAtividade: String
     var aoConcluirRodada: () -> Void
     let idExercicio: Int
     let numeroExercicios: Int
     let exercicioAtual: Int
-    let texto: String
-    let imagem: String?
-    let dica: String?
+
+    init(
+        idAtividade: String,
+        aoConcluirRodada: @escaping () -> Void,
+        idExercicio: Int,
+        numeroExercicios: Int,
+        exercicioAtual: Int,
+        texto: String,
+        imagem: String?,
+        dica: String?
+    ) {
+        self.idAtividade = idAtividade
+        self.aoConcluirRodada = aoConcluirRodada
+        self.idExercicio = idExercicio
+        self.numeroExercicios = numeroExercicios
+        self.exercicioAtual = exercicioAtual
+        _viewModel = StateObject(wrappedValue: ExercicioTeoricoViewModel(
+            idExercicio: idExercicio,
+            texto: texto,
+            imagem: imagem,
+            dica: dica
+        ))
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(exercicios[idExercicio].enunciado)
+            Text(viewModel.enunciado)
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .fixedSize(horizontal: false, vertical: true)
 
-            Text(texto)
+            Text(viewModel.texto)
                 .font(.title3)
                 .foregroundStyle(Color.black)
                 .fixedSize(horizontal: false, vertical: true)
-            
-            if let imagem, !imagem.isEmpty {
+
+            if let imagem = viewModel.imagemValida {
                 Image(imagem)
                     .resizable()
                     .scaledToFit()
@@ -36,7 +57,7 @@ struct ExercicioTeoricoView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
 
-            if let dica, !dica.isEmpty {
+            if let dica = viewModel.dicaValida {
                 CalloutDica(texto: dica)
             }
 
