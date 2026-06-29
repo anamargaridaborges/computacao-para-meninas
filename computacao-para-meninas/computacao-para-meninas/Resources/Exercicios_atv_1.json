@@ -1,0 +1,45 @@
+[
+  {
+    "tipo": "conteudoTeorico",
+    "enunciado": "O que é uma variável?",
+    "alternativas": [],
+    "explicacao": "",
+    "texto": "Variáveis são espaços nomeados na memória usados para guardar valores. Você pode criar uma variável, atribuir um valor e usar esse valor em expressões. Elas ajudam a tornar o código mais claro e reaproveitável.",
+    "dica": "Escolha nomes curtos e descritivos, como 'idade' ou 'pontuacao'."
+  },
+  {
+    "tipo": "tipo1",
+    "enunciado": "Qual é o tipo da variável x após a atribuição abaixo?",
+    "alternativas": ["int", "float", "string", "list"],
+    "explicacao": "O valor 10 é um número inteiro, portanto x é do tipo int.",
+    "resposta": 0,
+    "codigo": "x = 10"
+  },
+  {
+    "tipo": "ordenar",
+    "enunciado": "Ordene as linhas para declarar e usar variáveis corretamente.",
+    "alternativas": [],
+    "explicacao": "Primeiro declaramos as variáveis, depois usamos em uma expressão e, por fim, imprimimos o resultado.",
+    "linhas": [
+      "x = 10",
+      "y = 5",
+      "soma = x + y",
+      "print(soma)"
+    ]
+  },
+  {
+    "tipo": "tipo3",
+    "enunciado": "Combine cada variável ao valor correspondente.",
+    "alternativas": ["nome", "idade", "altura", "Ana", "18", "1.65"],
+    "explicacao": "nome → Ana, idade → 18, altura → 1.65.",
+    "valores1": [0, 1, 2],
+    "valores2": [3, 4, 5]
+  },
+  {
+    "tipo": "curiosidade",
+    "enunciado": "Curiosidade sobre variáveis",
+    "alternativas": [],
+    "explicacao": "",
+    "conteudo": "Em muitas linguagens, nomes de variáveis não podem começar com números e não devem conter espaços. É comum usar sublinhado_ouCamelCase."
+  }
+]
