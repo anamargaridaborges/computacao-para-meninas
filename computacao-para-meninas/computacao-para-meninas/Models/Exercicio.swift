@@ -6,7 +6,7 @@
 //
 
 enum TipoExercicio: Decodable {
-    case tipo3([Int], [Int])
+    case relacionarColunas([Int], [Int])
     case ordenar([String])
     case tipo1(Int, String)
     case curiosidade(String)
@@ -30,10 +30,10 @@ enum TipoExercicio: Decodable {
         let tipo = try container.decode(String.self, forKey: .tipo)
 
         switch tipo {
-        case "tipo3":
+        case "relacionarColunas":
             let v1 = try container.decode([Int].self, forKey: .valores1)
             let v2 = try container.decode([Int].self, forKey: .valores2)
-            self = .tipo3(v1, v2)
+            self = .relacionarColunas(v1, v2)
         case "ordenar":
             let v1 = try container.decode([String].self, forKey: .linhas)
             self = .ordenar(v1)
