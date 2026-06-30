@@ -14,6 +14,7 @@ struct CardAlternativaExercicio1: View {
     let idSelecionado: Int
     let resposta: Int
     let continuado: Bool
+    let texto: String
 
     var body: some View {
         ZStack {
@@ -21,7 +22,7 @@ struct CardAlternativaExercicio1: View {
                 .fill(Color("LightestGray"))
                 .stroke(strokeColor(), lineWidth: (idSelecionado == idx ? 4 : 2))
                 .frame(width: 80, height: 60)
-            Text(exercicios[idExercicio].alternativas[idx])
+            Text(texto)
                 .foregroundStyle(Color.black)
                 .frame(width: 60)
                 .multilineTextAlignment(.leading)

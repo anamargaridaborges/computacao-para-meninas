@@ -7,8 +7,6 @@
 
 import Foundation
 
-@MainActor var exercicios: [Exercicio] = load("LerExercicios.json")
-
 func load<T: Decodable>(_ filename: String) -> T {
 
         let data: Data
@@ -40,10 +38,12 @@ func load<T: Decodable>(_ filename: String) -> T {
 /// isn't found or if decoding fails.
 func loadIfPresent<T: Decodable>(_ filename: String) -> T? {
     guard let file = Bundle.main.url(forResource: filename, withExtension: nil) else {
+        print("File \(filename) not found")
         return nil
     }
     do {
         let data = try Data(contentsOf: file)
+        print("DATA OF \(filename): \(data)")
         let decoder = JSONDecoder()
         return try decoder.decode(T.self, from: data)
     } catch {

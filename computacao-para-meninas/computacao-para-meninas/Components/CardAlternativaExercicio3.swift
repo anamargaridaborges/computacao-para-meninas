@@ -14,6 +14,8 @@ struct CardAlternativaExercicio3: View {
     let selecionado: Int
     let erro: Int
     let desativado: Bool
+    
+    let alternativa: String
 
     var body: some View {
         ZStack {
@@ -21,7 +23,7 @@ struct CardAlternativaExercicio3: View {
                 .fill((desativado ? Color("LightGreen") : Color("LightestGray")))
                 .stroke(strokeColor(), lineWidth: (desativado ? 4 : selecionado == idx ? 8 : 4))
                 .frame(width: 150, height: 130)
-            Text(exercicios[idExercicio].alternativas[idx])
+            Text(alternativa)
                 .foregroundStyle((desativado ? Color("DarkGreen") : Color.black))
                 .frame(width: 120)
                 .multilineTextAlignment(.leading)

@@ -16,10 +16,12 @@ struct ExercicioTeoricoView: View {
     let texto: String
     let imagem: String?
     let dica: String?
+    
+    let exercicio: Exercicio
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(exercicios[idExercicio].enunciado)
+            Text(exercicio.enunciado)
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .fixedSize(horizontal: false, vertical: true)
 

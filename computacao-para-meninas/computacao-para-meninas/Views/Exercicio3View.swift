@@ -25,6 +25,8 @@ struct Exercicio3View: View {
     @State var continuarDesativado: Bool = true
     @State private var estadoFeedback: EstadoFeedback = .neutro
     @State private var mensagemErro: String = ""
+    
+    let alternativas: [String]
 
     var body: some View {
             VStack {
@@ -38,7 +40,7 @@ struct Exercicio3View: View {
 //                .padding()
                 HStack {
                     VStack {
-                        ForEach(0..<exercicios[idExercicio].alternativas.count / 2, id : \.self) { i in
+                        ForEach(0 ..< alternativas.count / 2, id : \.self) { i in
                             Button (action: {
                                 if desativado[i] {
                                     return
@@ -47,7 +49,12 @@ struct Exercicio3View: View {
                                     selecionado1 = i
                                 }
                             }) {
-                                CardAlternativaExercicio3(idx: i, idExercicio: idExercicio, selecionado: selecionado1, erro: erro1, desativado: desativado[i])
+                                CardAlternativaExercicio3(idx: i,
+                                    idExercicio: idExercicio,
+                                    selecionado: selecionado1,
+                                    erro: erro1,
+                                    desativado: desativado[i],
+                                    alternativa: alternativas[i])
                             }
                             .accessibilityIdentifier("card_\(i)")
                             .disabled(desativado[i])
@@ -56,7 +63,7 @@ struct Exercicio3View: View {
                     .padding(5)
 
                     VStack {
-                        ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
+                        ForEach(alternativas.count / 2 ..< alternativas.count, id : \.self) { i in
                             Button (action: {
                                 if desativado[i] {
                                     return
@@ -65,7 +72,13 @@ struct Exercicio3View: View {
                                     selecionado2 = i
                                 }
                             }) {
-                                CardAlternativaExercicio3(idx: i, idExercicio: idExercicio, selecionado: selecionado2, erro: erro2, desativado: desativado[i])
+                                CardAlternativaExercicio3(
+                                    idx: i,
+                                    idExercicio: idExercicio,
+                                    selecionado: selecionado2,
+                                    erro: erro2,
+                                    desativado: desativado[i],
+                                    alternativa: alternativas[i])
                             }
                             .accessibilityIdentifier("card_\(i)")
                             .disabled(desativado[i])
@@ -161,6 +174,7 @@ struct Exercicio3View: View {
         exercicioAtual: 1,
         vetor1: [0, 1, 2],
         vetor2: [3, 4, 5],
-        desativado: [false, false, false, false, false, false]
+        desativado: [false, false, false, false, false, false],
+        alternativas: ["opcao1", "opcao2", "opcao3", "opcao4", "opcao5",]
     )
 }
