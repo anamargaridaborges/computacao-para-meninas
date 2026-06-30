@@ -35,67 +35,12 @@ struct ExercicioGeralView: View {
             Text("Sem exercícios para esta atividade.")
         } else {
             VStack {
-                // aqui vai resetando os cards a cada licao
-                switch viewModel.exercicioAtual.tipo {
-                case .ordenar(let vetor):
-                    let vm = OrdenarViewModel(
-                        numeroExercicios: viewModel.totalRodadas,
-                        vetor: vetor,
-                        aoConcluirRodada: {
-                            viewModel.proximaEtapa()
-                        }
-                    )
-                    ExercicioOrdenarView(ordenarViewModel: vm)
-                        .id(viewModel.rodadaAtual)
-                case .relacionarColunas(let primeiro, let segundo):
-                    let vm = RelacionarColunasViewModel(
-                        vetor1: primeiro,
-                        vetor2: segundo,
-                        exercicio: viewModel.exercicioAtual,
-                        aoConcluirRodada: {
-                            viewModel.proximaEtapa()
-                        }
-                    )
-                    
-                    RelacionarColunasView(
-                        viewModel: vm,
-                    )
-                    .id(viewModel.rodadaAtual)
-                    
-                case .multiplaEscolha(let resposta, let codigo):
-                    let vm = MultiplaEscolhaViewModel(
-                        resposta: resposta,
-                        codigo: codigo,
-                        exercicio: viewModel.exercicioAtual,
-                        onConcluirAtividade: {
-                            viewModel.proximaEtapa()
-                        })
-                    
-                    MultiplaEscolhaView(
-                        viewModel: vm,
-                        resposta: resposta,
-                        codigo: codigo
-                    )
-                    .id(viewModel.rodadaAtual)
-                case .curiosidade(let conteudo):
-                    ExercicioCuriosidadeView(
-                        aoConcluirRodada: {
-                            viewModel.proximaEtapa()
-                        },
-                    curiosidade: conteudo)
-
-                case .conteudoTeorico(let texto, let imagem, let dica):
-                    let vm = ExercicioTeoricoViewModel(
-                        exercicio: viewModel.exercicioAtual,
-                        texto: texto,
-                        imagem: imagem,
-                        dica: dica,
-                        onConcluirAtividade: {
-                            viewModel.proximaEtapa()
-                        })
-                    ExercicioTeoricoView(viewModel: vm)
-                        .id(viewModel.rodadaAtual)
-                }
+                viewModel.exercicioAtual.tipo.strategy.criarView(
+                    exercicio: viewModel.exercicioAtual,
+                    rodadaAtual: viewModel.rodadaAtual,
+                    aoConcluirRodada: { viewModel.proximaEtapa() }
+                )
+                
                 Spacer()
             }
             .safeAreaInset(edge: .top) {

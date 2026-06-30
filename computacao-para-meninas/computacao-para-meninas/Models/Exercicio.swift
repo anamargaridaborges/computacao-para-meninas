@@ -59,6 +59,23 @@ enum TipoExercicio: Decodable {
     }
 }
 
+extension TipoExercicio {
+    var strategy: ExercicioStrategy {
+        switch self {
+        case .ordenar(let vetor):
+            return OrdenarStrategy(vetor: vetor)
+        case .relacionarColunas(let primeiro, let segundo):
+            return RelacionarColunasStrategy(primeiro: primeiro, segundo: segundo)
+        case .multiplaEscolha(let resposta, let codigo):
+            return MultiplaEscolhaStrategy(resposta: resposta, codigo: codigo)
+        case .curiosidade(let conteudo):
+            return CuriosidadeStrategy(conteudo: conteudo)
+        case .conteudoTeorico(let texto, let imagem, let dica):
+            return ConteudoTeoricoStrategy(texto: texto, imagem: imagem, dica: dica)
+        }
+    }
+}
+
 struct Exercicio: Decodable {
     var tipo: TipoExercicio
     var enunciado: String
