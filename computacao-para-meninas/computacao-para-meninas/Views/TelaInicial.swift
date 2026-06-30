@@ -33,56 +33,56 @@ struct HomeView: View {
                 idDependencia: nil,
                 titulo: "Variáveis",
                 icone: "</>",
-                offsetX: -80
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "TiposDeDados",
                 idDependencia: "Variaveis",
                 titulo: "Tipos de Dados",
                 icone: "#",
-                offsetX: 110
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "Condicionais",
                 idDependencia: "TiposDeDados",
                 titulo: "Condicionais",
                 icone: "%",
-                offsetX: -30
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "Operadores",
                 idDependencia: "Condicionais",
                 titulo: "Operadores",
                 icone: "%",
-                offsetX: -30
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "Loops",
                 idDependencia: "Operadores",
                 titulo: "Loops",
                 icone: "%",
-                offsetX: -30
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "Listas",
                 idDependencia: "Loops",
                 titulo: "Listas",
                 icone: "%",
-                offsetX: -30
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "Funcoes",
                 idDependencia: "Listas",
                 titulo: "Funções",
                 icone: "%",
-                offsetX: -30
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "historia_1",
                 idDependencia: "Funcoes",
                 titulo: "O Desafio dos Tipos",
                 icone: "book.pages.fill",
-                offsetX: -100,
+                offsetX: 0,
                 tipo: .historia,
                 usaSFSymbol: true
             ),
@@ -149,13 +149,13 @@ struct HomeView: View {
                                 .padding(.top, botao.id == "historia_1" ? 70 : 0)
                                 
                                 // Ada e exercício 3
-                                if index == 1 {
-                                    HStack(alignment: .bottom) {
-                                        Image("AdaLovelace")
-                                            .resizable().scaledToFit().frame(width: 150)
-                                            .padding(.leading, 30).offset(y: -80)
-                                        
-                                        Spacer()
+//                                if index == 1 {
+//                                    HStack(alignment: .bottom) {
+//                                        Image("AdaLovelace")
+//                                            .resizable().scaledToFit().frame(width: 150)
+//                                            .padding(.leading, 30).offset(y: -80)
+//                                        
+//                                        Spacer()
                                         
 //                                        let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
 //                                        
@@ -187,22 +187,22 @@ struct HomeView: View {
                                 }
                                 
                                 // Personagem e história interativa
-                                if index == 3 {
-                                    HStack(alignment: .bottom) {
-                                        Image("KatherineJohnson")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 150)
-                                            .padding(.leading, 30)
-                                            .offset(y: -200)
-                                            .offset(x: 180)
-                                        
-                                        Spacer()
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.top, 16).padding(.bottom, 40)
+//                                if index == 3 {
+//                                    HStack(alignment: .bottom) {
+//                                        Image("KatherineJohnson")
+//                                            .resizable()
+//                                            .scaledToFit()
+//                                            .frame(width: 150)
+//                                            .padding(.leading, 30)
+//                                            .offset(y: -200)
+//                                            .offset(x: 180)
+//                                        
+//                                        Spacer()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.top, 16).padding(.bottom, 40)
                     }
                     
                     Spacer()
