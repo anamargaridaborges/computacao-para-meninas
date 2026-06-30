@@ -1,0 +1,78 @@
+[
+  {
+    "tipo": {
+      "tipo": "conteudoTeorico",
+      "texto": "Na programação, seu código precisa tomar decisões, assim como você faz ao olhar a previsão do tempo. Usamos a instrução 'if' (se) para instruir o programa a executar uma ação apenas se uma condição for verdadeira.",
+      "imagem": "ImagemCondicional"
+    },
+    "enunciado": "Tomando decisões",
+    "alternativas": [],
+    "explicacao": ""
+  },
+  {
+    "tipo": {
+      "tipo": "conteudoTeorico",
+      "texto": "Quando a condição do 'if' não é atendida, usamos o 'else' (senão) para fornecer um caminho alternativo. Se houver várias condições diferentes para testar, utilizamos o 'elif' (uma junção de 'else' e 'if').",
+      "imagem": "ImagemElifElse"
+    },
+    "enunciado": "E se não for verdade?",
+    "alternativas": [],
+    "explicacao": ""
+  },
+  {
+    "tipo": {
+      "tipo": "tipo1",
+      "resposta": 1,
+      "codigo": "idade = 15\nif idade >= 18:\n    print(\"Pode entrar\")\nelse:\n    print(\"Não pode entrar\")\n"
+    },
+    "enunciado": "O que será impresso ao executar o código acima?",
+    "alternativas": [
+      "Pode entrar",
+      "Não pode entrar",
+      "Erro",
+      "Nada"
+    ],
+    "explicacao": "Como a variável idade (15) não é maior ou igual a 18, a condição do 'if' é falsa. Portanto, o código ignora o 'if' e executa o bloco do 'else'."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "nota = 8",
+        "if nota >= 7:",
+        "    print(\"Aprovado\")",
+        "else:",
+        "    print(\"Reprovado\")"
+      ]
+    },
+    "enunciado": "Ordene as linhas para criar um programa que verifica se o aluno foi aprovado.",
+    "alternativas": [],
+    "explicacao": "Primeiro definimos o valor da variável, depois abrimos a condição 'if' seguida do que acontece se for verdade. Depois, abrimos o 'else' e definimos o que acontece se for falso."
+  },
+  {
+    "tipo": {
+      "tipo": "tipo3",
+      "valores1": [0, 1, 2],
+      "valores2": [4, 5, 3]
+    },
+    "enunciado": "Associe os operadores de comparação ao seu significado.",
+    "alternativas": [
+      "==",
+      "!=",
+      ">=",
+      "Maior ou igual a",
+      "Igual a",
+      "Diferente de"
+    ],
+    "explicacao": "O operador '==' compara se dois valores são iguais, '!=' significa diferente, e '>=' verifica se o valor da esquerda é maior ou igual ao da direita."
+  },
+  {
+    "tipo": {
+      "tipo": "curiosidade",
+      "conteudo": "Um erro muito comum no começo é usar um único sinal de igual (=) para comparar coisas dentro do if. Lembre-se: '=' guarda valor na variável (atribuição), enquanto '==' compara valores!"
+    },
+    "enunciado": "Cuidado com o sinal de igual!",
+    "alternativas": [],
+    "explicacao": ""
+  }
+]

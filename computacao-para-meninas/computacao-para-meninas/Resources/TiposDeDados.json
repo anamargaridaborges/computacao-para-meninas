@@ -1,0 +1,109 @@
+[
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "O Python é super inteligente e sabe diferenciar os tipos de informação que guardamos. Os três principais são:\n• String (str): Textos (sempre entre aspas).\n• Integer (int): Números inteiros (como sua idade).\n• Float: Números com ponto decimal (como a altura)."
+        },
+        "enunciado": "Cada coisa no seu lugar",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "tipo3",
+            "valores1": [0, 1, 2],
+            "valores2": [5, 3, 4]
+        },
+        "enunciado": "Ligue a variável com seu tipo",
+        "alternativas": [
+            "x = [1, 2, 3]",
+            "y = 3.14",
+            "z = \"Olá Mundo!\"",
+            "float",
+            "str",
+            "list"
+        ],
+        "explicacao": "Cada variável tem apenas um tipo certo. Olhe o valor dela — listas usam colchetes [ ], números com ponto são float, e textos ficam entre aspas."
+    },
+    {
+        "tipo": {
+            "tipo": "tipo3",
+            "valores1": [0, 1, 2],
+            "valores2": [5, 3, 4]
+        },
+        "enunciado": "Ligue a variável ao seu tipo",
+        "alternativas": [
+            "pontos = 100",
+            "media = 7.5",
+            "apelido = \"Lia\"",
+            "float",
+            "str",
+            "int"
+        ],
+        "explicacao": "Olhe o valor de cada variável: sem casas decimais é int, com ponto é float, e entre aspas é str."
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Existe um tipo de dado crucial para a lógica: o Boolean (bool). Ele só aceita dois valores: True (Verdadeiro) ou False (Falso).",
+            "imagem": "ImagemBool",
+            "dica": "Em Python, a primeira letra precisa ser sempre maiúscula!"
+        },
+        "enunciado": "O tipo da verdade",
+        "alternativas": [],
+        "explicacao": ""
+    },
+
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Às vezes precisamos transformar um tipo em outro — isso se chama conversão. Para fazer isso usamos funções:\n• int() transforma em número inteiro.\n• float() transforma em número decimal.\n• str() transforma em texto.",
+            "imagem": "ImagemConversao",
+            "dica": "O input() sempre devolve um texto (str). Para fazer contas, converta antes com int() ou float()!"
+        },
+        "enunciado": "Trocando de roupa: conversão de tipos",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "tipo1",
+            "resposta": 1,
+            "codigo": "idade = input(\"Quantos anos você tem? \")\nano_que_vem = ____(idade) + 1\nprint(ano_que_vem)"
+        },
+        "enunciado": "Selecione a opção que completa o código",
+        "alternativas": [
+            "str",
+            "int",
+            "float",
+            "len",
+            "bool",
+            "print"
+        ],
+        "explicacao": "O input() devolve um texto. Para somar com 1, primeiro convertemos a idade em número inteiro com int()."
+    },
+    {
+        "tipo": {
+            "tipo": "ordenar",
+            "linhas": [
+                "nota1 = float(input())",
+                "nota2 = float(input())",
+                "media = (nota1 + nota2) / 2",
+                "print(media)"
+            ]
+        },
+        "enunciado": "Ordene o código para calcular a média de duas notas",
+        "explicacao": "Primeiro lemos as duas notas como float, depois calculamos a média e, por fim, mostramos o resultado.",
+        "alternativas": [],
+    },
+
+    {
+        "tipo": {
+            "tipo": "curiosidade",
+            "conteudo": "A pioneira Grace Hopper ajudou a criar as primeiras linguagens com palavras parecidas com as nossas, em vez de só números. Graças a ideias assim, hoje conseguimos escrever nome = \"Ana\" em vez de uma sequência enorme de zeros e uns!"
+        },
+        "enunciado": "Você sabia?",
+        "alternativas": [],
+        "explicacao": ""
+    }
+]

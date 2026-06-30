@@ -1,0 +1,77 @@
+[
+  {
+    "tipo": {
+      "tipo": "conteudoTeorico",
+      "texto": "Uma Função é um bloco de código que realiza uma tarefa específica e que você pode reutilizar quantas vezes quiser. É como uma receita de bolo: você define os passos uma vez e pode fazer o bolo sempre que der vontade, sem precisar reescrever a receita. Em Python, começamos a criar uma função com a palavra 'def'.",
+      "imagem": "ImagemFuncao"
+    },
+    "enunciado": "Seus próprios blocos de montar",
+    "alternativas": [],
+    "explicacao": ""
+  },
+  {
+    "tipo": {
+      "tipo": "conteudoTeorico",
+      "texto": "Funções podem receber informações para trabalhar, chamadas de parâmetros (ou argumentos). Colocamos esses parâmetros dentro dos parênteses. Assim, a mesma função pode gerar resultados personalizados dependendo do que você envia para ela!",
+      "imagem": "ImagemParametros"
+    },
+    "enunciado": "Personalizando com parâmetros",
+    "alternativas": [],
+    "explicacao": ""
+  },
+  {
+    "tipo": {
+      "tipo": "tipo1",
+      "resposta": 0,
+      "codigo": "def saudacao(nome):\n    print(\"Olá, \" + nome)\n\nsaudacao(\"Maria\")\n"
+    },
+    "enunciado": "O que será impresso ao executar este código?",
+    "alternativas": [
+      "Olá, Maria",
+      "Olá, nome",
+      "Erro",
+      "Maria"
+    ],
+    "explicacao": "A função 'saudacao' recebe o parâmetro 'nome'. Ao chamarmos saudacao(\"Maria\"), o computador substitui a variável 'nome' pelo texto \"Maria\" e imprime a mensagem."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "def somar(a, b):",
+        "    total = a + b",
+        "    print(total)",
+        "somar(5, 3)"
+      ]
+    },
+    "enunciado": "Ordene as linhas para criar uma função de soma e depois usá-la.",
+    "alternativas": [],
+    "explicacao": "Primeiro, usamos 'def' para definir a função e seus parâmetros (a, b). Depois, indentamos o que ela deve fazer (somar e imprimir). Por último, fora do bloco da função, nós a chamamos passando os números 5 e 3."
+  },
+  {
+    "tipo": {
+      "tipo": "tipo3",
+      "valores1": [0, 1, 2],
+      "valores2": [3, 4, 5]
+    },
+    "enunciado": "Ligue cada termo ao seu significado correto.",
+    "alternativas": [
+      "def",
+      "Parâmetro",
+      "Chamada da Função",
+      "Palavra usada para iniciar a criação",
+      "Informação enviada para a função usar",
+      "Ato de executar a função pronta no código"
+    ],
+    "explicacao": "Usamos 'def' para definir (criar) a função. O parâmetro é a variável que recebe a informação. A chamada é quando escrevemos o nome da função no código para que ela efetivamente rode."
+  },
+  {
+    "tipo": {
+      "tipo": "curiosidade",
+      "conteudo": "Margaret Hamilton incluiu no software da Apollo 11 um sistema de priorização de tarefas que, durante a alvorada do pouso lunar, ignorou comandos secundários e evitou que o computador travasse, salvando a missão a poucos minutos do pouso."
+    },
+    "enunciado": "Você sabia?",
+    "alternativas": [],
+    "explicacao": ""
+  }
+]

@@ -1,0 +1,78 @@
+
+[
+  {
+    "tipo": {
+      "tipo": "conteudoTeorico",
+      "texto": "Computadores são excelentes em realizar tarefas repetitivas. Em vez de escrever a mesma linha de código várias vezes, usamos um Laço (Loop). O laço 'for' (para), por exemplo, repete uma ação para cada item de uma sequência, poupando muito tempo e esforço.",
+      "imagem": "ImagemFor"
+    },
+    "enunciado": "Não repita, use laços!",
+    "alternativas": [],
+    "explicacao": ""
+  },
+  {
+    "tipo": {
+      "tipo": "conteudoTeorico",
+      "texto": "Além do 'for', temos o laço 'while' (enquanto). Diferente de uma sequência fixa, ele continua repetindo um bloco de código enquanto uma determinada condição for verdadeira.",
+      "dica": "Cuidado: se a condição nunca mudar para False, seu programa ficará preso para sempre no temido loop infinito!"
+    },
+    "enunciado": "Até que a condição mude: o while",
+    "alternativas": [],
+    "explicacao": ""
+  },
+  {
+    "tipo": {
+      "tipo": "tipo1",
+      "resposta": 2,
+      "codigo": "voltas = 0\nwhile voltas < 3:\n    print(\"Correndo...\")\n    voltas = voltas + 1\n"
+    },
+    "enunciado": "Quantas vezes a palavra \"Correndo...\" será exibida na tela?",
+    "alternativas": [
+      "1 vez",
+      "2 vezes",
+      "3 vezes",
+      "Infinitas vezes"
+    ],
+    "explicacao": "O laço começa com 'voltas' em 0 e repete enquanto for menor que 3. Ele roda para voltas = 0, 1 e 2, exibindo o texto exatamente 3 vezes antes de parar."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "lista_amigas = [\"Bia\", \"Carol\", \"Dani\"]",
+        "for amiga in lista_amigas:",
+        "    print(\"Olá,\")",
+        "    print(amiga)"
+      ]
+    },
+    "enunciado": "Ordene as linhas para criar um laço que dê 'Olá' para cada amiga da lista.",
+    "alternativas": [],
+    "explicacao": "Primeiro, criamos a lista com os nomes. Depois, iniciamos o laço 'for' para percorrer cada item. Por fim, colocamos os comandos de impressão dentro do laço (identados)."
+  },
+  {
+    "tipo": {
+      "tipo": "tipo3",
+      "valores1": [0, 1, 2],
+      "valores2": [4, 5, 3]
+    },
+    "enunciado": "Ligue cada conceito de repetição à sua definição correta.",
+    "alternativas": [
+      "Laço For",
+      "Loop Infinito",
+      "Laço While",
+      "Repete ENQUANTO algo for verdade",
+      "Repete PARA cada item de uma lista",
+      "Repete sem parar porque a condição nunca fica falsa"
+    ],
+    "explicacao": "O 'for' passa por itens conhecidos (como uma lista). O loop infinito é um erro de lógica. E o 'while' depende de uma condição verdadeira para continuar rodando."
+  },
+  {
+    "tipo": {
+      "tipo": "curiosidade",
+      "conteudo": "Ada Lovelace, ao trabalhar com a Máquina Analítica de Babbage, percebeu que uma máquina poderia ir além de cálculos numéricos e manipular símbolos para criar música e arte, antecipando a ideia de computador de uso geral mais de um século antes de ele existir."
+    },
+    "enunciado": "Você sabia?",
+    "alternativas": [],
+    "explicacao": ""
+  }
+]

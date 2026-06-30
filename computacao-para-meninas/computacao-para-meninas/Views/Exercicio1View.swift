@@ -23,6 +23,8 @@ struct Exercicio1View: View {
     @Binding var estadoFeedback: EstadoFeedback
     let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
 
+    let exercicio: Exercicio
+    
     var body: some View {
         ZStack (alignment: .bottom) {
             VStack {
@@ -47,12 +49,18 @@ struct Exercicio1View: View {
                 }
                 
                 HStack {
-                    ForEach(0..<exercicios[idExercicio].alternativas.count/2, id : \.self) { i in
+                    ForEach(0 ..< exercicio.alternativas.count/2, id : \.self) { i in
                         Button (action: {
                             botaoAtivo = true
                             idSelecionado = i
                         }) {
-                            CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
+                            CardAlternativaExercicio1(
+                                idx: i,
+                                idExercicio: idExercicio,
+                                idSelecionado: idSelecionado,
+                                resposta: resposta,
+                                continuado: continuado,
+                                texto: exercicio.alternativas[i])
                         }
                         .accessibilityIdentifier("card1_\(i)")
                     }
@@ -60,12 +68,18 @@ struct Exercicio1View: View {
                 .padding(2)
                 
                 HStack {
-                    ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
+                    ForEach(exercicio.alternativas.count / 2 ..< exercicio.alternativas.count, id : \.self) { i in
                         Button (action: {
                             botaoAtivo = true
                             idSelecionado = i
                         }) {
-                            CardAlternativaExercicio1(idx: i, idExercicio: idExercicio, idSelecionado: idSelecionado, resposta: resposta, continuado: continuado)
+                            CardAlternativaExercicio1(
+                                idx: i,
+                                idExercicio: idExercicio,
+                                idSelecionado: idSelecionado,
+                                resposta: resposta,
+                                continuado: continuado,
+                                texto: exercicio.alternativas[i])
                         }
                         .accessibilityIdentifier("card1_\(i)")
                     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject private var viewModel = TrilhaViewModel()
-    let nomeModulo: String = "Variáveis"
+    let nomeModulo: String = "Programação"
     
     enum TipoBotaoTrilha {
         case exercicio
@@ -29,32 +29,60 @@ struct HomeView: View {
     var botoesTrilha: [BotaoTrilha] {
         [
             BotaoTrilha(
-                id: "atv_1",
+                id: "Variaveis",
                 idDependencia: nil,
-                titulo: "Exercício 1",
+                titulo: "Variáveis",
                 icone: "</>",
-                offsetX: -80
+                offsetX: 0
             ),
             BotaoTrilha(
-                id: "atv_2",
-                idDependencia: "atv_1",
-                titulo: "Exercício 2",
+                id: "TiposDeDados",
+                idDependencia: "Variaveis",
+                titulo: "Tipos de Dados",
                 icone: "#",
-                offsetX: 110
+                offsetX: 0
             ),
             BotaoTrilha(
-                id: "atv_4",
-                idDependencia: "atv_3",
-                titulo: "Exercício 4",
+                id: "Condicionais",
+                idDependencia: "TiposDeDados",
+                titulo: "Condicionais",
                 icone: "%",
-                offsetX: -30
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Operadores",
+                idDependencia: "Condicionais",
+                titulo: "Operadores",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Loops",
+                idDependencia: "Operadores",
+                titulo: "Loops",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Listas",
+                idDependencia: "Loops",
+                titulo: "Listas",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Funcoes",
+                idDependencia: "Listas",
+                titulo: "Funções",
+                icone: "%",
+                offsetX: 0
             ),
             BotaoTrilha(
                 id: "historia_1",
-                idDependencia: "atv_4",
+                idDependencia: "Funcoes",
                 titulo: "O Desafio dos Tipos",
                 icone: "book.pages.fill",
-                offsetX: -100,
+                offsetX: 0,
                 tipo: .historia,
                 usaSFSymbol: true
             ),
@@ -121,60 +149,60 @@ struct HomeView: View {
                                 .padding(.top, botao.id == "historia_1" ? 70 : 0)
                                 
                                 // Ada e exercício 3
-                                if index == 1 {
-                                    HStack(alignment: .bottom) {
-                                        Image("AdaLovelace")
-                                            .resizable().scaledToFit().frame(width: 150)
-                                            .padding(.leading, 30).offset(y: -80)
+//                                if index == 1 {
+//                                    HStack(alignment: .bottom) {
+//                                        Image("AdaLovelace")
+//                                            .resizable().scaledToFit().frame(width: 150)
+//                                            .padding(.leading, 30).offset(y: -80)
+//                                        
+//                                        Spacer()
                                         
-                                        Spacer()
-                                        
-                                        let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
-                                        
-                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
-                                            VStack(spacing: 8) {
-                                                ZStack {
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .fill(ex3Livre ? Color("Color2Button") : Color("Gray"))
-                                                        .frame(width: 80, height: 80).offset(x: 5, y: 5)
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .fill(ex3Livre ? Color("Color1Button") : Color("Color3Button"))
-                                                        .frame(width: 80, height: 80)
-                                                        .overlay(
-                                                            RoundedRectangle(cornerRadius: 16)
-                                                                .stroke(ex3Livre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
-                                                        )
-                                                    Text("{ }")
-                                                        .font(.system(size: 32, weight: .bold, design: .rounded))
-                                                        .foregroundStyle(Color.black)
-                                                }
-                                                Text("Exercício 3")
-                                                    .font(.system(.caption, design: .rounded, weight: .bold))
-                                                    .foregroundStyle(ex3Livre ? Color("AccentColor") : Color("Gray"))
-                                            }
-                                        }
-                                        .disabled(!ex3Livre)
-                                        .padding(.trailing, 100).padding(.bottom, 70)
+//                                        let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
+//                                        
+//                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
+//                                            VStack(spacing: 8) {
+//                                                ZStack {
+//                                                    RoundedRectangle(cornerRadius: 16)
+//                                                        .fill(ex3Livre ? Color("Color2Button") : Color("Gray"))
+//                                                        .frame(width: 80, height: 80).offset(x: 5, y: 5)
+//                                                    RoundedRectangle(cornerRadius: 16)
+//                                                        .fill(ex3Livre ? Color("Color1Button") : Color("Color3Button"))
+//                                                        .frame(width: 80, height: 80)
+//                                                        .overlay(
+//                                                            RoundedRectangle(cornerRadius: 16)
+//                                                                .stroke(ex3Livre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
+//                                                        )
+//                                                    Text("{ }")
+//                                                        .font(.system(size: 32, weight: .bold, design: .rounded))
+//                                                        .foregroundStyle(Color.black)
+//                                                }
+////                                                Text("Exercício 3")
+////                                                    .font(.system(.caption, design: .rounded, weight: .bold))
+////                                                    .foregroundStyle(ex3Livre ? Color("AccentColor") : Color("Gray"))
+//                                            }
+//                                        }
+//                                        .disabled(!ex3Livre)
+//                                        .padding(.trailing, 100).padding(.bottom, 70)
                                     }
                                 }
                                 
                                 // Personagem e história interativa
-                                if index == 3 {
-                                    HStack(alignment: .bottom) {
-                                        Image("KatherineJohnson")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 150)
-                                            .padding(.leading, 30)
-                                            .offset(y: -200)
-                                            .offset(x: 180)
-                                        
-                                        Spacer()
-                                    }
-                                }
-                            }
-                        }
-                        .padding(.top, 16).padding(.bottom, 40)
+//                                if index == 3 {
+//                                    HStack(alignment: .bottom) {
+//                                        Image("KatherineJohnson")
+//                                            .resizable()
+//                                            .scaledToFit()
+//                                            .frame(width: 150)
+//                                            .padding(.leading, 30)
+//                                            .offset(y: -200)
+//                                            .offset(x: 180)
+//                                        
+//                                        Spacer()
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        .padding(.top, 16).padding(.bottom, 40)
                     }
                     
                     Spacer()

@@ -12,8 +12,9 @@ struct ExercicioGeralView: View {
     var idx: Int
     let idAtividade: String
     @State private var rodadaAtual: Int = 0
+    @State private var exercicios: [Exercicio] = []
 
-    let totalDeRodadas: Int
+    @State var totalDeRodadas: Int = 0
     @State var estadoFeedback: EstadoFeedback = .neutro
     let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
     @State var idSelecionado: Int = -1
@@ -33,10 +34,17 @@ struct ExercicioGeralView: View {
         self.idAtividade = idAtividade
         _rodadaAtual = State(initialValue: rodadaAtual)
 
-        self.totalDeRodadas = exercicios.count
+        // Minimal change: load per-activity exercises if available
+        if let activityExercises: [Exercicio] = loadExercisesForActivity(idAtividade: idAtividade) {
+            _exercicios = State(initialValue: activityExercises)
+            _totalDeRodadas = State(initialValue: activityExercises.count)
+        }
     }
     
     var body: some View {
+        if totalDeRodadas == 0 {
+            Text("Sem exercícios para esta atividade.")
+        } else {
             VStack {
                 // aqui vai resetando os cards a cada licao
                 switch exercicios[rodadaAtual].tipo {
@@ -64,7 +72,8 @@ struct ExercicioGeralView: View {
                         exercicioAtual: rodadaAtual,
                         vetor1: primeiro,
                         vetor2: segundo,
-                        desativado: Array(repeating: false, count: exercicios[rodadaAtual].alternativas.count)
+                        desativado: Array(repeating: false, count: exercicios[rodadaAtual].alternativas.count,),
+                        alternativas: exercicios[rodadaAtual].alternativas
                     )
                     .id(rodadaAtual)
                     
@@ -81,7 +90,8 @@ struct ExercicioGeralView: View {
                         resposta: resposta,
                         codigo: codigo,
                         idSelecionado: $idSelecionado,
-                        estadoFeedback: $estadoFeedback
+                        estadoFeedback: $estadoFeedback,
+                        exercicio: exercicios[rodadaAtual]
                     )
                     .id(rodadaAtual)
                 case .curiosidade(let conteudo):
@@ -102,7 +112,8 @@ struct ExercicioGeralView: View {
                         exercicioAtual: rodadaAtual,
                         texto: texto,
                         imagem: imagem,
-                        dica: dica
+                        dica: dica,
+                        exercicio: exercicios[rodadaAtual]
                     )
                     .id(rodadaAtual)
                 }
@@ -175,6 +186,7 @@ struct ExercicioGeralView: View {
                 }
             }
             .animation(.spring(response: 0.35), value: estadoFeedback)
+        }
         
     }
     
@@ -189,3 +201,4 @@ struct ExercicioGeralView: View {
 }
 #Preview {
     ExercicioGeralView(viewModel: TrilhaViewModel(), idx: 0, idAtividade: "atv_1")}
+
