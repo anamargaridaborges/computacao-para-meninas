@@ -29,7 +29,7 @@ struct HomeView: View {
     var botoesTrilha: [BotaoTrilha] {
         [
             BotaoTrilha(
-                id: "atv_1",
+                id: "Variaveis",
                 idDependencia: nil,
                 titulo: "Variáveis",
                 icone: "</>",
@@ -37,49 +37,49 @@ struct HomeView: View {
             ),
             BotaoTrilha(
                 id: "TiposDeDados",
-                idDependencia: "atv_1",
+                idDependencia: "Variaveis",
                 titulo: "Tipos de Dados",
                 icone: "#",
                 offsetX: 110
             ),
             BotaoTrilha(
                 id: "Condicionais",
-                idDependencia: "Exercicios_atv_2",
+                idDependencia: "TiposDeDados",
                 titulo: "Condicionais",
                 icone: "%",
                 offsetX: -30
             ),
             BotaoTrilha(
-                id: "atv_5",
-                idDependencia: "atv_4",
+                id: "Operadores",
+                idDependencia: "Condicionais",
                 titulo: "Operadores",
                 icone: "%",
                 offsetX: -30
             ),
             BotaoTrilha(
-                id: "atv_6",
-                idDependencia: "atv_5",
-                titulo: "Laços",
+                id: "Loops",
+                idDependencia: "Operadores",
+                titulo: "Loops",
                 icone: "%",
                 offsetX: -30
             ),
             BotaoTrilha(
-                id: "atv_7",
-                idDependencia: "atv_6",
+                id: "Listas",
+                idDependencia: "Loops",
                 titulo: "Listas",
                 icone: "%",
                 offsetX: -30
             ),
             BotaoTrilha(
-                id: "atv_8",
-                idDependencia: "atv_7",
+                id: "Funcoes",
+                idDependencia: "Listas",
                 titulo: "Funções",
                 icone: "%",
                 offsetX: -30
             ),
             BotaoTrilha(
                 id: "historia_1",
-                idDependencia: "atv_4",
+                idDependencia: "Funcoes",
                 titulo: "O Desafio dos Tipos",
                 icone: "book.pages.fill",
                 offsetX: -100,
