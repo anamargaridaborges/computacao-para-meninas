@@ -29,7 +29,7 @@ struct HomeView: View {
     var botoesTrilha: [BotaoTrilha] {
         [
             BotaoTrilha(
-                id: "atv_1",
+                id: "Variaveis",
                 idDependencia: nil,
                 titulo: "Variáveis",
                 icone: "</>",
@@ -37,14 +37,14 @@ struct HomeView: View {
             ),
             BotaoTrilha(
                 id: "TiposDeDados",
-                idDependencia: "atv_1",
+                idDependencia: "Variaveis",
                 titulo: "Tipos de Dados",
                 icone: "#",
                 offsetX: 110
             ),
             BotaoTrilha(
                 id: "Condicionais",
-                idDependencia: "Exercicios_atv_2",
+                idDependencia: "TiposDeDados",
                 titulo: "Condicionais",
                 icone: "%",
                 offsetX: -30
@@ -64,8 +64,8 @@ struct HomeView: View {
                 offsetX: -30
             ),
             BotaoTrilha(
-                id: "atv_7",
-                idDependencia: "atv_6",
+                id: "Listas",
+                idDependencia: nil,
                 titulo: "Listas",
                 icone: "%",
                 offsetX: -30
