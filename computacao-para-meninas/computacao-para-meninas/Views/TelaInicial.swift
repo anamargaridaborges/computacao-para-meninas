@@ -36,7 +36,7 @@ struct HomeView: View {
                 offsetX: -80
             ),
             BotaoTrilha(
-                id: "Exercicios_atv_2",
+                id: "TiposDeDados",
                 idDependencia: "atv_1",
                 titulo: "Tipos de Dados",
                 icone: "#",

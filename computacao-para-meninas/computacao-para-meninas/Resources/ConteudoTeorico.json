@@ -22,26 +22,6 @@
     {
         "tipo": {
             "tipo": "conteudoTeorico",
-            "texto": "O Python é super inteligente e sabe diferenciar os tipos de informação que guardamos. Os três principais são:\n• String (str): Textos (sempre entre aspas).\n• Integer (int): Números inteiros (como sua idade).\n• Float: Números com ponto decimal (como a altura)."
-        },
-        "enunciado": "Cada coisa no seu lugar",
-        "alternativas": [],
-        "explicacao": ""
-    },
-    {
-        "tipo": {
-            "tipo": "conteudoTeorico",
-            "texto": "Existe um tipo de dado crucial para a lógica: o Boolean (bool). Ele só aceita dois valores: True (Verdadeiro) ou False (Falso).",
-            "imagem": "ImagemBool",
-            "dica": "Em Python, a primeira letra precisa ser sempre maiúscula!"
-        },
-        "enunciado": "O tipo da verdade",
-        "alternativas": [],
-        "explicacao": ""
-    },
-    {
-        "tipo": {
-            "tipo": "conteudoTeorico",
             "texto": "Na programação, seu código precisa tomar decisões, igual a você quando olha a previsão do tempo. Usamos o if (se) para dizer ao programa o que fazer se algo for verdade.",
             "imagem": "ImagemCondicional"
         },
