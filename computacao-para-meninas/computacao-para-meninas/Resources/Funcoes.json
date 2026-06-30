@@ -21,7 +21,7 @@
   },
   {
     "tipo": {
-      "tipo": "tipo1",
+      "tipo": "multiplaEscolha",
       "resposta": 0,
       "codigo": "def saudacao(nome):\n    print(\"Olá, \" + nome)\n\nsaudacao(\"Maria\")\n"
     },
@@ -50,7 +50,7 @@
   },
   {
     "tipo": {
-      "tipo": "tipo3",
+      "tipo": "relacionarColunas",
       "valores1": [0, 1, 2],
       "valores2": [3, 4, 5]
     },

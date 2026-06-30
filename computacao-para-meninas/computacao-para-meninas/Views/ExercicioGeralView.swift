@@ -8,115 +8,39 @@
 import SwiftUI
 
 struct ExercicioGeralView: View {
-    @ObservedObject var viewModel: TrilhaViewModel
-    var idx: Int
-    let idAtividade: String
-    @State private var rodadaAtual: Int = 0
-    @State private var exercicios: [Exercicio] = []
-
-    @State var totalDeRodadas: Int = 0
-    @State var estadoFeedback: EstadoFeedback = .neutro
-    let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
-    @State var idSelecionado: Int = -1
+    @State var viewModel: ExercicioGeralViewModel
     
+//=======
+//    @State var totalDeRodadas: Int = 0
+//    @State var estadoFeedback: EstadoFeedback = .neutro
+//    let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
+//    @State var idSelecionado: Int = -1
+//    
+//>>>>>>> main
     @Environment(\.dismiss) var dismiss
     
 
     var ehConteudoTeorico: Bool {
-        if case .conteudoTeorico = exercicios[rodadaAtual].tipo { return true }
+        if case .conteudoTeorico = viewModel.exercicioAtual.tipo { return true }
         return false
     }
 
 
-    init(viewModel: TrilhaViewModel, idx: Int, idAtividade: String, rodadaAtual: Int=0) {
+    init(viewModel: ExercicioGeralViewModel, rodadaAtual: Int=0) {
         self.viewModel = viewModel
-        self.idx = idx
-        self.idAtividade = idAtividade
-        _rodadaAtual = State(initialValue: rodadaAtual)
-
-        // Minimal change: load per-activity exercises if available
-        if let activityExercises: [Exercicio] = loadExercisesForActivity(idAtividade: idAtividade) {
-            _exercicios = State(initialValue: activityExercises)
-            _totalDeRodadas = State(initialValue: activityExercises.count)
-        }
     }
     
     var body: some View {
-        if totalDeRodadas == 0 {
+        if viewModel.totalRodadas == 0 {
             Text("Sem exercícios para esta atividade.")
         } else {
             VStack {
-                // aqui vai resetando os cards a cada licao
-                switch exercicios[rodadaAtual].tipo {
-                case .ordenar(let vetor):
-                    ExercicioOrdenarView(
-                        idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: idx,
-                        numeroExercicios: totalDeRodadas,
-                        exercicioAtual: rodadaAtual,
-                        vetor: vetor
-                    )
-                    .id(rodadaAtual)
-                case .tipo3(let primeiro, let segundo):
-                    Exercicio3View(
-                        viewModel: viewModel,
-                        idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: rodadaAtual,
-                        numeroExercicios: totalDeRodadas,
-                        exercicioAtual: rodadaAtual,
-                        vetor1: primeiro,
-                        vetor2: segundo,
-                        desativado: Array(repeating: false, count: exercicios[rodadaAtual].alternativas.count,),
-                        alternativas: exercicios[rodadaAtual].alternativas
-                    )
-                    .id(rodadaAtual)
-                    
-                case .tipo1(let resposta, let codigo):
-                    Exercicio1View(
-                        viewModel: viewModel,
-                        idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: rodadaAtual,
-                        numeroExercicios: totalDeRodadas,
-                        exercicioAtual: rodadaAtual,
-                        resposta: resposta,
-                        codigo: codigo,
-                        idSelecionado: $idSelecionado,
-                        estadoFeedback: $estadoFeedback,
-                        exercicio: exercicios[rodadaAtual]
-                    )
-                    .id(rodadaAtual)
-                case .curiosidade(let conteudo):
-                    ExercicioCuriosidadeView(
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                    curiosidade: conteudo)
-
-                case .conteudoTeorico(let texto, let imagem, let dica):
-                    ExercicioTeoricoView(
-                        idAtividade: idAtividade,
-                        aoConcluirRodada: {
-                            proximaEtapa()
-                        },
-                        idExercicio: rodadaAtual,
-                        numeroExercicios: totalDeRodadas,
-                        exercicioAtual: rodadaAtual,
-                        texto: texto,
-                        imagem: imagem,
-                        dica: dica,
-                        exercicio: exercicios[rodadaAtual]
-                    )
-                    .id(rodadaAtual)
-                }
+                viewModel.exercicioAtual.tipo.strategy.criarView(
+                    exercicio: viewModel.exercicioAtual,
+                    rodadaAtual: viewModel.rodadaAtual,
+                    aoConcluirRodada: { viewModel.proximaEtapa() }
+                )
+                
                 Spacer()
             }
             .safeAreaInset(edge: .top) {
@@ -124,19 +48,19 @@ struct ExercicioGeralView: View {
                     HStack {
                         // se clicar em voltar, sai de tudo e volta para a home
                         Button (action: {
-                            if (rodadaAtual == 0) {
+                            if (viewModel.rodadaAtual == 0) {
                                 dismiss()
                             }
                             else {
-                                rodadaAtual -= 1
+                                viewModel.rodadaAtual -= 1
                             }
                         }) {
                             Image("ActivityBack")
                         }
                         .padding()
                         Spacer()
-                        BarraDeProgresso(numeroExercicios: totalDeRodadas, exercicioAtual: rodadaAtual+1)
-                            .animation(.spring(response: 1.0, dampingFraction: 0.7), value: rodadaAtual)
+                        BarraDeProgresso(numeroExercicios: viewModel.totalRodadas, exercicioAtual: viewModel.rodadaAtual+1)
+                            .animation(.spring(response: 1.0, dampingFraction: 0.7), value: viewModel.rodadaAtual)
                         Spacer()
                         Button (action: {}) {
                             Image("Doubt")
@@ -147,13 +71,13 @@ struct ExercicioGeralView: View {
                     // Personagem no canto do enunciado (escondido no conteúdo teórico)
                     if !ehConteudoTeorico {
                         HStack(alignment: .bottom, spacing: 12) {
-                            Image(rodadaAtual % 2 == 0 ? "AdaLovelace" : "KatherineExercicio")
+                            Image(viewModel.rodadaAtual % 2 == 0 ? "AdaLovelace" : "KatherineExercicio")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: 100)
                                 .padding(.leading, 12)
 
-                            Text(exercicios[rodadaAtual].enunciado)
+                            Text(viewModel.exercicioAtual.enunciado)
                                 .font(.title2)
                                 .bold()
                                 .fixedSize(horizontal: false, vertical: true)
@@ -167,38 +91,34 @@ struct ExercicioGeralView: View {
 
                 }
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                if estadoFeedback != .neutro, case .tipo1 = exercicios[rodadaAtual].tipo {
-                    BarraFeedback(
-                        mensagem: mensagemErro,
-                        estado: estadoFeedback,
-                        aoTocar: {
-                            if estadoFeedback == .acerto {
-                                proximaEtapa()
-                            }
-                            withAnimation { estadoFeedback = .neutro
-                            idSelecionado = -1 }
-                        }
-                    )
-                    .ignoresSafeArea(edges: .bottom)
-                    .transition(.move(edge: .bottom))
-                    .frame(maxHeight: (estadoFeedback == .acerto ? 80 : .infinity))
-                }
+            .onChange(of: viewModel.concluido) { _, novo in
+                if novo { dismiss() }
             }
-            .animation(.spring(response: 0.35), value: estadoFeedback)
+//            .safeAreaInset(edge: .bottom, spacing: 0) {
+//                if estadoFeedback != .neutro, case .tipo1 = exercicios[rodadaAtual].tipo {
+//                    BarraFeedback(
+//                        mensagem: mensagemErro,
+//                        estado: estadoFeedback,
+//                        aoTocar: {
+//                            if estadoFeedback == .acerto {
+//                                proximaEtapa()
+//                            }
+//                            withAnimation { estadoFeedback = .neutro
+//                            idSelecionado = -1 }
+//                        }
+//                    )
+//                    .ignoresSafeArea(edges: .bottom)
+//                    .transition(.move(edge: .bottom))
+//                    .frame(maxHeight: (estadoFeedback == .acerto ? 80 : .infinity))
+//                }
+//            }
+//            .animation(.spring(response: 0.35), value: estadoFeedback)
         }
-        
-    }
-    
-    func proximaEtapa() {
-        if rodadaAtual < totalDeRodadas - 1 {
-            rodadaAtual += 1
-        } else {
-            viewModel.concluirAtividade(id: idAtividade)
-            dismiss()
-        }
+        // na View
     }
 }
-#Preview {
-    ExercicioGeralView(viewModel: TrilhaViewModel(), idx: 0, idAtividade: "atv_1")}
+
+//#Preview {
+//    ExercicioGeralView(viewModel: TrilhaViewModel(), idx: 0, idAtividade: "atv_1")
+//}
 

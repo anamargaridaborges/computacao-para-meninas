@@ -6,9 +6,9 @@
 //
 
 enum TipoExercicio: Decodable {
-    case tipo3([Int], [Int])
+    case relacionarColunas([Int], [Int])
     case ordenar([String])
-    case tipo1(Int, String)
+    case multiplaEscolha(Int, String)
     case curiosidade(String)
     case conteudoTeorico(texto: String, imagem: String?, dica: String?)
 
@@ -30,17 +30,17 @@ enum TipoExercicio: Decodable {
         let tipo = try container.decode(String.self, forKey: .tipo)
 
         switch tipo {
-        case "tipo3":
+        case "relacionarColunas":
             let v1 = try container.decode([Int].self, forKey: .valores1)
             let v2 = try container.decode([Int].self, forKey: .valores2)
-            self = .tipo3(v1, v2)
+            self = .relacionarColunas(v1, v2)
         case "ordenar":
             let v1 = try container.decode([String].self, forKey: .linhas)
             self = .ordenar(v1)
-        case "tipo1":
+        case "multiplaEscolha":
             let v1 = try container.decode(Int.self, forKey: .resposta)
             let v2 = try container.decode(String.self, forKey: .codigo)
-            self = .tipo1(v1, v2)
+            self = .multiplaEscolha(v1, v2)
         case "curiosidade":
             let conteudo = try container.decode(String.self, forKey: .conteudo)
             self = .curiosidade(conteudo)
@@ -55,6 +55,23 @@ enum TipoExercicio: Decodable {
                 in: container,
                 debugDescription: "Tipo desconhecido: \(tipo)"
             )
+        }
+    }
+}
+
+extension TipoExercicio {
+    var strategy: ExercicioStrategy {
+        switch self {
+        case .ordenar(let vetor):
+            return OrdenarStrategy(vetor: vetor)
+        case .relacionarColunas(let primeiro, let segundo):
+            return RelacionarColunasStrategy(primeiro: primeiro, segundo: segundo)
+        case .multiplaEscolha(let resposta, let codigo):
+            return MultiplaEscolhaStrategy(resposta: resposta, codigo: codigo)
+        case .curiosidade(let conteudo):
+            return CuriosidadeStrategy(conteudo: conteudo)
+        case .conteudoTeorico(let texto, let imagem, let dica):
+            return ConteudoTeoricoStrategy(texto: texto, imagem: imagem, dica: dica)
         }
     }
 }

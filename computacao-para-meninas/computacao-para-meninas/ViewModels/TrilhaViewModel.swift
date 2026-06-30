@@ -5,28 +5,99 @@
 //  Created by Ana Macedo on 12/04/26.
 //
 
-import Foundation
 import SwiftUI
+import Observation
 
-class TrilhaViewModel: ObservableObject {
-    @AppStorage("atividadesConcluidas") var atividadesConcluidasData: Data = Data()
-    @Published var idsConcluidos: Set<String> = []
+@Observable
+class TrilhaViewModel {
+    private let userDefaultsKey = "atividadesConcluidas"
+    var idsConcluidos: Set<String> = [] {
+        didSet {
+            saveProgress()
+        }
+    }
+    
+    let nomeModulo: String = "Variáveis"
+    var botoesTrilha: [BotaoTrilha] = []
 
     init() {
         loadProgress()
+        loadTrilhaData()
     }
 
-    // carrega o progresso salvo
+    private func loadTrilhaData() {
+        self.botoesTrilha = [
+            BotaoTrilha(
+                id: "Variaveis",
+                idDependencia: nil,
+                titulo: "Variáveis",
+                icone: "</>",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "TiposDeDados",
+                idDependencia: "Variaveis",
+                titulo: "Tipos de Dados",
+                icone: "#",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Condicionais",
+                idDependencia: "TiposDeDados",
+                titulo: "Condicionais",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Operadores",
+                idDependencia: "Condicionais",
+                titulo: "Operadores",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Loops",
+                idDependencia: "Operadores",
+                titulo: "Loops",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Listas",
+                idDependencia: "Loops",
+                titulo: "Listas",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Funcoes",
+                idDependencia: "Listas",
+                titulo: "Funções",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "historia_1",
+                idDependencia: "Funcoes",
+                titulo: "O Desafio dos Tipos",
+                icone: "book.pages.fill",
+                offsetX: 0,
+                tipo: .historia,
+                usaSFSymbol: true
+            ),
+        ]
+    }
+
     func loadProgress() {
-        if let decoded = try? JSONDecoder().decode(Set<String>.self, from: atividadesConcluidasData) {
+        if let data = UserDefaults.standard.data(forKey: userDefaultsKey),
+           let decoded = try? JSONDecoder().decode(Set<String>.self, from: data) {
             idsConcluidos = decoded
         }
     }
 
-    // salva o progresso da usuario
-    func saveProgress() {
+    private func saveProgress() {
         if let encoded = try? JSONEncoder().encode(idsConcluidos) {
-            atividadesConcluidasData = encoded
+            UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
         }
     }
 
@@ -37,6 +108,5 @@ class TrilhaViewModel: ObservableObject {
 
     func concluirAtividade(id: String) {
         idsConcluidos.insert(id)
-        saveProgress()
     }
 }

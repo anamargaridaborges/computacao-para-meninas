@@ -21,7 +21,7 @@
   },
   {
     "tipo": {
-      "tipo": "tipo1",
+      "tipo": "multiplaEscolha",
       "resposta": 1,
       "codigo": "idade = 15\nif idade >= 18:\n    print(\"Pode entrar\")\nelse:\n    print(\"Não pode entrar\")\n"
     },
@@ -51,7 +51,7 @@
   },
   {
     "tipo": {
-      "tipo": "tipo3",
+      "tipo": "relacionarColunas",
       "valores1": [0, 1, 2],
       "valores2": [4, 5, 3]
     },

@@ -10,7 +10,7 @@
     },
     {
         "tipo": {
-            "tipo": "tipo3",
+            "tipo": "relacionarColunas",
             "valores1": [0, 1, 2],
             "valores2": [5, 3, 4]
         },
@@ -27,7 +27,7 @@
     },
     {
         "tipo": {
-            "tipo": "tipo3",
+            "tipo": "relacionarColunas",
             "valores1": [0, 1, 2],
             "valores2": [5, 3, 4]
         },
@@ -67,7 +67,7 @@
     },
     {
         "tipo": {
-            "tipo": "tipo1",
+            "tipo": "multiplaEscolha",
             "resposta": 1,
             "codigo": "idade = input(\"Quantos anos você tem? \")\nano_que_vem = ____(idade) + 1\nprint(ano_que_vem)"
         },
