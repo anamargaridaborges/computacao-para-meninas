@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CardAlternativaMultiplaEscolha: View {
-    
     let idx: Int
-    let idExercicio: Int
     let idSelecionado: Int
     let resposta: Int
     let continuado: Bool
+    let texto: String
 
     private var acertouEsta: Bool {
         continuado && idSelecionado == idx && resposta == idx
@@ -25,7 +24,7 @@ struct CardAlternativaMultiplaEscolha: View {
                 .fill(acertouEsta ? Color("LightGreen") : Color("LightestGray"))
                 .stroke(strokeColor(), lineWidth: (idSelecionado == idx ? 4 : 2))
                 .frame(width: 80, height: 60)
-            Text(exercicios[idExercicio].alternativas[idx])
+            Text(texto)
                 .foregroundStyle(acertouEsta ? Color("DarkGreen") : Color.black)
                 .frame(width: 60)
                 .multilineTextAlignment(.leading)

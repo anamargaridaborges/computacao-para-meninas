@@ -35,7 +35,7 @@ struct TrilhaView: View {
                                     .offset(x: botao.offsetX)
                                     .padding(.top, botao.id == "historia_1" ? 70 : 0)
                                 
-                                subViewsEspeciais(apos: botao.id)
+//                                subViewsEspeciais(apos: botao.id)
                             }
                         }
                         .padding(.top, 16)
@@ -77,50 +77,60 @@ struct TrilhaView: View {
     private func navigationLinkDestination(botao: BotaoTrilha, estaLivre: Bool) -> some View {
         switch botao.tipo {
         case .historia:
-            NavigationLink(destination: HistoriaView(trilhaViewModel: viewModel, idAtividade: botao.id)) {
+            let historia = carregarHistoria("HistoriaData.json")
+            let historiaViewModel = HistoriaViewModel(historia: historia, onConcluirAtividade: {
+                viewModel.concluirAtividade(id: botao.id)
+            })
+            NavigationLink(destination: HistoriaView(historiaViewModel: historiaViewModel, idAtividade: botao.id)) {
                 BotaoTrilhaView(icone: botao.icone, titulo: botao.titulo, estaLivre: estaLivre, isHistoria: true)
             }
         case .exercicio:
-            NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: botao.id)) {
+            let exercicios = loadExercisesForActivity(idAtividade: botao.id) ?? []
+            let exercicioGeralViewModel = ExercicioGeralViewModel(
+                exercicios: exercicios,
+                onConcluirAtividade: {
+                viewModel.concluirAtividade(id: botao.id)
+            })
+            NavigationLink(destination: ExercicioGeralView(viewModel: exercicioGeralViewModel)) {
                 BotaoTrilhaView(icone: botao.icone, titulo: botao.titulo, estaLivre: estaLivre, isHistoria: false)
             }
         }
     }
     
-    @ViewBuilder
-    private func subViewsEspeciais(apos id: String) -> some View {
-        if id == "atv_2" {
-            let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
-            HStack(alignment: .bottom) {
-                Image("AdaLovelace")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150)
-                    .padding(.leading, 30)
-                    .offset(y: -80)
-                
-                Spacer()
-                
-                NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
-                    BotaoTrilhaView(icone: "{ }", titulo: "Exercício 3", estaLivre: ex3Livre, isHistoria: false)
-                }
-                .disabled(!ex3Livre)
-                .padding(.trailing, 100)
-                .padding(.bottom, 70)
-            }
-        } else if id == "historia_1" {
-            HStack(alignment: .bottom) {
-                Image("KatherineJohnson")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150)
-                    .padding(.leading, 30)
-                    .offset(y: -200)
-                    .offset(x: 180)
-                Spacer()
-            }
-        }
-    }
+//    @ViewBuilder
+//    private func subViewsEspeciais(apos id: String) -> some View {
+//        if id == "atv_2" {
+//            let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
+//            HStack(alignment: .bottom) {
+//                Image("AdaLovelace")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 150)
+//                    .padding(.leading, 30)
+//                    .offset(y: -80)
+//                
+//                Spacer()
+//                
+//                NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
+//                    BotaoTrilhaView(icone: "{ }", titulo: "Exercício 3", estaLivre: ex3Livre, isHistoria: false)
+//                }
+//                .disabled(!ex3Livre)
+//                .padding(.trailing, 100)
+//                .padding(.bottom, 70)
+//            }
+//        } else if id == "historia_1" {
+//            HStack(alignment: .bottom) {
+//                Image("KatherineJohnson")
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 150)
+//                    .padding(.leading, 30)
+//                    .offset(y: -200)
+//                    .offset(x: 180)
+//                Spacer()
+//            }
+//        }
+//    }
 }
 
 #Preview {

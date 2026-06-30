@@ -27,10 +27,64 @@ class TrilhaViewModel {
 
     private func loadTrilhaData() {
         self.botoesTrilha = [
-            BotaoTrilha(id: "atv_1", idDependencia: nil, titulo: "Exercício 1", icone: "</>", offsetX: -80),
-            BotaoTrilha(id: "atv_2", idDependencia: "atv_1", titulo: "Exercício 2", icone: "#", offsetX: 110),
-            BotaoTrilha(id: "atv_4", idDependencia: "atv_3", titulo: "Exercício 4", icone: "%", offsetX: -30),
-            BotaoTrilha(id: "historia_1", idDependencia: "atv_4", titulo: "O Desafio dos Tipos", icone: "book.pages.fill", offsetX: -100, tipo: .historia, usaSFSymbol: true)
+            BotaoTrilha(
+                id: "Variaveis",
+                idDependencia: nil,
+                titulo: "Variáveis",
+                icone: "</>",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "TiposDeDados",
+                idDependencia: "Variaveis",
+                titulo: "Tipos de Dados",
+                icone: "#",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Condicionais",
+                idDependencia: "TiposDeDados",
+                titulo: "Condicionais",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Operadores",
+                idDependencia: "Condicionais",
+                titulo: "Operadores",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Loops",
+                idDependencia: "Operadores",
+                titulo: "Loops",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Listas",
+                idDependencia: "Loops",
+                titulo: "Listas",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "Funcoes",
+                idDependencia: "Listas",
+                titulo: "Funções",
+                icone: "%",
+                offsetX: 0
+            ),
+            BotaoTrilha(
+                id: "historia_1",
+                idDependencia: "Funcoes",
+                titulo: "O Desafio dos Tipos",
+                icone: "book.pages.fill",
+                offsetX: 0,
+                tipo: .historia,
+                usaSFSymbol: true
+            ),
         ]
     }
 

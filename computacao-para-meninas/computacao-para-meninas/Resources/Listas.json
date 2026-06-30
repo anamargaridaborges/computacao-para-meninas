@@ -1,0 +1,104 @@
+
+[
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Às vezes, uma caixinha (variável) só não basta. E se quisermos guardar vários dados juntos e de forma organizada? Usamos uma Lista! Em Python, criamos listas colocando os itens entre colchetes [] e separados por vírgula.",
+            "imagem": "ImagemLista"
+        },
+        "enunciado": "Organizando sua mochila!",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Você pode adicionar novos elementos à sua lista a qualquer momento usando o comando .append(). Ele coloca o novo item bem no final da fila.",
+            "imagem": "ImagemAppend"
+        },
+        "enunciado": "Listas são vivas",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "multiplaEscolha",
+            "resposta": 1,
+            "codigo": "convidadas = [\"Ana\", \"Bia\"]\nconvidadas.____(\"Lia\")\nprint(convidadas)"
+        },
+        "enunciado": "Selecione a opção que adiciona Lia à lista",
+        "alternativas": [
+            "add",
+            "append",
+            "insert",
+            "push",
+            "len",
+            "print"
+        ],
+        "explicacao": "Em Python, adicionamos um novo item ao final da lista com .append(). O resultado será [\"Ana\", \"Bia\", \"Lia\"]."
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Cada item da lista tem uma posição, chamada índice. Mas atenção: a contagem começa no 0! O primeiro item fica na posição 0, o segundo na 1, e assim por diante. Para pegar um item, escrevemos: lista[0].",
+            "imagem": "ImagemIndice",
+            "dica": "lista[0] é o primeiro item. E lista[-1] é um atalho esperto para pegar o último!"
+        },
+        "enunciado": "Cada um na sua posição",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "curiosidade",
+            "conteudo": "Você já reparou que as listas começam a contar do 0, e não do 1? Isso vem de como o computador guarda os dados na memória: o primeiro item fica a 'zero passos' do início. Parece estranho no começo, mas faz todo sentido para a máquina!"
+        },
+        "enunciado": "Você sabia?",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "multiplaEscolha",
+            "resposta": 0,
+            "codigo": "cores = [\"azul\", \"verde\", \"rosa\"]\nprint(cores[____])"
+        },
+        "enunciado": "Selecione a posição que mostra a cor azul",
+        "alternativas": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "-1",
+            "len"
+        ],
+        "explicacao": "A contagem das listas começa no 0. Então o primeiro item, azul, está na posição 0."
+    },
+    {
+        "tipo": {
+            "tipo": "relacionarColunas",
+            "valores1": [0, 1, 2],
+            "valores2": [4, 5, 3]
+        },
+        "enunciado": "Para a lista frutas = [\"maçã\", \"banana\", \"uva\"], ligue cada acesso ao seu resultado",
+        "alternativas": [
+            "frutas[0]",
+            "frutas[1]",
+            "frutas[2]",
+            "\"uva\"",
+            "\"maçã\"",
+            "\"banana\""
+        ],
+        "explicacao": "Lembre que a contagem começa no 0: frutas[0] é a maçã, frutas[1] é a banana e frutas[2] é a uva."
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Quer saber quantos itens tem na sua lista? Use a função len(). Ela conta os elementos e devolve esse número. Por exemplo: len([\"a\", \"b\", \"c\"]) resulta em 3.",
+            "imagem": "ImagemLen"
+        },
+        "enunciado": "Quantos cabem na mochila?",
+        "alternativas": [],
+        "explicacao": ""
+    }
+]

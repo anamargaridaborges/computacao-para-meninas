@@ -8,44 +8,24 @@
 import SwiftUI
 
 struct RelacionarColunasView: View {
-    @StateObject private var viewModel: RelacionarColunasViewModel
+    @State private var viewModel: RelacionarColunasViewModel
     @Environment(\.dismiss) var dismiss
-    let idAtividade: String
-    var aoConcluirRodada: () -> Void
-    let idExercicio: Int
-    let numeroExercicios: Int
-    let exercicioAtual: Int
-
+    
     init(
-        idAtividade: String,
-        aoConcluirRodada: @escaping () -> Void,
-        idExercicio: Int,
-        numeroExercicios: Int,
-        exercicioAtual: Int,
-        vetor1: [Int],
-        vetor2: [Int]
+        viewModel: RelacionarColunasViewModel,
     ) {
-        self.idAtividade = idAtividade
-        self.aoConcluirRodada = aoConcluirRodada
-        self.idExercicio = idExercicio
-        self.numeroExercicios = numeroExercicios
-        self.exercicioAtual = exercicioAtual
-        _viewModel = StateObject(wrappedValue: RelacionarColunasViewModel(
-            idExercicio: idExercicio,
-            vetor1: vetor1,
-            vetor2: vetor2
-        ))
+        self.viewModel = viewModel
     }
 
     var body: some View {
             VStack {
                 HStack {
                     VStack {
-                        ForEach(0..<exercicios[idExercicio].alternativas.count / 2, id : \.self) { i in
+                        ForEach(0..<viewModel.exercicio.alternativas.count / 2, id : \.self) { i in
                             Button (action: {
                                 viewModel.selecionarColuna1(i)
                             }) {
-                                CardAlternativaRelacionarColunas(idx: i, idExercicio: idExercicio, selecionado: viewModel.selecionado1, erro: viewModel.erro1, desativado: viewModel.desativado[i])
+                                CardAlternativaRelacionarColunas(idx: i, selecionado: viewModel.selecionado1, erro: viewModel.erro1, desativado: viewModel.desativado[i], alternativa: viewModel.exercicio.alternativas[i])
                             }
                             .accessibilityIdentifier("card_\(i)")
                             .disabled(viewModel.desativado[i])
@@ -54,11 +34,11 @@ struct RelacionarColunasView: View {
                     .padding(5)
 
                     VStack {
-                        ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
+                        ForEach(viewModel.exercicio.alternativas.count / 2..<viewModel.exercicio.alternativas.count, id : \.self) { i in
                             Button (action: {
                                 viewModel.selecionarColuna2(i)
                             }) {
-                                CardAlternativaRelacionarColunas(idx: i, idExercicio: idExercicio, selecionado: viewModel.selecionado2, erro: viewModel.erro2, desativado: viewModel.desativado[i])
+                                CardAlternativaRelacionarColunas(idx: i, selecionado: viewModel.selecionado2, erro: viewModel.erro2, desativado: viewModel.desativado[i], alternativa: viewModel.exercicio.alternativas[i])
                             }
                             .accessibilityIdentifier("card_\(i)")
                             .disabled(viewModel.desativado[i])
@@ -83,7 +63,7 @@ struct RelacionarColunasView: View {
                         estado: viewModel.estadoFeedback,
                         aoTocar: {
                             if viewModel.estadoFeedback == .acerto {
-                                aoConcluirRodada()
+                                viewModel.aoConcluirRodada()
                             }
                             withAnimation { viewModel.estadoFeedback = .neutro }
                         }
@@ -97,14 +77,14 @@ struct RelacionarColunasView: View {
 
 }
 
-#Preview {
-    RelacionarColunasView(
-        idAtividade: "atv_exemplo",
-        aoConcluirRodada: {},
-        idExercicio: 0,
-        numeroExercicios: 5,
-        exercicioAtual: 1,
-        vetor1: [0, 1, 2],
-        vetor2: [3, 4, 5]
-    )
-}
+//#Preview {
+//    RelacionarColunasView(
+//        idAtividade: "atv_exemplo",
+//        aoConcluirRodada: {},
+//        idExercicio: 0,
+//        numeroExercicios: 5,
+//        exercicioAtual: 1,
+//        vetor1: [0, 1, 2],
+//        vetor2: [3, 4, 5]
+//    )
+//}

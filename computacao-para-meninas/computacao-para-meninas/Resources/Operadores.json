@@ -1,0 +1,77 @@
+    [
+      {
+        "tipo": {
+          "tipo": "conteudoTeorico",
+          "texto": "Operadores são símbolos especiais que utilizamos para realizar cálculos e fazer comparações. Temos os matemáticos (como +, -, * para multiplicação e / para divisão) e os de comparação (como == para 'igual a', != para 'diferente de', > e <).",
+          "dica": "Lembre-se: um único '=' serve para guardar um valor (atribuição). Dois '==' servem para testar se duas coisas são iguais!"
+        },
+        "enunciado": "Comparando e somando",
+        "alternativas": [],
+        "explicacao": ""
+      },
+      {
+        "tipo": {
+          "tipo": "conteudoTeorico",
+          "texto": "E se você precisar checar duas coisas ao mesmo tempo? É aí que entram os operadores lógicos! O 'and' (e) só resulta em verdadeiro se TODAS as condições forem cumpridas. Já o 'or' (ou) é mais flexível: basta que UMA condição seja verdadeira.",
+          "imagem": "ImagemOperadorLogico"
+        },
+        "enunciado": "Operadores lógicos",
+        "alternativas": [],
+        "explicacao": ""
+      },
+      {
+        "tipo": {
+          "tipo": "multiplaEscolha",
+          "resposta": 0,
+          "codigo": "x = 10\ny = 5\nresultado = (x > y) and (y == 5)\nprint(resultado)"
+        },
+        "enunciado": "Qual será o valor impresso no final deste código?",
+        "alternativas": [
+          "True",
+          "False",
+          "15",
+          "Erro"
+        ],
+        "explicacao": "Como 10 é maior que 5 (True) e y é igual a 5 (True), ambas as condições do 'and' são verdadeiras, logo o resultado final é True."
+      },
+      {
+        "tipo": {
+          "tipo": "ordenar",
+          "linhas": [
+            "pontos = 150",
+            "vidas = 2",
+            "if pontos >= 100 or vidas > 3:",
+            "    print(\"Bônus liberado!\")"
+          ]
+        },
+        "enunciado": "Ordene o código para liberar o bônus se o jogador tiver 100 pontos ou mais, OU mais de 3 vidas.",
+        "alternativas": [],
+        "explicacao": "Primeiro declaramos as variáveis. Em seguida, usamos o 'if' com o operador 'or' para verificar se pelo menos uma das condições de vitória é verdadeira."
+      },
+      {
+        "tipo": {
+          "tipo": "relacionarColunas",
+          "valores1": [0, 1, 2],
+          "valores2": [4, 5, 3]
+        },
+        "enunciado": "Ligue cada operador ao seu significado.",
+        "alternativas": [
+          "!=",
+          "*",
+          "==",
+          "Igualdade",
+          "Diferente de",
+          "Multiplicação"
+        ],
+        "explicacao": "O símbolo '!=' significa diferente, '*' é usado para multiplicar e '==' testa se dois valores são idênticos."
+      },
+      {
+        "tipo": {
+          "tipo": "curiosidade",
+          "conteudo": "Você sabia que o operador de multiplicação (*) também pode ser usado para textos na maioria das linguagens modernas? Se você fizer \"Olá \" * 3 no Python, o resultado será \"Olá Olá Olá \"!"
+        },
+        "enunciado": "Multiplicando textos",
+        "alternativas": [],
+        "explicacao": ""
+      }
+    ]

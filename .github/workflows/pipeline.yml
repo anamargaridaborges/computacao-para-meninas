@@ -1,15 +1,12 @@
 name: CI - Computação para Meninas
-
 on:
   push:
     branches: [ "main", "feature/*" ]
   pull_request:
     branches: [ "main" ]
-
 jobs:
   build-and-test:
     runs-on: macos-latest
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
@@ -23,13 +20,29 @@ jobs:
           xcodegen generate
           xcodebuild -list -project computacao-para-meninas.xcodeproj
 
+      - name: Selecionar simulador mais recente
+        run: |
+          UDID=$(xcrun simctl list devices available --json \
+            | jq -r '
+                .devices
+                | to_entries
+                | map(select(.key | test("iOS")))
+                | sort_by(.key)
+                | last
+                | .value
+                | map(select(.name | test("iPhone")))
+                | last
+                | .udid')
+          echo "Simulador escolhido: $UDID"
+          echo "SIM_UDID=$UDID" >> "$GITHUB_ENV"
+
       - name: Etapa 1 - Build (Construção)
         working-directory: ./computacao-para-meninas
         run: |
           xcodebuild build \
             -project computacao-para-meninas.xcodeproj \
             -scheme computacao-para-meninas \
-            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+            -destination "platform=iOS Simulator,id=$SIM_UDID" \
             -allowProvisioningUpdates \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
@@ -40,7 +53,7 @@ jobs:
           xcodebuild test \
             -project computacao-para-meninas.xcodeproj \
             -scheme computacao-para-meninas \
-            -destination 'platform=iOS Simulator,name=iPhone 17,OS=latest' \
+            -destination "platform=iOS Simulator,id=$SIM_UDID" \
             -allowProvisioningUpdates \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO

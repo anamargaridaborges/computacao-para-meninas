@@ -1,0 +1,79 @@
+[
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "Na programação, uma variável é como uma caixa com uma etiqueta. Você guarda um valor dentro dela para usar depois.",
+            "imagem": "ImagemVariavel"
+        },
+        "enunciado": "Variáveis",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "conteudoTeorico",
+            "texto": "O valor dentro da caixa pode mudar (por isso se chama variável!). Mas atenção: o nome da etiqueta não pode ter espaços ou começar com números.",
+            "dica": "Em Python usamos o padrão snake_case — palavras separadas por underline. Ex.: total_pontos = 100"
+        },
+        "enunciado": "O nome certo",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "multiplaEscolha",
+            "resposta": 2,
+            "codigo": "____ = 100\nprint(\"Pontos guardados!\")"
+        },
+        "enunciado": "Selecione um nome de variável válido",
+        "alternativas": [
+            "2pontos",
+            "total pontos",
+            "total_pontos",
+            "total-pontos",
+            "pontos!",
+            "print"
+        ],
+        "explicacao": "Nomes de variáveis não podem começar com número, ter espaços ou símbolos. total_pontos segue o padrão snake_case!"
+    },
+    {
+        "tipo": {
+            "tipo": "relacionarColunas",
+            "valores1": [0, 1, 2],
+            "valores2": [4, 5, 3]
+        },
+        "enunciado": "Para nome = \"Bia\", idade = 12 e altura = 1.50, ligue cada variável ao seu valor",
+        "alternativas": [
+            "nome",
+            "idade",
+            "altura",
+            "1.50",
+            "\"Bia\"",
+            "12"
+        ],
+        "explicacao": "Cada variável guarda um valor: nome guarda \"Bia\", idade guarda 12 e altura guarda 1.50."
+    },
+    {
+        "tipo": {
+            "tipo": "curiosidade",
+            "conteudo": "O sinal de = na programação não significa 'igual' como na matemática! Ele quer dizer 'guarde este valor na variável'. Por isso pontos = pontos + 10 faz todo sentido: pegue o valor atual e guarde um valor novo no lugar."
+        },
+        "enunciado": "Você sabia?",
+        "alternativas": [],
+        "explicacao": ""
+    },
+    {
+        "tipo": {
+            "tipo": "ordenar",
+            "linhas": [
+                "pontos = 0",
+                "pontos = pontos + 10",
+                "pontos = pontos + 5",
+                "print(pontos)"
+            ]
+        },
+        "enunciado": "Ordene o código para somar os pontos",
+        "alternativas": [],
+        "explicacao": "A variável começa em 0, depois vamos somando valores a ela e, no fim, mostramos o total: 15."
+    }
+]

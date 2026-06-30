@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DialogoView: View {
-    @ObservedObject var viewModel: HistoriaViewModel
+    @State var viewModel: HistoriaViewModel
     let no: NoHistoria
     
     var body: some View {

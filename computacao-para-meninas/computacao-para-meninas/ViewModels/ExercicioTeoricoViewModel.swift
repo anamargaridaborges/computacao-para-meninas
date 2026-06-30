@@ -8,23 +8,23 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-class ExercicioTeoricoViewModel: ObservableObject {
-
-    let idExercicio: Int
+@Observable
+class ExercicioTeoricoViewModel {
     let texto: String
     let imagem: String?
     let dica: String?
+    let enunciado: String
+    let exercicio: Exercicio
+    
+    let onConcluirAtividade: () -> Void
 
-    init(idExercicio: Int, texto: String, imagem: String?, dica: String?) {
-        self.idExercicio = idExercicio
+    init(exercicio: Exercicio, texto: String, imagem: String?, dica: String?, onConcluirAtividade: @escaping () -> Void) {
         self.texto = texto
         self.imagem = imagem
         self.dica = dica
-    }
-
-    var enunciado: String {
-        exercicios[idExercicio].enunciado
+        self.enunciado = exercicio.enunciado
+        self.exercicio = exercicio
+        self.onConcluirAtividade = onConcluirAtividade
     }
 
     var imagemValida: String? {

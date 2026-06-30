@@ -8,34 +8,12 @@
 import SwiftUI
 
 struct ExercicioTeoricoView: View {
-    @StateObject private var viewModel: ExercicioTeoricoViewModel
-    let idAtividade: String
-    var aoConcluirRodada: () -> Void
-    let idExercicio: Int
-    let numeroExercicios: Int
-    let exercicioAtual: Int
+    @State private var viewModel: ExercicioTeoricoViewModel
 
     init(
-        idAtividade: String,
-        aoConcluirRodada: @escaping () -> Void,
-        idExercicio: Int,
-        numeroExercicios: Int,
-        exercicioAtual: Int,
-        texto: String,
-        imagem: String?,
-        dica: String?
+        viewModel: ExercicioTeoricoViewModel,
     ) {
-        self.idAtividade = idAtividade
-        self.aoConcluirRodada = aoConcluirRodada
-        self.idExercicio = idExercicio
-        self.numeroExercicios = numeroExercicios
-        self.exercicioAtual = exercicioAtual
-        _viewModel = StateObject(wrappedValue: ExercicioTeoricoViewModel(
-            idExercicio: idExercicio,
-            texto: texto,
-            imagem: imagem,
-            dica: dica
-        ))
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -63,7 +41,7 @@ struct ExercicioTeoricoView: View {
 
             Spacer()
 
-            Button(action: aoConcluirRodada) {
+            Button(action: viewModel.onConcluirAtividade) {
                 BotaoContinuar()
             }
             .frame(maxWidth: .infinity)

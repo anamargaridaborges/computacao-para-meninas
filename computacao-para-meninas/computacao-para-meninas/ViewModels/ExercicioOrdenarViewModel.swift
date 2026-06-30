@@ -8,11 +8,8 @@
 import SwiftUI
 
 @Observable
-final class OrdenarViewModel {
-    let idAtividade: String
-    let idExercicio: Int
+class OrdenarViewModel {
     let numeroExercicios: Int
-    let exercicioAtual: Int
     let vetor: [String]
     let aoConcluirRodada: () -> Void
 
@@ -33,17 +30,11 @@ final class OrdenarViewModel {
     private let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
 
     init(
-        idAtividade: String,
-        idExercicio: Int,
         numeroExercicios: Int,
-        exercicioAtual: Int,
         vetor: [String],
         aoConcluirRodada: @escaping () -> Void
     ) {
-        self.idAtividade = idAtividade
-        self.idExercicio = idExercicio
         self.numeroExercicios = numeroExercicios
-        self.exercicioAtual = exercicioAtual
         self.vetor = vetor
         self.aoConcluirRodada = aoConcluirRodada
         self.lines = vetor.shuffled()

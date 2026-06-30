@@ -8,37 +8,21 @@
 import SwiftUI
 
 struct MultiplaEscolhaView: View {
-    @StateObject private var viewModel: MultiplaEscolhaViewModel
+    @State private var viewModel: MultiplaEscolhaViewModel
+    
     @Environment(\.dismiss) var dismiss
-    let idAtividade: String
-    var aoConcluirRodada: () -> Void
-    let idExercicio: Int
-    let numeroExercicios: Int
-    let exercicioAtual: Int
+    
     let resposta: Int
     let codigo: String
 
     init(
-        idAtividade: String,
-        aoConcluirRodada: @escaping () -> Void,
-        idExercicio: Int,
-        numeroExercicios: Int,
-        exercicioAtual: Int,
+        viewModel: MultiplaEscolhaViewModel,
         resposta: Int,
         codigo: String
     ) {
-        self.idAtividade = idAtividade
-        self.aoConcluirRodada = aoConcluirRodada
-        self.idExercicio = idExercicio
-        self.numeroExercicios = numeroExercicios
-        self.exercicioAtual = exercicioAtual
         self.resposta = resposta
         self.codigo = codigo
-        _viewModel = StateObject(wrappedValue: MultiplaEscolhaViewModel(
-            idExercicio: idExercicio,
-            resposta: resposta,
-            codigo: codigo
-        ))
+        self.viewModel = viewModel
     }
 
     var body: some View {
@@ -56,11 +40,11 @@ struct MultiplaEscolhaView: View {
                 }
 
                 HStack {
-                    ForEach(0..<exercicios[idExercicio].alternativas.count/2, id : \.self) { i in
+                    ForEach(0 ..< viewModel.exercicio.alternativas.count/2, id : \.self) { i in
                         Button (action: {
                             viewModel.selecionar(i)
                         }) {
-                            CardAlternativaMultiplaEscolha(idx: i, idExercicio: idExercicio, idSelecionado: viewModel.idSelecionado, resposta: resposta, continuado: viewModel.estadoFeedback != .neutro)
+                            CardAlternativaMultiplaEscolha(idx: i, idSelecionado: viewModel.idSelecionado, resposta: resposta, continuado: viewModel.estadoFeedback != .neutro, texto: viewModel.exercicio.alternativas[i])
                         }
                         .accessibilityIdentifier("card1_\(i)")
                     }
@@ -68,11 +52,11 @@ struct MultiplaEscolhaView: View {
                 .padding(2)
 
                 HStack {
-                    ForEach(exercicios[idExercicio].alternativas.count / 2..<exercicios[idExercicio].alternativas.count, id : \.self) { i in
+                    ForEach(viewModel.exercicio.alternativas.count / 2..<viewModel.exercicio.alternativas.count, id : \.self) { i in
                         Button (action: {
                             viewModel.selecionar(i)
                         }) {
-                            CardAlternativaMultiplaEscolha(idx: i, idExercicio: idExercicio, idSelecionado: viewModel.idSelecionado, resposta: resposta, continuado: viewModel.estadoFeedback != .neutro)
+                            CardAlternativaMultiplaEscolha(idx: i, idSelecionado: viewModel.idSelecionado, resposta: resposta, continuado: viewModel.estadoFeedback != .neutro, texto: viewModel.exercicio.alternativas[i])
                         }
                         .accessibilityIdentifier("card1_\(i)")
                     }
@@ -101,7 +85,7 @@ struct MultiplaEscolhaView: View {
                     estado: viewModel.estadoFeedback,
                     aoTocar: {
                         if viewModel.estadoFeedback == .acerto {
-                            aoConcluirRodada()
+                            viewModel.onConcluirAtividade()
                         }
                         withAnimation { viewModel.resetar() }
                     }
@@ -116,14 +100,14 @@ struct MultiplaEscolhaView: View {
 
 }
 
-#Preview {
-    MultiplaEscolhaView(
-        idAtividade: "atv_exemplo",
-        aoConcluirRodada: {},
-        idExercicio: 0,
-        numeroExercicios: 5,
-        exercicioAtual: 1,
-        resposta: 0,
-        codigo: "num1 = 5"
-    )
-}
+//#Preview {
+//    MultiplaEscolhaView(
+//        idAtividade: "atv_exemplo",
+//        aoConcluirRodada: {},
+//        idExercicio: 0,
+//        numeroExercicios: 5,
+//        exercicioAtual: 1,
+//        resposta: 0,
+//        codigo: "num1 = 5"
+//    )
+//}

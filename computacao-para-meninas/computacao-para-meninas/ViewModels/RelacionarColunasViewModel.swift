@@ -8,27 +8,33 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-class RelacionarColunasViewModel: ObservableObject {
-
-    let idExercicio: Int
+@Observable
+class RelacionarColunasViewModel {
     let vetor1: [Int]
     let vetor2: [Int]
+    
+    let exercicio: Exercicio
 
-    @Published var selecionado1: Int = -1
-    @Published var selecionado2: Int = -1
-    @Published var erro1: Int = -1
-    @Published var erro2: Int = -1
-    @Published var desativado: [Bool]
-    @Published var continuarDesativado: Bool = true
-    @Published var estadoFeedback: EstadoFeedback = .neutro
-    @Published var mensagemErro: String = ""
+    var selecionado1: Int = -1
+    var selecionado2: Int = -1
+    var erro1: Int = -1
+    var erro2: Int = -1
+    var desativado: [Bool]
+    var continuarDesativado: Bool = true
+    var estadoFeedback: EstadoFeedback = .neutro
+    var mensagemErro: String = ""
+    
+    let aoConcluirRodada: () -> Void
 
-    init(idExercicio: Int, vetor1: [Int], vetor2: [Int]) {
-        self.idExercicio = idExercicio
+    init(vetor1: [Int], vetor2: [Int], exercicio: Exercicio, aoConcluirRodada: @escaping () -> Void) {
         self.vetor1 = vetor1
         self.vetor2 = vetor2
-        self.desativado = Array(repeating: false, count: exercicios[idExercicio].alternativas.count)
+        guard case .relacionarColunas = exercicio.tipo else {
+            fatalError("RelacionarColunasViewModel necessita de um exercício do tipo .relacionarColunas")
+        }
+        self.exercicio = exercicio
+        self.desativado = Array(repeating: false, count: exercicio.alternativas.count)
+        self.aoConcluirRodada = aoConcluirRodada
     }
 
     func selecionarColuna1(_ i: Int) {

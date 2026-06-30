@@ -8,17 +8,14 @@
 import SwiftUI
 
 struct HistoriaView: View {
-    var trilhaViewModel: TrilhaViewModel
-    @StateObject private var historiaViewModel: HistoriaViewModel
+    @State private var historiaViewModel: HistoriaViewModel
     @Environment(\.dismiss) var dismiss
 
     let idAtividade: String
 
-    init(trilhaViewModel: TrilhaViewModel, idAtividade: String) {
-        self.trilhaViewModel = trilhaViewModel
+    init(historiaViewModel: HistoriaViewModel, idAtividade: String) {
         self.idAtividade = idAtividade
-        let historia = carregarHistoria("HistoriaData.json")
-        _historiaViewModel = StateObject(wrappedValue: HistoriaViewModel(historia: historia))
+        self.historiaViewModel = historiaViewModel
     }
     
 
@@ -42,7 +39,7 @@ struct HistoriaView: View {
                 FimDaHistoriaView(
                     mensagem: historiaViewModel.noAtual.mensagemFinal ?? "Você terminou a história!",
                     aoFechar: {
-                        trilhaViewModel.concluirAtividade(id: idAtividade)
+                        historiaViewModel.onConcluirAtividade()
                         dismiss()
                     }
                 )
