@@ -56,7 +56,7 @@ func loadIfPresent<T: Decodable>(_ filename: String) -> T? {
 /// "Exercicios_<idAtividade>.json" if present. Example: "Exercicios_atv_1.json".
 @MainActor
 func loadExercisesForActivity(idAtividade: String) -> [Exercicio]? {
-    let filename = "Exercicios_\(idAtividade).json"
+    let filename = "\(idAtividade).json"
     return loadIfPresent(filename)
 }
 

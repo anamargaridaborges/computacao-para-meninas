@@ -36,15 +36,15 @@ struct HomeView: View {
                 offsetX: -80
             ),
             BotaoTrilha(
-                id: "atv_2",
+                id: "Exercicios_atv_2",
                 idDependencia: "atv_1",
                 titulo: "Tipos de Dados",
                 icone: "#",
                 offsetX: 110
             ),
             BotaoTrilha(
-                id: "atv_4",
-                idDependencia: "atv_3",
+                id: "Condicionais",
+                idDependencia: "Exercicios_atv_2",
                 titulo: "Condicionais",
                 icone: "%",
                 offsetX: -30
@@ -157,32 +157,32 @@ struct HomeView: View {
                                         
                                         Spacer()
                                         
-                                        let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
-                                        
-                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
-                                            VStack(spacing: 8) {
-                                                ZStack {
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .fill(ex3Livre ? Color("Color2Button") : Color("Gray"))
-                                                        .frame(width: 80, height: 80).offset(x: 5, y: 5)
-                                                    RoundedRectangle(cornerRadius: 16)
-                                                        .fill(ex3Livre ? Color("Color1Button") : Color("Color3Button"))
-                                                        .frame(width: 80, height: 80)
-                                                        .overlay(
-                                                            RoundedRectangle(cornerRadius: 16)
-                                                                .stroke(ex3Livre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
-                                                        )
-                                                    Text("{ }")
-                                                        .font(.system(size: 32, weight: .bold, design: .rounded))
-                                                        .foregroundStyle(Color.black)
-                                                }
-                                                Text("Exercício 3")
-                                                    .font(.system(.caption, design: .rounded, weight: .bold))
-                                                    .foregroundStyle(ex3Livre ? Color("AccentColor") : Color("Gray"))
-                                            }
-                                        }
-                                        .disabled(!ex3Livre)
-                                        .padding(.trailing, 100).padding(.bottom, 70)
+//                                        let ex3Livre = viewModel.estaDesbloqueada(idAtividade: "atv_3", idDependencia: "atv_2")
+//                                        
+//                                        NavigationLink(destination: ExercicioGeralView(viewModel: viewModel, idx: 0, idAtividade: "atv_3")) {
+//                                            VStack(spacing: 8) {
+//                                                ZStack {
+//                                                    RoundedRectangle(cornerRadius: 16)
+//                                                        .fill(ex3Livre ? Color("Color2Button") : Color("Gray"))
+//                                                        .frame(width: 80, height: 80).offset(x: 5, y: 5)
+//                                                    RoundedRectangle(cornerRadius: 16)
+//                                                        .fill(ex3Livre ? Color("Color1Button") : Color("Color3Button"))
+//                                                        .frame(width: 80, height: 80)
+//                                                        .overlay(
+//                                                            RoundedRectangle(cornerRadius: 16)
+//                                                                .stroke(ex3Livre ? Color("Color2Button") : Color("Gray"), lineWidth: 3)
+//                                                        )
+//                                                    Text("{ }")
+//                                                        .font(.system(size: 32, weight: .bold, design: .rounded))
+//                                                        .foregroundStyle(Color.black)
+//                                                }
+////                                                Text("Exercício 3")
+////                                                    .font(.system(.caption, design: .rounded, weight: .bold))
+////                                                    .foregroundStyle(ex3Livre ? Color("AccentColor") : Color("Gray"))
+//                                            }
+//                                        }
+//                                        .disabled(!ex3Livre)
+//                                        .padding(.trailing, 100).padding(.bottom, 70)
                                     }
                                 }
                                 
