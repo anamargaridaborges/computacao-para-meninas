@@ -8,29 +8,26 @@
 import SwiftUI
 
 struct ExercicioTeoricoView: View {
-    let idAtividade: String
-    var aoConcluirRodada: () -> Void
-    let idExercicio: Int
-    let numeroExercicios: Int
-    let exercicioAtual: Int
-    let texto: String
-    let imagem: String?
-    let dica: String?
-    
-    let exercicio: Exercicio
+    @State private var viewModel: ExercicioTeoricoViewModel
+
+    init(
+        viewModel: ExercicioTeoricoViewModel,
+    ) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(exercicio.enunciado)
+            Text(viewModel.enunciado)
                 .font(.system(.largeTitle, design: .rounded, weight: .bold))
                 .fixedSize(horizontal: false, vertical: true)
 
-            Text(texto)
+            Text(viewModel.texto)
                 .font(.title3)
                 .foregroundStyle(Color.black)
                 .fixedSize(horizontal: false, vertical: true)
-            
-            if let imagem, !imagem.isEmpty {
+
+            if let imagem = viewModel.imagemValida {
                 Image(imagem)
                     .resizable()
                     .scaledToFit()
@@ -38,13 +35,13 @@ struct ExercicioTeoricoView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 20))
             }
 
-            if let dica, !dica.isEmpty {
+            if let dica = viewModel.dicaValida {
                 CalloutDica(texto: dica)
             }
 
             Spacer()
 
-            Button(action: aoConcluirRodada) {
+            Button(action: viewModel.onConcluirAtividade) {
                 BotaoContinuar()
             }
             .frame(maxWidth: .infinity)

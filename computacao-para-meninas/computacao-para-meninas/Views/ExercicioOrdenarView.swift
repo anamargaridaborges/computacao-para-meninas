@@ -1,216 +1,105 @@
 import SwiftUI
 
-
-
 struct ExercicioOrdenarView: View {
     @Environment(\.dismiss) var dismiss
-    
-    let idAtividade: String
-    var aoConcluirRodada: () -> Void
-    let idExercicio: Int
-    let numeroExercicios: Int
-    let exercicioAtual: Int
-    
-    @State var draggedItem: String? = nil
-    @State var draggedIndex: Int? = nil
-    @State var targetIndex: Int? = nil
-    @State var currentDragOffset: CGSize = .zero
-    @State var listTopY: CGFloat = 0
-    @State var dragStartY: CGFloat = 0
-    @GestureState var isDragging: Bool = false
-    
-    @State private var estadoFeedback: EstadoFeedback = .neutro
-    
-    let vetor: [String]
-    let rowHeight: CGFloat = 50
-    let rowSpacing: CGFloat = 8
-    var stride: CGFloat { rowHeight + rowSpacing }
-    
-    let hapticGenerator = UIImpactFeedbackGenerator(style: .light)
-    
-    
-    @State var lines = [
-        "numero = input()",
-        "if(numero  > 10 ):",
-        "       print(\"O número é grande!\")",
-        "else:",
-        "       print(\"O número é pequeno.\")"
-    ]
 
-    init(
-        idAtividade: String,
-        aoConcluirRodada: @escaping () -> Void,
-        idExercicio: Int,
-        numeroExercicios: Int,
-        exercicioAtual: Int,
-        vetor: [String]
-    ) {
-        self.idAtividade = idAtividade
-        self.aoConcluirRodada = aoConcluirRodada
-        self.idExercicio = idExercicio
-        self.numeroExercicios = numeroExercicios
-        self.exercicioAtual = exercicioAtual
-        self.vetor = vetor
-        
-        _lines = State(initialValue: vetor.shuffled())
-        
-        hapticGenerator.prepare()
+    @State private var viewModel: OrdenarViewModel
+    @GestureState private var isDragging: Bool = false
+
+    init(ordenarViewModel: OrdenarViewModel) {
+        _viewModel = State(initialValue: ordenarViewModel)
     }
-    
+
     var body: some View {
-            VStack {
-//                HStack {
-//                    Text(exercicios[idExercicio].enunciado)
-//                        .font(.title2)
-//                        .bold()
-//                        .padding(.horizontal)
-//                    Spacer()
-//                }
-//                .padding()
-
-                VStack(spacing: rowSpacing) {
-                    ForEach(0...lines.count, id: \.self) { index in
-                        if draggedItem != nil && targetIndex == index && index != draggedIndex,
-                           let draggedIndex, index != draggedIndex + 1 {
-                            DropPlaceholder()
-                                .transition(.asymmetric(
-                                    insertion: .scale(scale: 0.97).combined(with: .opacity),
-                                    removal: .opacity
-                                ))
-                        }
-
-                        if index < lines.count {
-                            CodeRow(text: lines[index])
-                                .gesture(dragGesture(for: index))
-                                .opacity(draggedIndex == index ? 0 : 1)
-                        }
+        VStack {
+            VStack(spacing: viewModel.rowSpacing) {
+                ForEach(0...viewModel.lines.count, id: \.self) { index in
+                    if viewModel.draggedItem != nil,
+                       viewModel.targetIndex == index,
+                       index != viewModel.draggedIndex,
+                       let draggedIndex = viewModel.draggedIndex,
+                       index != draggedIndex + 1 {
+                        DropPlaceholder()
+                            .transition(.asymmetric(
+                                insertion: .scale(scale: 0.97).combined(with: .opacity),
+                                removal: .opacity
+                            ))
                     }
-                    Spacer()
+
+                    if index < viewModel.lines.count {
+                        CodeRow(text: viewModel.lines[index])
+                            .gesture(dragGesture(for: index))
+                            .opacity(viewModel.draggedIndex == index ? 0 : 1)
+                    }
                 }
-                .padding(.horizontal, 20)
-                .background(
-                    GeometryReader { geo in
-                        Color.clear.onAppear {
-                            listTopY = geo.frame(in: .named("list")).minY
-                        }
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .background(
+                GeometryReader { geo in
+                    Color.clear.onAppear {
+                        viewModel.listTopY = geo.frame(in: .named("list")).minY
                     }
+                }
+            )
+
+            if viewModel.estadoFeedback == .neutro {
+                Button(action: { viewModel.checar() }) {
+                    BotaoContinuar(texto: "Checar")
+                }
+                .padding()
+            }
+        }
+        .coordinateSpace(name: "list")
+        .overlay {
+            if let item = viewModel.draggedItem, let to = viewModel.targetIndex {
+                floatingRow(text: item, atIndex: to)
+            }
+        }
+        .onChange(of: isDragging) {
+            if !isDragging {
+                viewModel.commitDrag()
+            }
+        }
+        .navigationBarBackButtonHidden()
+        .animation(.spring(response: 0.35), value: viewModel.estadoFeedback)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            if viewModel.estadoFeedback != .neutro {
+                BarraFeedback(
+                    mensagem: viewModel.mensagemFeedback,
+                    estado: viewModel.estadoFeedback,
+                    aoTocar: { viewModel.aoTocarFeedback() }
                 )
-                
-                if estadoFeedback == .neutro {
-                    Button(action: {
-                        withAnimation {
-                            if lines == vetor {
-                                estadoFeedback = .acerto
-                            } else {
-                                estadoFeedback = .erro
-                            }
-                        }
-                    }) {
-                        BotaoContinuar(texto: "Checar")
-                    }
-                    .padding()
-                }
+                .ignoresSafeArea(edges: .bottom)
+                .transition(.move(edge: .bottom))
             }
-            .coordinateSpace(name: "list")
-            .overlay {
-                if let item = draggedItem, let to = targetIndex {
-                    floatingRow(text: item, atIndex: to)
-                }
-            }
-            .onChange(of: isDragging) {
-                print(isDragging)
-                if !isDragging {
-                    if let item = draggedItem, let to = targetIndex, let from = draggedIndex {
-                        draggedItem = lines.remove(at: from)
-                        lines.insert(item, at: to.clamped(to: 0...lines.count))
-                        draggedItem = nil
-                        targetIndex = nil
-                        draggedIndex = nil
-                        currentDragOffset = .zero
-                        dragStartY = 0
-                    }
-                }
-            }
-            .navigationBarBackButtonHidden()
-            .animation(.spring(response: 0.35), value: estadoFeedback)
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                if estadoFeedback != .neutro {
-                    let mensagem = estadoFeedback == .acerto ? "" : "O código deve estar ordenado de forma correta!"
-                    
-                    BarraFeedback(
-                        mensagem: mensagem,
-                        estado: estadoFeedback,
-                        aoTocar: {
-                            if estadoFeedback == .acerto {
-                                aoConcluirRodada()
-                            }
-                            withAnimation { estadoFeedback = .neutro }
-                        }
-                    )
-                    .ignoresSafeArea(edges: .bottom)
-                    .transition(.move(edge: .bottom))
-                }
-            }
+        }
     }
-    
+
     func dragGesture(for index: Int) -> some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .named("list"))
             .updating($isDragging) { _, state, _ in
                 state = true
             }
             .onChanged { value in
-                if draggedItem == nil {
-                    // Mudança: .interactiveSpring() é muito mais performático para drag
-                    withAnimation(.interactiveSpring(response: 0.22, dampingFraction: 0.75)) {
-                        draggedItem = lines[index]
-                        targetIndex = index
-                        draggedIndex = index
-                        currentDragOffset = .zero
-                        dragStartY = value.startLocation.y
-                    }
-                }
-
-                currentDragOffset = value.translation
-
-                let absoluteY = dragStartY + value.translation.height
-                let proposed = Int(round((absoluteY - listTopY) / stride))
-                    .clamped(to: 0...lines.count)
-
-                if proposed != targetIndex {
-                    // Mudança: .interactiveSpring() aqui também
-                    withAnimation(.interactiveSpring(response: 0.26, dampingFraction: 0.72)) {
-                        targetIndex = proposed
-                    }
-                    hapticGenerator.impactOccurred()
-                }
+                viewModel.onDragChanged(value, index: index)
             }
             .onEnded { _ in
-//                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                    if let item = draggedItem, let to = targetIndex, let from = draggedIndex {
-                        draggedItem = lines.remove(at: from)
-                        lines.insert(item, at: to.clamped(to: 0...lines.count))
-                    }
-                    draggedItem = nil
-                    draggedIndex = nil
-                    targetIndex = nil
-                    currentDragOffset = .zero
-                    dragStartY = 0
-                    hapticGenerator.impactOccurred()
+                viewModel.commitDrag()
             }
     }
 
     func floatingRow(text: String, atIndex: Int) -> some View {
-        return CodeRow(text: text)
+        CodeRow(text: text)
             .frame(width: UIScreen.main.bounds.width - 40)
             .scaleEffect(1.04)
             .shadow(color: .black.opacity(0.18), radius: 10, y: 5)
             .position(
                 x: UIScreen.main.bounds.width / 2,
-                y: dragStartY + currentDragOffset.height
+                y: viewModel.dragStartY + viewModel.currentDragOffset.height
             )
             .allowsHitTesting(false)
     }
-
 }
 
 fileprivate struct CodeRow: View {
@@ -248,10 +137,3 @@ fileprivate struct DropPlaceholder: View {
             .frame(height: 50)
     }
 }
-
-fileprivate extension Comparable {
-    func clamped(to range: ClosedRange<Self>) -> Self {
-        min(max(self, range.lowerBound), range.upperBound)
-    }
-}
-

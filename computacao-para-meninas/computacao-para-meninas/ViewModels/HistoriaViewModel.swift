@@ -8,30 +8,35 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-class HistoriaViewModel: ObservableObject {
+@Observable
+class HistoriaViewModel {
+    var noAtual: NoHistoria
+    var historiaFinalizada: Bool = false
     
-    @Published var noAtual: NoHistoria
-    @Published var historiaFinalizada: Bool = false
+    let onConcluirAtividade: () -> Void
     
-    @AppStorage("historiasConcluidas") private var historiasConcluidasData: Data = Data()
+    private let chaveProgresso = "historiasConcluidas"
     private(set) var idsConcluidos: Set<String> = []
     
     private let historia: Historia
     private var mapaDeNos: [String: NoHistoria] = [:]
     
-    init(historia: Historia) {
+    init(historia: Historia, onConcluirAtividade: @escaping () -> Void) {
         self.historia = historia
-        
+        self.onConcluirAtividade = onConcluirAtividade
+
+        var tempMapa: [String: NoHistoria] = [:]
         for no in historia.nos {
-            mapaDeNos[no.id] = no
+            tempMapa[no.id] = no
         }
-        
-        guard let primeiroNo = mapaDeNos[historia.noInicial] else {
+
+        guard let primeiroNo = tempMapa[historia.noInicial] else {
             fatalError("Nó inicial '\(historia.noInicial)' não encontrado.")
         }
-        noAtual = primeiroNo
-        
+
+        self.noAtual = primeiroNo
+        self.mapaDeNos = tempMapa
+
         carregarProgresso()
     }
     
@@ -66,12 +71,13 @@ class HistoriaViewModel: ObservableObject {
     
     private func salvarProgresso() {
         if let encoded = try? JSONEncoder().encode(idsConcluidos) {
-            historiasConcluidasData = encoded
+            UserDefaults.standard.set(encoded, forKey: chaveProgresso)
         }
     }
-    
+
     private func carregarProgresso() {
-        if let decoded = try? JSONDecoder().decode(Set<String>.self, from: historiasConcluidasData) {
+        if let data = UserDefaults.standard.data(forKey: chaveProgresso),
+           let decoded = try? JSONDecoder().decode(Set<String>.self, from: data) {
             idsConcluidos = decoded
         }
     }
