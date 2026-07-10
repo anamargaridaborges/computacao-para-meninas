@@ -22,6 +22,7 @@ struct TrilhaView: View {
                     Rectangle().fill(Color("Text")).frame(height: 3)
                     ScrollView {
                         VStack(spacing: 8) {
+                            CardModoSpeedrun()
                             moduloTitleView
                             
                             Spacer()
@@ -63,14 +64,17 @@ struct TrilhaView: View {
     private var moduloTitleView: some View {
         HStack {
             VStack { Divider() }
-            Text(viewModel.nomeModulo)
+            Text("Lógica Computacional")
                 .font(.system(.title3, design: .rounded, weight: .bold))
                 .foregroundStyle(Color("Text").opacity(0.5))
                 .padding(.horizontal, 8)
+                .multilineTextAlignment(.center)
+                .lineLimit(1)
+                .layoutPriority(1)
             VStack { Divider() }
         }
         .padding(.horizontal, 20)
-        .padding(.top, 24)
+        .padding(.top, 10)
     }
     
     @ViewBuilder
