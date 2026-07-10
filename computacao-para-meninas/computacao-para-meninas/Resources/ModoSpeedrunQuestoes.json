@@ -1,0 +1,380 @@
+[
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "nome = \"Ada\"",
+        "saudacao = \"Olá, \" + nome",
+        "mensagem = saudacao + \"!\"",
+        "print(mensagem)"
+      ]
+    },
+    "enunciado": "Ordene o código para montar a mensagem \"Olá, Ada!\" e mostrá-la.",
+    "alternativas": [],
+    "explicacao": "Cada linha usa a variável criada logo antes: guardamos o nome, montamos a saudação, adicionamos o \"!\" e imprimimos."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        4,
+        5,
+        3
+      ]
+    },
+    "enunciado": "Ligue cada nome de variável ao motivo de ser válido ou inválido.",
+    "alternativas": [
+      "total_pontos",
+      "2nome",
+      "nome usuario",
+      "Tem espaço",
+      "Nome válido",
+      "Começa com número"
+    ],
+    "explicacao": "Um nome válido usa snake_case; não pode começar com número nem conter espaços."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 0,
+      "codigo": "pontos = 10\npontos = pontos + 5\nprint(pontos)"
+    },
+    "enunciado": "Qual valor será impresso?",
+    "alternativas": [
+      "15",
+      "10",
+      "5",
+      "pontos"
+    ],
+    "explicacao": "A variável começa com 10 e recebe mais 5, passando a valer 15."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "altura = 1.60",
+        "altura_total = altura + 0.05",
+        "eh_alta = altura_total > 1.60",
+        "print(eh_alta)"
+      ]
+    },
+    "enunciado": "Ordene o código para somar 0.05 à altura e checar se passou de 1.60.",
+    "alternativas": [],
+    "explicacao": "A altura é um número decimal (float). Depois de somar 0.05, a comparação com 1.60 gera um booleano (bool), impresso no final."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        5,
+        3,
+        4
+      ]
+    },
+    "enunciado": "Ligue cada valor ao seu tipo em Python.",
+    "alternativas": [
+      "\"oi\"",
+      "True",
+      "2.5",
+      "bool",
+      "float",
+      "str"
+    ],
+    "explicacao": "Textos entre aspas são str, True e False são bool e números com casa decimal são float."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 2
+    },
+    "enunciado": "Qual é o tipo do valor 3.14?",
+    "alternativas": [
+      "int",
+      "str",
+      "float",
+      "bool"
+    ],
+    "explicacao": "Números com casa decimal (ponto) são do tipo float."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "temperatura = 30",
+        "if temperatura > 25:",
+        "    print(\"Está calor!\")",
+        "else:",
+        "    print(\"Está frio.\")"
+      ]
+    },
+    "enunciado": "Ordene o código para avisar se está calor (acima de 25) ou frio.",
+    "alternativas": [],
+    "explicacao": "Guardamos a temperatura; o 'if' testa se passa de 25 e avisa calor, e o 'else' cobre o caso contrário."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        5,
+        3,
+        4
+      ]
+    },
+    "enunciado": "Ligue cada palavra à sua função na decisão.",
+    "alternativas": [
+      "if",
+      "elif",
+      "else",
+      "condição extra",
+      "caso contrário",
+      "primeira condição"
+    ],
+    "explicacao": "'if' testa a primeira condição, 'elif' adiciona uma condição extra e 'else' cobre o caso contrário."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 1,
+      "codigo": "idade = 16\nif idade >= 18:\n    print(\"Adulta\")\nelse:\n    print(\"Menor\")"
+    },
+    "enunciado": "O que será impresso?",
+    "alternativas": [
+      "Adulta",
+      "Menor",
+      "16",
+      "Erro"
+    ],
+    "explicacao": "Como 16 não é maior ou igual a 18, o 'if' é falso e o bloco do 'else' roda, imprimindo \"Menor\"."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "preco = 20",
+        "tem_desconto = preco > 15",
+        "pode_comprar = tem_desconto and preco < 50",
+        "print(pode_comprar)"
+      ]
+    },
+    "enunciado": "Ordene o código para checar se o preço é maior que 15 E menor que 50.",
+    "alternativas": [],
+    "explicacao": "Primeiro comparamos o preço com 15, gerando um booleano; depois o 'and' exige que essa condição e (preco < 50) sejam verdadeiras."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        4,
+        5,
+        3
+      ]
+    },
+    "enunciado": "Ligue cada operador ao seu significado.",
+    "alternativas": [
+      "+",
+      "!=",
+      "and",
+      "e (ambos)",
+      "soma",
+      "diferente de"
+    ],
+    "explicacao": "'+' soma valores, '!=' testa se são diferentes e 'and' exige que ambas as condições sejam verdadeiras."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 2,
+      "codigo": "x = 8\ny = 3\nprint(x > y and y == 3)"
+    },
+    "enunciado": "Qual será o resultado impresso?",
+    "alternativas": [
+      "False",
+      "8",
+      "True",
+      "3"
+    ],
+    "explicacao": "8 é maior que 3 (True) e y é igual a 3 (True); com 'and', ambas verdadeiras resultam em True."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "soma = 0",
+        "for numero in [1, 2, 3]:",
+        "    soma = soma + numero",
+        "print(soma)"
+      ]
+    },
+    "enunciado": "Ordene o código para somar os números 1, 2 e 3 e mostrar o total.",
+    "alternativas": [],
+    "explicacao": "Começamos a soma em 0; o laço 'for' percorre cada número e vai acumulando; no fim, imprimimos o total 6."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        5,
+        3,
+        4
+      ]
+    },
+    "enunciado": "Ligue cada elemento de laço à sua função.",
+    "alternativas": [
+      "for",
+      "while",
+      "range(3)",
+      "repete enquanto for True",
+      "gera 0, 1, 2",
+      "repete cada item"
+    ],
+    "explicacao": "'for' percorre cada item, 'while' repete enquanto a condição for verdadeira e range(3) gera 0, 1 e 2."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 3,
+      "codigo": "for i in range(3):\n    print(\"oi\")"
+    },
+    "enunciado": "Quantas vezes \"oi\" será impresso?",
+    "alternativas": [
+      "2",
+      "1",
+      "4",
+      "3"
+    ],
+    "explicacao": "range(3) gera 0, 1 e 2 — três repetições —, então \"oi\" é impresso 3 vezes."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "notas = [7]",
+        "notas.append(8)",
+        "media = (notas[0] + notas[1]) / 2",
+        "print(media)"
+      ]
+    },
+    "enunciado": "Ordene o código para adicionar a segunda nota e calcular a média das duas.",
+    "alternativas": [],
+    "explicacao": "Criamos a lista com a primeira nota e usamos .append() para a segunda. Só depois de adicioná-la dá para acessar notas[1] e calcular a média."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        5,
+        3,
+        4
+      ]
+    },
+    "enunciado": "Ligue cada elemento de lista à sua função.",
+    "alternativas": [
+      "[ ]",
+      "append()",
+      "[0]",
+      "adiciona ao final",
+      "primeiro item",
+      "cria uma lista"
+    ],
+    "explicacao": "Os colchetes criam uma lista, .append() adiciona ao final e o índice [0] acessa o primeiro item."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 2,
+      "codigo": "cores = [\"azul\", \"verde\", \"rosa\"]\nprint(cores[0])"
+    },
+    "enunciado": "Qual valor será impresso?",
+    "alternativas": [
+      "verde",
+      "rosa",
+      "azul",
+      "0"
+    ],
+    "explicacao": "As listas começam a contar do índice 0, então cores[0] é o primeiro item: \"azul\"."
+  },
+  {
+    "tipo": {
+      "tipo": "ordenar",
+      "linhas": [
+        "def somar(a, b):",
+        "    resultado = a + b",
+        "    return resultado",
+        "print(somar(2, 3))"
+      ]
+    },
+    "enunciado": "Ordene o código para criar uma função que soma dois números e mostrar o resultado.",
+    "alternativas": [],
+    "explicacao": "Definimos a função com 'def', calculamos e retornamos a soma; depois chamamos a função dentro do print."
+  },
+  {
+    "tipo": {
+      "tipo": "relacionarColunas",
+      "valores1": [
+        0,
+        1,
+        2
+      ],
+      "valores2": [
+        4,
+        5,
+        3
+      ]
+    },
+    "enunciado": "Ligue cada termo de função ao seu significado.",
+    "alternativas": [
+      "def",
+      "parâmetro",
+      "return",
+      "devolve um resultado",
+      "cria uma função",
+      "valor de entrada"
+    ],
+    "explicacao": "'def' cria a função, o parâmetro é o valor de entrada e 'return' devolve um resultado."
+  },
+  {
+    "tipo": {
+      "tipo": "multiplaEscolha",
+      "resposta": 1,
+      "codigo": "def dobro(n):\n    return n * 2\nprint(dobro(5))"
+    },
+    "enunciado": "Qual valor será impresso?",
+    "alternativas": [
+      "5",
+      "10",
+      "2",
+      "52"
+    ],
+    "explicacao": "A função multiplica o número por 2, então dobro(5) devolve 10."
+  }
+]
