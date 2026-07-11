@@ -63,14 +63,13 @@ struct ExercicioOrdenarView: View {
         }
         .navigationBarBackButtonHidden()
         .animation(.spring(response: 0.35), value: viewModel.estadoFeedback)
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+        .overlay {
             if viewModel.estadoFeedback != .neutro {
                 BarraFeedback(
-                    mensagem: viewModel.mensagemFeedback,
                     estado: viewModel.estadoFeedback,
+                    explicacao: viewModel.explicacao,
                     aoTocar: { viewModel.aoTocarFeedback() }
                 )
-                .ignoresSafeArea(edges: .bottom)
                 .transition(.move(edge: .bottom))
             }
         }

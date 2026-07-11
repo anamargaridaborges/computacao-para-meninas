@@ -56,11 +56,11 @@ struct RelacionarColunasView: View {
             .task(id: viewModel.selecionado2) {
                 await viewModel.checkAcerto()
             }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
+            .overlay {
                 if viewModel.estadoFeedback != .neutro {
                     BarraFeedback(
-                        mensagem: viewModel.mensagemErro,
                         estado: viewModel.estadoFeedback,
+                        explicacao: viewModel.exercicio.explicacao,
                         aoTocar: {
                             if viewModel.estadoFeedback == .acerto {
                                 viewModel.aoConcluirRodada()
@@ -68,7 +68,6 @@ struct RelacionarColunasView: View {
                             withAnimation { viewModel.estadoFeedback = .neutro }
                         }
                     )
-                    .ignoresSafeArea(edges: .bottom)
                     .transition(.move(edge: .bottom))
                 }
             }

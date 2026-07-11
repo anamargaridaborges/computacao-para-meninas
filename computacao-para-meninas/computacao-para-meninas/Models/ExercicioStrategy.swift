@@ -23,6 +23,7 @@ struct OrdenarStrategy: ExercicioStrategy {
         let vm = OrdenarViewModel(
             numeroExercicios: rodadaAtual, // ajuste conforme sua lógica real
             vetor: vetor,
+            explicacao: exercicio.explicacao,
             aoConcluirRodada: aoConcluirRodada
         )
         return AnyView(

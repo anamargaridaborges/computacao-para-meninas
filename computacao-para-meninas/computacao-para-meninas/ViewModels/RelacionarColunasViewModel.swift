@@ -22,8 +22,7 @@ class RelacionarColunasViewModel {
     var desativado: [Bool]
     var continuarDesativado: Bool = true
     var estadoFeedback: EstadoFeedback = .neutro
-    var mensagemErro: String = ""
-    
+
     let aoConcluirRodada: () -> Void
 
     init(vetor1: [Int], vetor2: [Int], exercicio: Exercicio, aoConcluirRodada: @escaping () -> Void) {
@@ -74,8 +73,6 @@ class RelacionarColunasViewModel {
                     erro2 = selecionado2
 
                     estadoFeedback = .erro
-                    mensagemErro = "Essas variáveis não correspondem. Tente outra combinação."
-
                 }
 
                 try? await Task.sleep(nanoseconds: 1_000_000_000)
@@ -92,7 +89,6 @@ class RelacionarColunasViewModel {
 
                 withAnimation {
                     estadoFeedback = .acerto
-                    mensagemErro = ""
                 }
             }
         }

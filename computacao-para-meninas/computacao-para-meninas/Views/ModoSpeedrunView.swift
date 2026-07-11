@@ -17,10 +17,7 @@ struct ModoSpeedrunView: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        if tempoRestante > 0 {
-            CountdownView(tempoRestante: $tempoRestante)
-        }
-        else if viewModel.terminado {
+        if viewModel.terminado {
             ResultadoSpeedrunView(
                 certas: viewModel.certas,
                 aoJogarDeNovo: {
@@ -31,30 +28,27 @@ struct ModoSpeedrunView: View {
             )
         }
         else {
-            VStack {
-                BarraTempoSpeedrun(endDate: viewModel.endDate, certas: viewModel.certas)
+            ZStack {
+                // O jogo é montado desde já (mesmo escondido) para "esquentar"
+                // o primeiro render durante a contagem regressiva, evitando o
+                // travamento que comia tempo do cronômetro.
+                jogo
 
-                Text(viewModel.exercicioAtual.enunciado)
-                    .font(.title2)
-                    .bold()
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    .padding(.vertical, 12)
-
-                viewModel.exercicioAtual.tipo.strategy.criarView(
-                    exercicio: viewModel.exercicioAtual,
-                    rodadaAtual: viewModel.idxAtual,
-                    aoConcluirRodada: { viewModel.registrarAcerto() }
-                )
-
-                Spacer()
+                if tempoRestante > 0 {
+                    CountdownView(tempoRestante: $tempoRestante)
+                }
             }
             .onAppear {
-                viewModel.iniciarCronometro()
+                // Reembaralha ao começar a rodada (durante a contagem), para
+                // que a questão aquecida seja a que será jogada.
+                if tempoRestante > 0 {
+                    viewModel.embaralhar()
+                }
             }
-            .onReceive(timer) { _ in
-                viewModel.verificarTempo()
+            .onChange(of: tempoRestante) { _, novo in
+                if novo == 0 {
+                    viewModel.iniciarCronometro()
+                }
             }
             .navigationBarBackButtonHidden(true)
             .toolbar {
@@ -64,6 +58,30 @@ struct ModoSpeedrunView: View {
                     }
                 }
             }
+        }
+    }
+
+    private var jogo: some View {
+        VStack {
+            BarraTempoSpeedrun(endDate: viewModel.endDate, certas: viewModel.certas)
+
+            Text(viewModel.exercicioAtual.enunciado)
+                .font(.title2)
+                .bold()
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+
+            viewModel.exercicioAtual.tipo.strategy.criarView(
+                exercicio: viewModel.exercicioAtual,
+                rodadaAtual: viewModel.idxAtual,
+                aoConcluirRodada: { viewModel.registrarAcerto() }
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .onReceive(timer) { _ in
+            viewModel.verificarTempo()
         }
     }
 }

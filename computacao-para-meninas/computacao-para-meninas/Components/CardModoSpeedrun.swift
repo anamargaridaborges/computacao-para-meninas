@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CardModoSpeedrun: View {
+    
+    @AppStorage("recorde") var recorde: Int = 0
 
     var body: some View {
         ZStack {
@@ -36,7 +38,7 @@ struct CardModoSpeedrun: View {
                             .font(.subheadline.bold())
                             .foregroundStyle(Color.white)
                         Spacer()
-                        Text("0 questões")
+                        Text(String(recorde) + (recorde == 1 ? " questão" : " questões"))
                             .font(.subheadline.bold())
                             .foregroundStyle(Color.white)
                     }

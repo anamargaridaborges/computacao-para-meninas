@@ -78,11 +78,12 @@ struct MultiplaEscolhaView: View {
             }
             .navigationBarBackButtonHidden()
         }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
             if viewModel.estadoFeedback != .neutro {
                 BarraFeedback(
-                    mensagem: viewModel.mensagemErro,
                     estado: viewModel.estadoFeedback,
+                    explicacao: viewModel.exercicio.explicacao,
                     aoTocar: {
                         if viewModel.estadoFeedback == .acerto {
                             viewModel.onConcluirAtividade()
@@ -90,9 +91,7 @@ struct MultiplaEscolhaView: View {
                         withAnimation { viewModel.resetar() }
                     }
                 )
-                .ignoresSafeArea(edges: .bottom)
                 .transition(.move(edge: .bottom))
-                .frame(maxHeight: (viewModel.estadoFeedback == .acerto ? 80 : .infinity))
             }
         }
         .animation(.spring(response: 0.35), value: viewModel.estadoFeedback)

@@ -17,7 +17,7 @@ struct BarraTempoSpeedrun: View {
             VStack {
                 HStack {
                     Image(systemName: "clock")
-                    Text("0:"+String(Int(endDate.timeIntervalSince(context.date))))
+                    Text("0:"+(Int(endDate.timeIntervalSince(context.date)) < 10 ? "0" : "")+String(Int(endDate.timeIntervalSince(context.date))))
                         .font(.title2.bold())
                     Spacer()
                     Image(systemName: "bolt.fill")

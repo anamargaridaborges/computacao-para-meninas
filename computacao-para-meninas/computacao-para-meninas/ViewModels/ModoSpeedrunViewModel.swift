@@ -25,7 +25,20 @@ class ModoSpeedrunViewModel {
         self.questoes = carregadas.shuffled()
     }
 
+    // Embaralha as questões no início da rodada (durante a contagem
+    // regressiva), garantindo que a questão pré-aquecida seja a mesma que
+    // será jogada e que cada partida venha em ordem diferente.
+    func embaralhar() {
+        questoes = questoes.shuffled()
+        idxAtual = 0
+        certas = 0
+        terminado = false
+    }
+
     func iniciarCronometro() {
+        certas = 0
+        idxAtual = 0
+        terminado = false
         endDate = Date().addingTimeInterval(60)
     }
 
