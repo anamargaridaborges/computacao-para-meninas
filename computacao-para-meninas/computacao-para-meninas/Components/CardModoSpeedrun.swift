@@ -43,7 +43,7 @@ struct CardModoSpeedrun: View {
                     .frame(width: 270, height: 50)
                 }
                 .padding(4)
-                Button(action: {}) {
+                NavigationLink(destination: ModoSpeedrunView()) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 15)
                             .fill(Color.white)

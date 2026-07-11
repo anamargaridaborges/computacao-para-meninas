@@ -95,7 +95,8 @@
   {
     "tipo": {
       "tipo": "multiplaEscolha",
-      "resposta": 2
+      "resposta": 2,
+      "codigo": "valor = 3.14"
     },
     "enunciado": "Qual é o tipo do valor 3.14?",
     "alternativas": [

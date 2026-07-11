@@ -13,7 +13,7 @@ class MultiplaEscolhaViewModel {
     let exercicio: Exercicio
     
     let resposta: Int
-    let codigo: String
+    let codigo: String?
     let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
     
     let onConcluirAtividade: () -> Void
