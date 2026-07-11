@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct BarraTempoSpeedrun: View {
-    
-    @State var endDate: Date = Date().addingTimeInterval(60)
-    @State var certas: Int = 0
-    
+
+    let endDate: Date
+    let certas: Int
+
     var body: some View {
         TimelineView(.animation) { context in
             VStack {
@@ -37,12 +37,9 @@ struct BarraTempoSpeedrun: View {
                 }
             }
         }
-        .onAppear {
-            endDate = Date().addingTimeInterval(60)
-        }
     }
 }
 
 #Preview {
-    BarraTempoSpeedrun()
+    BarraTempoSpeedrun(endDate: Date().addingTimeInterval(60), certas: 3)
 }
