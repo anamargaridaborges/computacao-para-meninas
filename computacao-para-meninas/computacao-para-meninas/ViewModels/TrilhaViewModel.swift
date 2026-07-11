@@ -1,6 +1,6 @@
 //
 //  TrilhaViewModel.swift
-//  
+//  computacao-para-meninas
 //
 //  Created by Ana Macedo on 12/04/26.
 //
@@ -11,9 +11,17 @@ import Observation
 @Observable
 class TrilhaViewModel {
     private let userDefaultsKey = "atividadesConcluidas"
+    private let pontosKey = "pontosTotaisXP"
+    
     var idsConcluidos: Set<String> = [] {
         didSet {
             saveProgress()
+        }
+    }
+    
+    var pontosTotais: Int = 0 {
+        didSet {
+            savePontos()
         }
     }
     
@@ -84,7 +92,7 @@ class TrilhaViewModel {
                 offsetX: 0,
                 tipo: .historia,
                 usaSFSymbol: true
-            ),
+            )
         ]
     }
 
@@ -93,12 +101,18 @@ class TrilhaViewModel {
            let decoded = try? JSONDecoder().decode(Set<String>.self, from: data) {
             idsConcluidos = decoded
         }
+        
+        pontosTotais = UserDefaults.standard.integer(forKey: pontosKey)
     }
 
     private func saveProgress() {
         if let encoded = try? JSONEncoder().encode(idsConcluidos) {
             UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
         }
+    }
+    
+    private func savePontos() {
+        UserDefaults.standard.set(pontosTotais, forKey: pontosKey)
     }
 
     func estaDesbloqueada(idAtividade: String, idDependencia: String?) -> Bool {
@@ -107,6 +121,9 @@ class TrilhaViewModel {
     }
 
     func concluirAtividade(id: String) {
-        idsConcluidos.insert(id)
+        if !idsConcluidos.contains(id) {
+            idsConcluidos.insert(id)
+            pontosTotais += 50
+        }
     }
 }
