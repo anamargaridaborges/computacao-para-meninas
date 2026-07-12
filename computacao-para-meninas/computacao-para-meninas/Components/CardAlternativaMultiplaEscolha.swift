@@ -23,14 +23,14 @@ struct CardAlternativaMultiplaEscolha: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(acertouEsta ? Color("LightGreen") : Color("LightestGray"))
                 .stroke(strokeColor(), lineWidth: (idSelecionado == idx ? 4 : 2))
-                .frame(width: 80, height: 60)
+                .frame(width: 100, height: 80)
             Text(texto)
                 .foregroundStyle(acertouEsta ? Color("DarkGreen") : Color.black)
-                .frame(width: 60)
+                .frame(width: 80)
                 .multilineTextAlignment(.leading)
                 .monospaced()
         }
-        .padding()
+        .padding(2)
     }
 
     private func strokeColor() -> Color {

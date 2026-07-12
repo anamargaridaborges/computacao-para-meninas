@@ -11,6 +11,7 @@ import SwiftUI
 class OrdenarViewModel {
     let numeroExercicios: Int
     let vetor: [String]
+    let explicacao: String
     let aoConcluirRodada: () -> Void
 
     var lines: [String]
@@ -32,10 +33,12 @@ class OrdenarViewModel {
     init(
         numeroExercicios: Int,
         vetor: [String],
+        explicacao: String = "",
         aoConcluirRodada: @escaping () -> Void
     ) {
         self.numeroExercicios = numeroExercicios
         self.vetor = vetor
+        self.explicacao = explicacao
         self.aoConcluirRodada = aoConcluirRodada
         self.lines = vetor.shuffled()
         hapticGenerator.prepare()
@@ -89,10 +92,6 @@ class OrdenarViewModel {
         withAnimation {
             estadoFeedback = (lines == vetor) ? .acerto : .erro
         }
-    }
-
-    var mensagemFeedback: String {
-        estadoFeedback == .acerto ? "" : "O código deve estar ordenado de forma correta!"
     }
 
     func aoTocarFeedback() {

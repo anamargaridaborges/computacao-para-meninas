@@ -34,15 +34,12 @@ struct ExercicioGeralView: View {
         if viewModel.totalRodadas == 0 {
             Text("Sem exercícios para esta atividade.")
         } else {
-            VStack {
-                viewModel.exercicioAtual.tipo.strategy.criarView(
-                    exercicio: viewModel.exercicioAtual,
-                    rodadaAtual: viewModel.rodadaAtual,
-                    aoConcluirRodada: { viewModel.proximaEtapa() }
-                )
-                
-                Spacer()
-            }
+            viewModel.exercicioAtual.tipo.strategy.criarView(
+                exercicio: viewModel.exercicioAtual,
+                rodadaAtual: viewModel.rodadaAtual,
+                aoConcluirRodada: { viewModel.proximaEtapa() }
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .safeAreaInset(edge: .top) {
                 VStack {
                     HStack {
