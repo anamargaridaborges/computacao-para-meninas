@@ -33,6 +33,7 @@ class ModoSpeedrunViewModel {
         idxAtual = 0
         certas = 0
         terminado = false
+        endDate = Date().addingTimeInterval(60)
     }
 
     func iniciarCronometro() {

@@ -11,6 +11,7 @@ struct ModoSpeedrunView: View {
 
     @State var viewModel = ModoSpeedrunViewModel()
     @State var tempoRestante: Int = 4
+    @State private var rodadaID = UUID()
 
     @Environment(\.dismiss) var dismiss
 
@@ -32,7 +33,13 @@ struct ModoSpeedrunView: View {
                 // O jogo é montado desde já (mesmo escondido) para "esquentar"
                 // o primeiro render durante a contagem regressiva, evitando o
                 // travamento que comia tempo do cronômetro.
+                //
+                // O `.id(rodadaID)` garante que, após o embaralhamento feito no
+                // `onAppear`, todo o subtree do jogo receba identidade nova e
+                // reconstrua os ViewModels dos exercícios — senão a primeira
+                // questão ficaria com o VM (alternativas) da questão pré-shuffle.
                 jogo
+                    .id(rodadaID)
 
                 if tempoRestante > 0 {
                     CountdownView(tempoRestante: $tempoRestante)
@@ -40,9 +47,12 @@ struct ModoSpeedrunView: View {
             }
             .onAppear {
                 // Reembaralha ao começar a rodada (durante a contagem), para
-                // que a questão aquecida seja a que será jogada.
+                // que a questão aquecida seja a que será jogada. Renova o
+                // rodadaID para reconstruir o jogo já com as questões
+                // embaralhadas (evita mistura de enunciado com alternativas).
                 if tempoRestante > 0 {
                     viewModel.embaralhar()
+                    rodadaID = UUID()
                 }
             }
             .onChange(of: tempoRestante) { _, novo in
