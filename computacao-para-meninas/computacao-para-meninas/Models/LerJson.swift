@@ -1,10 +1,3 @@
-//
-//  LerJson.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import Foundation
 
 func load<T: Decodable>(_ filename: String) -> T {

@@ -1,10 +1,3 @@
-//
-//  Exercicio.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 enum TipoExercicio: Decodable {
     case relacionarColunas([Int], [Int])
     case ordenar([String])

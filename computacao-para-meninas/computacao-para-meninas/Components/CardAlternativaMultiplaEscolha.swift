@@ -1,10 +1,3 @@
-//
-//  CardAlternativaMultiplaEscolha.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 08/04/26.
-//
-
 import SwiftUI
 
 struct CardAlternativaMultiplaEscolha: View {
@@ -49,8 +42,4 @@ struct CardAlternativaMultiplaEscolha: View {
         
         return Color("AccentColor")
     }
-}
-
-#Preview {
-    
 }

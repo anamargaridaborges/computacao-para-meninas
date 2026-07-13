@@ -1,10 +1,3 @@
-//
-//  ExercicioOrdenarViewModel.swift
-//  computacao-para-meninas
-//
-//  Created by Lucas Peixoto Gonçalves on 27/06/26.
-//
-
 import SwiftUI
 
 @Observable

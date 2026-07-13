@@ -1,10 +1,3 @@
-//
-//  BarraDeProgresso.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 08/04/26.
-//
-
 import SwiftUI
 
 struct BarraDeProgresso: View {

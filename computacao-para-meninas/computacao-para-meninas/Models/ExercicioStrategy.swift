@@ -1,10 +1,3 @@
-//
-//  ExercicioStrategy.swift
-//  computacao-para-meninas
-//
-//  Created by Lucas Peixoto Gonçalves on 30/06/26.
-//
-
 import SwiftUI
 
 protocol ExercicioStrategy {

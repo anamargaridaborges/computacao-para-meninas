@@ -1,10 +1,3 @@
-//
-//  RelacionarColunasView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import SwiftUI
 
 struct RelacionarColunasView: View {
@@ -75,15 +68,3 @@ struct RelacionarColunasView: View {
     }
 
 }
-
-//#Preview {
-//    RelacionarColunasView(
-//        idAtividade: "atv_exemplo",
-//        aoConcluirRodada: {},
-//        idExercicio: 0,
-//        numeroExercicios: 5,
-//        exercicioAtual: 1,
-//        vetor1: [0, 1, 2],
-//        vetor2: [3, 4, 5]
-//    )
-//}

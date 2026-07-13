@@ -1,10 +1,3 @@
-//
-//  RelacionarColunasViewModel.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import Foundation
 import SwiftUI
 

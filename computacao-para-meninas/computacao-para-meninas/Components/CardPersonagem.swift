@@ -1,10 +1,3 @@
-//
-//  CardPersonagem.swift
-//  computacao-para-meninas
-//
-//  Created by Lara Matias Pasquotti on 11/07/26.
-//
-
 import SwiftUI
 
 struct CardPersonagem: View {

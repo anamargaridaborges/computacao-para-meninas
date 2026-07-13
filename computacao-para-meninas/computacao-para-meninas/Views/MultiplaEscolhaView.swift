@@ -1,10 +1,3 @@
-//
-//  MultiplaEscolhaView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import SwiftUI
 
 struct MultiplaEscolhaView: View {
@@ -98,15 +91,3 @@ struct MultiplaEscolhaView: View {
     }
 
 }
-
-//#Preview {
-//    MultiplaEscolhaView(
-//        idAtividade: "atv_exemplo",
-//        aoConcluirRodada: {},
-//        idExercicio: 0,
-//        numeroExercicios: 5,
-//        exercicioAtual: 1,
-//        resposta: 0,
-//        codigo: "num1 = 5"
-//    )
-//}
