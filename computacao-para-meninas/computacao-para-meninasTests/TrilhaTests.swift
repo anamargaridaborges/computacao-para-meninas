@@ -237,5 +237,68 @@ final class TrilhaTests: XCTestCase {
         XCTAssertTrue(ex7.alternativas.isEmpty)
         // XCTAssertEqual(ex7.tipo.nome, "curiosidade")
     }
-}
 
+    // Análise de Valor Limite para desbloqueio da primeira atividade (sem dependência)
+    func testDesbloqueioPrimeiraAtividade_Boundary() {
+        // Arrange: primeiro botão não tem dependência
+        let vm = TrilhaViewModel()
+        guard let primeiro = vm.botoesTrilha.first else {
+            XCTFail("Trilha vazia"); return
+        }
+        XCTAssertNil(primeiro.idDependencia)
+
+        // Act & Assert: atividade sem dependência deve estar desbloqueada independentemente do progresso
+        let liberadaSemProgresso = vm.estaDesbloqueada(idAtividade: primeiro.id, idDependencia: primeiro.idDependencia)
+        XCTAssertTrue(liberadaSemProgresso, "Atividade inicial deve estar liberada (fronteira: 0 concluídas)")
+
+        // Conclui algo aleatório e confere novamente
+        vm.concluirAtividade(id: "dummy")
+        let liberadaComProgresso = vm.estaDesbloqueada(idAtividade: primeiro.id, idDependencia: primeiro.idDependencia)
+        XCTAssertTrue(liberadaComProgresso, "Atividade inicial deve permanecer liberada (fronteira: >0 concluídas)")
+    }
+
+    // Particionamento em classes de equivalência para desbloqueio de uma atividade com dependência
+    func testDesbloqueioComDependencia_EquivalenceClasses() {
+        // Arrange: pega o segundo botão, que depende do primeiro
+        let vm = TrilhaViewModel()
+        guard vm.botoesTrilha.count >= 2 else { XCTFail("Trilha insuficiente"); return }
+        let primeiro = vm.botoesTrilha[0]
+        let segundo = vm.botoesTrilha[1]
+        XCTAssertEqual(segundo.idDependencia, primeiro.id)
+
+        // Classe 1: Dependência NÃO concluída -> deve estar bloqueada
+        vm.idsConcluidos = []
+        let classe1 = vm.estaDesbloqueada(idAtividade: segundo.id, idDependencia: segundo.idDependencia)
+        XCTAssertFalse(classe1, "Com dependência não concluída, deve estar bloqueada")
+
+        // Classe 2: Dependência concluída -> deve estar liberada
+        vm.concluirAtividade(id: primeiro.id)
+        let classe2 = vm.estaDesbloqueada(idAtividade: segundo.id, idDependencia: segundo.idDependencia)
+        XCTAssertTrue(classe2, "Com dependência concluída, deve estar liberada")
+
+        // Classe 3: Dependência inválida (id inexistente) -> tratar como bloqueada
+        let classe3 = vm.estaDesbloqueada(idAtividade: segundo.id, idDependencia: "id_inexistente")
+        XCTAssertFalse(classe3, "Dependência inexistente deve resultar em bloqueio")
+    }
+
+    // Análise de Valor Limite para persistência (0, 1 e 2 itens)
+    func testPersistenciaIdsConcluidos_BoundaryCounts() {
+        // 0 itens
+        var vm = TrilhaViewModel()
+        vm.idsConcluidos = []
+        var novo = TrilhaViewModel()
+        XCTAssertEqual(Set(novo.idsConcluidos), Set([]))
+
+        // 1 item
+        vm.concluirAtividade(id: "A")
+        novo = TrilhaViewModel()
+        XCTAssertTrue(novo.idsConcluidos.contains("A"))
+
+        // 2 itens
+        vm.concluirAtividade(id: "B")
+        novo = TrilhaViewModel()
+        XCTAssertTrue(novo.idsConcluidos.contains("A"))
+        XCTAssertTrue(novo.idsConcluidos.contains("B"))
+    }
+
+}
