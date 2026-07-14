@@ -27,13 +27,13 @@ final class MultiplaEscolhaViewModelTests: XCTestCase {
     }
 
     func testBoundaryValues_validIndexRange() {
-        // Análise de Valor Limite: índices -1 (abaixo), 0 (limite), último índice (limite superior)
+        // Análise de Valor Limite: nenhuma seleção (abaixo), 0 (limite), último índice (limite superior)
         let alternativas = ["opt0", "opt1", "opt2"]
         let exercicio = makeExercicioMultiplaEscolha(resposta: 2, codigo: "", alternativas: alternativas)
         let vm = MultiplaEscolhaViewModel(resposta: 2, codigo: "", exercicio: exercicio, onConcluirAtividade: {})
 
-        // Abaixo do limite: -1 (estado inicial)
-        XCTAssertEqual(vm.idSelecionado, -1)
+        // Abaixo do limite: nenhuma seleção (estado inicial)
+        XCTAssertNil(vm.idSelecionado)
         vm.verificar()
         XCTAssertEqual(vm.estadoFeedback, .erro, "Sem seleção válida, deve acusar erro ao verificar")
 
