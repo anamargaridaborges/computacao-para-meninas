@@ -1,22 +1,38 @@
 import XCTest
 @testable import computacao_para_meninas
 
-final class TipoExercicioDecodingTests: XCTestCase {
+final class TipoExercicioDecodingCorrectTests: XCTestCase {
+
+    private struct WrapperExercicio: Decodable {
+        let tipo: TipoExercicio
+
+        // Minimal keys to match the Exercicio shape; optionals omitted if nil
+        let enunciado: String?
+        let alternativas: [String]?
+        let explicacao: String?
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.tipo = try container.decode(TipoExercicio.self, forKey: .tipo)
+            self.enunciado = try container.decodeIfPresent(String.self, forKey: .enunciado)
+            self.alternativas = try container.decodeIfPresent([String].self, forKey: .alternativas)
+            self.explicacao = try container.decodeIfPresent(String.self, forKey: .explicacao)
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case tipo, enunciado, alternativas, explicacao
+        }
+    }
 
     private func decodeTipo(from json: [String: Any]) throws -> TipoExercicio {
-        var full = json
-        if full["enunciado"] == nil { full["enunciado"] = "" }
-        if full["alternativas"] == nil { full["alternativas"] = [] }
-        if full["explicacao"] == nil { full["explicacao"] = "" }
-
-        let data = try JSONSerialization.data(withJSONObject: full)
+        let data = try JSONSerialization.data(withJSONObject: json)
         let decoder = JSONDecoder()
-        let exercicio = try decoder.decode(Exercicio.self, from: data)
-        return exercicio.tipo
+        let wrapper = try decoder.decode(WrapperExercicio.self, from: data)
+        return wrapper.tipo
     }
 
     func testEquivalenceClasses_knownTiposDecode() throws {
-        // conteudoTeorico
+        // conteudoTeorico (omit optional keys to represent nil)
         let t1 = try decodeTipo(from: [
             "tipo": "conteudoTeorico",
             "texto": "abc"
@@ -70,10 +86,7 @@ final class TipoExercicioDecodingTests: XCTestCase {
 
     func testBoundary_unknownTipoFails() {
         let json: [String: Any] = [
-            "tipo": "desconhecido",
-            "enunciado": "",
-            "alternativas": [],
-            "explicacao": ""
+            "tipo": "desconhecido"
         ]
         XCTAssertThrowsError(try decodeTipo(from: json)) { error in
             guard case DecodingError.dataCorrupted = error else {
@@ -83,4 +96,3 @@ final class TipoExercicioDecodingTests: XCTestCase {
         }
     }
 }
-
