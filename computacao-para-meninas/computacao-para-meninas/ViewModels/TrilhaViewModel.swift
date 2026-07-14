@@ -1,10 +1,3 @@
-//
-//  TrilhaViewModel.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Macedo on 12/04/26.
-//
-
 import SwiftUI
 import Observation
 

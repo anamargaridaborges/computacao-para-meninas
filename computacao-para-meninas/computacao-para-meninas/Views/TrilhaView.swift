@@ -1,10 +1,3 @@
-//
-//  TrilhaView.swift
-//  computacao-para-meninas
-//
-//  Created by Lara Matias Pasquotti on 10/04/26.
-//
-
 import SwiftUI
 
 struct TrilhaView: View {
@@ -86,11 +79,6 @@ struct TrilhaView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(1)
                 .layoutPriority(1)
-            
-//            Text(viewModel.nomeModulo)
-//                .font(.system(.title3, design: .rounded).weight(.bold))
-//                .foregroundStyle(Color("Text").opacity(0.5))
-//                .padding(.horizontal, 8)
             
             VStack { Divider() }
         }

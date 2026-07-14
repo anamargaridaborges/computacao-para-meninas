@@ -1,8 +1,3 @@
-//
-//  ExplicacaoView.swift
-//  computacao-para-meninas
-//
-
 import SwiftUI
 
 struct ExplicacaoView: View {

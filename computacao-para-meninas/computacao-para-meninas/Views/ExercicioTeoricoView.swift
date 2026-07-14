@@ -1,10 +1,3 @@
-//
-//  ExercicioTeoricoView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 25/06/26.
-//
-
 import SwiftUI
 
 struct ExercicioTeoricoView: View {
@@ -74,8 +67,4 @@ private struct CalloutDica: View {
         .background(Color.orange.opacity(0.15))
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
-}
-
-#Preview {
-
 }

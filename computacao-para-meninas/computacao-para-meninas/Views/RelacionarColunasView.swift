@@ -1,10 +1,3 @@
-//
-//  RelacionarColunasView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import SwiftUI
 
 struct RelacionarColunasView: View {
@@ -22,26 +15,35 @@ struct RelacionarColunasView: View {
                 HStack {
                     VStack {
                         ForEach(0..<viewModel.exercicio.alternativas.count / 2, id : \.self) { i in
-                            Button (action: {
-                                viewModel.selecionarColuna1(i)
-                            }) {
-                                CardAlternativaRelacionarColunas(idx: i, selecionado: viewModel.selecionado1, erro: viewModel.erro1, desativado: viewModel.desativado[i], alternativa: viewModel.exercicio.alternativas[i])
+                            let alternativa = viewModel.exercicio.alternativas[i]
+                            let desativado = viewModel.desativado[i] || viewModel.estadoFeedback == .erro
+                            
+                            Button(action: { viewModel.selecionarColuna1(i) }) {
+                                CardAlternativaRelacionarColunas(
+                                    estado: estadoDoCard(index: i, selecionado: viewModel.selecao.idPrimeiraColuna),
+                                    alternativa: alternativa
+                                )
                             }
                             .accessibilityIdentifier("card_\(i)")
-                            .disabled(viewModel.desativado[i])
+                            .disabled(desativado)
                         }
                     }
                     .padding(5)
 
                     VStack {
                         ForEach(viewModel.exercicio.alternativas.count / 2..<viewModel.exercicio.alternativas.count, id : \.self) { i in
-                            Button (action: {
-                                viewModel.selecionarColuna2(i)
-                            }) {
-                                CardAlternativaRelacionarColunas(idx: i, selecionado: viewModel.selecionado2, erro: viewModel.erro2, desativado: viewModel.desativado[i], alternativa: viewModel.exercicio.alternativas[i])
+                            let alternativa = viewModel.exercicio.alternativas[i]
+                            let desativado = viewModel.desativado[i] || viewModel.estadoFeedback == .erro
+                            
+                            
+                            Button(action: { viewModel.selecionarColuna2(i) }) {
+                                CardAlternativaRelacionarColunas(
+                                    estado: estadoDoCard(index: i, selecionado: viewModel.selecao.idSegundaColuna),
+                                    alternativa: alternativa
+                                )
                             }
                             .accessibilityIdentifier("card_\(i)")
-                            .disabled(viewModel.desativado[i])
+                            .disabled(desativado)
                         }
                     }
                     .padding(5)
@@ -50,10 +52,10 @@ struct RelacionarColunasView: View {
                 Spacer()
             }
             .navigationBarBackButtonHidden()
-            .task(id: viewModel.selecionado1) {
+            .task(id: viewModel.selecao.idPrimeiraColuna) {
                 await viewModel.checkAcerto()
             }
-            .task(id: viewModel.selecionado2) {
+            .task(id: viewModel.selecao.idSegundaColuna) {
                 await viewModel.checkAcerto()
             }
             .overlay {
@@ -74,16 +76,18 @@ struct RelacionarColunasView: View {
             .animation(.spring(response: 0.35), value: viewModel.estadoFeedback)
     }
 
+    func estadoDoCard(index: Int, selecionado: Int?) -> CardAlternativaRelacionarColunas.Estado {
+        let desativado = viewModel.desativado[index]
+        
+        if desativado {
+            return .desativado
+        } else if index == selecionado {
+            if viewModel.estadoFeedback == .erro {
+                return .erro
+            }
+            return .selecionado
+        }
+        
+        return .normal
+    }
 }
-
-//#Preview {
-//    RelacionarColunasView(
-//        idAtividade: "atv_exemplo",
-//        aoConcluirRodada: {},
-//        idExercicio: 0,
-//        numeroExercicios: 5,
-//        exercicioAtual: 1,
-//        vetor1: [0, 1, 2],
-//        vetor2: [3, 4, 5]
-//    )
-//}

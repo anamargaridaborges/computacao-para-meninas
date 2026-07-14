@@ -1,10 +1,3 @@
-//
-//  BarraFeedback.swift
-//  computacao-para-meninas
-//
-//  Created by Lara Matias Pasquotti on 14/04/26.
-//
-
 import SwiftUI
 
 struct BarraFeedback: View {

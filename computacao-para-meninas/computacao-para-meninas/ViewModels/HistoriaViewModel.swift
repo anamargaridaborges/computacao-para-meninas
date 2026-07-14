@@ -1,10 +1,3 @@
-//
-//  HistoriaViewModel.swift
-//  computacao-para-meninas
-//
-//  Created by Lara Matias Pasquotti on 22/06/26.
-//
-
 import Foundation
 import SwiftUI
 

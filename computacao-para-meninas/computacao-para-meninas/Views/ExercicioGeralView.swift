@@ -1,30 +1,13 @@
-//
-//  ExercicioGeralView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 08/04/26.
-//
-
 import SwiftUI
 
 struct ExercicioGeralView: View {
     @State var viewModel: ExercicioGeralViewModel
-    
-//=======
-//    @State var totalDeRodadas: Int = 0
-//    @State var estadoFeedback: EstadoFeedback = .neutro
-//    let mensagemErro: String = "Para realizar uma soma com num1, preciso que essa variável armazene um inteiro."
-//    @State var idSelecionado: Int = -1
-//    
-//>>>>>>> main
     @Environment(\.dismiss) var dismiss
-    
 
     var ehConteudoTeorico: Bool {
         if case .conteudoTeorico = viewModel.exercicioAtual.tipo { return true }
         return false
     }
-
 
     init(viewModel: ExercicioGeralViewModel, rodadaAtual: Int=0) {
         self.viewModel = viewModel
@@ -34,7 +17,7 @@ struct ExercicioGeralView: View {
         if viewModel.totalRodadas == 0 {
             Text("Sem exercícios para esta atividade.")
         } else {
-            viewModel.exercicioAtual.tipo.strategy.criarView(
+            viewModel.exercicioAtual.criarView(
                 exercicio: viewModel.exercicioAtual,
                 rodadaAtual: viewModel.rodadaAtual,
                 aoConcluirRodada: { viewModel.proximaEtapa() }
@@ -91,31 +74,6 @@ struct ExercicioGeralView: View {
             .onChange(of: viewModel.concluido) { _, novo in
                 if novo { dismiss() }
             }
-//            .safeAreaInset(edge: .bottom, spacing: 0) {
-//                if estadoFeedback != .neutro, case .tipo1 = exercicios[rodadaAtual].tipo {
-//                    BarraFeedback(
-//                        mensagem: mensagemErro,
-//                        estado: estadoFeedback,
-//                        aoTocar: {
-//                            if estadoFeedback == .acerto {
-//                                proximaEtapa()
-//                            }
-//                            withAnimation { estadoFeedback = .neutro
-//                            idSelecionado = -1 }
-//                        }
-//                    )
-//                    .ignoresSafeArea(edges: .bottom)
-//                    .transition(.move(edge: .bottom))
-//                    .frame(maxHeight: (estadoFeedback == .acerto ? 80 : .infinity))
-//                }
-//            }
-//            .animation(.spring(response: 0.35), value: estadoFeedback)
         }
-        // na View
     }
 }
-
-//#Preview {
-//    ExercicioGeralView(viewModel: TrilhaViewModel(), idx: 0, idAtividade: "atv_1")
-//}
-

@@ -1,10 +1,3 @@
-//
-//  ExercicioCuriosidadeView.swift
-//  computacao-para-meninas
-//
-//  Created by Lucas Peixoto Gonçalves on 25/06/26.
-//
-
 import SwiftUI
 
 struct ExercicioCuriosidadeView: View {

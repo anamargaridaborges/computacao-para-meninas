@@ -1,10 +1,3 @@
-//
-//  ModoSpeedrunView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 10/07/26.
-//
-
 import SwiftUI
 
 struct ModoSpeedrunView: View {
@@ -83,7 +76,7 @@ struct ModoSpeedrunView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 12)
 
-            viewModel.exercicioAtual.tipo.strategy.criarView(
+            viewModel.exercicioAtual.criarView(
                 exercicio: viewModel.exercicioAtual,
                 rodadaAtual: viewModel.idxAtual,
                 aoConcluirRodada: { viewModel.registrarAcerto() }

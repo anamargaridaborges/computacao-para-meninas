@@ -1,10 +1,3 @@
-//
-//  MultiplaEscolhaViewModel.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import Foundation
 import SwiftUI
 
@@ -17,7 +10,7 @@ class MultiplaEscolhaViewModel {
 
     let onConcluirAtividade: () -> Void
 
-    var idSelecionado: Int = -1
+    var idSelecionado: Int? = nil
     var botaoAtivo: Bool = false
     var estadoFeedback: EstadoFeedback = .neutro
 
@@ -43,6 +36,6 @@ class MultiplaEscolhaViewModel {
 
     func resetar() {
         estadoFeedback = .neutro
-        idSelecionado = -1
+        idSelecionado = nil
     }
 }

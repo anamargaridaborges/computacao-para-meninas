@@ -1,10 +1,3 @@
-//
-//  BarraTempoSpeedrun.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 10/07/26.
-//
-
 import SwiftUI
 
 struct BarraTempoSpeedrun: View {
