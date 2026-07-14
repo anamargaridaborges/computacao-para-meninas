@@ -284,18 +284,18 @@ final class TrilhaTests: XCTestCase {
     // Análise de Valor Limite para persistência (0, 1 e 2 itens)
     func testPersistenciaIdsConcluidos_BoundaryCounts() {
         // 0 itens
-        var vm = TrilhaViewModel()
-        vm.idsConcluidos = []
+        var vm2 = TrilhaViewModel()
+        vm2.idsConcluidos = []
         var novo = TrilhaViewModel()
         XCTAssertEqual(Set(novo.idsConcluidos), Set([]))
 
         // 1 item
-        vm.concluirAtividade(id: "A")
+        vm2.concluirAtividade(id: "A")
         novo = TrilhaViewModel()
         XCTAssertTrue(novo.idsConcluidos.contains("A"))
 
         // 2 itens
-        vm.concluirAtividade(id: "B")
+        vm2.concluirAtividade(id: "B")
         novo = TrilhaViewModel()
         XCTAssertTrue(novo.idsConcluidos.contains("A"))
         XCTAssertTrue(novo.idsConcluidos.contains("B"))
