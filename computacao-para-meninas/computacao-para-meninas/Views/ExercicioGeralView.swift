@@ -17,7 +17,7 @@ struct ExercicioGeralView: View {
         if viewModel.totalRodadas == 0 {
             Text("Sem exercícios para esta atividade.")
         } else {
-            viewModel.exercicioAtual.tipo.strategy.criarView(
+            viewModel.exercicioAtual.criarView(
                 exercicio: viewModel.exercicioAtual,
                 rodadaAtual: viewModel.rodadaAtual,
                 aoConcluirRodada: { viewModel.proximaEtapa() }

@@ -76,7 +76,7 @@ struct ModoSpeedrunView: View {
                 .padding(.horizontal)
                 .padding(.vertical, 12)
 
-            viewModel.exercicioAtual.tipo.strategy.criarView(
+            viewModel.exercicioAtual.criarView(
                 exercicio: viewModel.exercicioAtual,
                 rodadaAtual: viewModel.idxAtual,
                 aoConcluirRodada: { viewModel.registrarAcerto() }
