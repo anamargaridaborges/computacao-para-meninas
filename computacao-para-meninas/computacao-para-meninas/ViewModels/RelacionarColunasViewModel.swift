@@ -1,12 +1,23 @@
-//
-//  RelacionarColunasViewModel.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import Foundation
 import SwiftUI
+
+struct SelecaoColunas {
+    var idPrimeiraColuna: Int?
+    var idSegundaColuna: Int?
+    
+    
+    func isValid(tamanho: Int) -> Bool {
+        guard let idPrimeiraColuna, let idSegundaColuna else {
+            return false
+        }
+        return idSegundaColuna < tamanho && idPrimeiraColuna < tamanho
+    }
+    
+    mutating func deselecionar() {
+        self.idPrimeiraColuna = nil
+        self.idSegundaColuna = nil
+    }
+}
 
 @Observable
 class RelacionarColunasViewModel {
@@ -15,15 +26,12 @@ class RelacionarColunasViewModel {
     
     let exercicio: Exercicio
 
-    var selecionado1: Int = -1
-    var selecionado2: Int = -1
-    var erro1: Int = -1
-    var erro2: Int = -1
+    var selecao: SelecaoColunas
+    
     var desativado: [Bool]
     var continuarDesativado: Bool = true
     var estadoFeedback: EstadoFeedback = .neutro
-    var mensagemErro: String = ""
-    
+
     let aoConcluirRodada: () -> Void
 
     init(vetor1: [Int], vetor2: [Int], exercicio: Exercicio, aoConcluirRodada: @escaping () -> Void) {
@@ -35,19 +43,29 @@ class RelacionarColunasViewModel {
         self.exercicio = exercicio
         self.desativado = Array(repeating: false, count: exercicio.alternativas.count)
         self.aoConcluirRodada = aoConcluirRodada
+        
+        self.selecao = SelecaoColunas()
     }
 
     func selecionarColuna1(_ i: Int) {
         if desativado[i] { return }
         withAnimation {
-            selecionado1 = i
+            if selecao.idPrimeiraColuna == i {
+                selecao.idPrimeiraColuna = nil
+            } else {
+                selecao.idPrimeiraColuna = i
+            }
         }
     }
 
     func selecionarColuna2(_ i: Int) {
         if desativado[i] { return }
         withAnimation {
-            selecionado2 = i
+            if selecao.idSegundaColuna == i {
+                selecao.idSegundaColuna = nil
+            } else {
+                selecao.idSegundaColuna = i
+            }
         }
     }
 
@@ -56,35 +74,22 @@ class RelacionarColunasViewModel {
             return
         }
 
-        if (selecionado1 != -1 && selecionado2 != -1) {
-            guard selecionado1 < desativado.count, selecionado2 < desativado.count else { return }
-            let idx1 = vetor1.firstIndex(where: {$0 == selecionado1})
-            let idx2 = vetor2.firstIndex(where: {$0 == selecionado2})
+        if (selecao.isValid(tamanho: desativado.count)),
+            let selecao1 = selecao.idPrimeiraColuna,
+            let selecao2 = selecao.idSegundaColuna {
+            let idx1 = vetor1.firstIndex(where: {$0 == selecao1})
+            let idx2 = vetor2.firstIndex(where: {$0 == selecao2})
+            
             if (idx1 == idx2) {
                 withAnimation {
-                    desativado[selecionado1] = true
-                    desativado[selecionado2] = true
+                    desativado[selecao1] = true
+                    desativado[selecao2] = true
                 }
-                selecionado1 = -1
-                selecionado2 = -1
+                selecao.deselecionar()
             }
             else {
                 withAnimation {
-                    erro1 = selecionado1
-                    erro2 = selecionado2
-
                     estadoFeedback = .erro
-                    mensagemErro = "Essas variáveis não correspondem. Tente outra combinação."
-
-                }
-
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-
-                withAnimation {
-                    erro1 = -1
-                    erro2 = -1
-                    selecionado1 = -1
-                    selecionado2 = -1
                 }
             }
             if desativado.allSatisfy({ $0 }) {
@@ -92,7 +97,6 @@ class RelacionarColunasViewModel {
 
                 withAnimation {
                     estadoFeedback = .acerto
-                    mensagemErro = ""
                 }
             }
         }

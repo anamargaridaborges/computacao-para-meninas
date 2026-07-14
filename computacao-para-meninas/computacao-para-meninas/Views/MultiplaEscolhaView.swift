@@ -1,10 +1,3 @@
-//
-//  MultiplaEscolhaView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Margarida Diniz Silva Borges on 07/04/26.
-//
-
 import SwiftUI
 
 struct MultiplaEscolhaView: View {
@@ -44,8 +37,11 @@ struct MultiplaEscolhaView: View {
                         Button (action: {
                             viewModel.selecionar(i)
                         }) {
-                            CardAlternativaMultiplaEscolha(idx: i, idSelecionado: viewModel.idSelecionado, resposta: resposta, continuado: viewModel.estadoFeedback != .neutro, texto: viewModel.exercicio.alternativas[i])
+                            CardAlternativaMultiplaEscolha(
+                                estado: estadoDoCard(index: i),
+                                texto: viewModel.exercicio.alternativas[i])
                         }
+                        .disabled(viewModel.estadoFeedback != .neutro)
                         .accessibilityIdentifier("card1_\(i)")
                     }
                 }
@@ -56,8 +52,11 @@ struct MultiplaEscolhaView: View {
                         Button (action: {
                             viewModel.selecionar(i)
                         }) {
-                            CardAlternativaMultiplaEscolha(idx: i, idSelecionado: viewModel.idSelecionado, resposta: resposta, continuado: viewModel.estadoFeedback != .neutro, texto: viewModel.exercicio.alternativas[i])
+                            CardAlternativaMultiplaEscolha(
+                                estado: estadoDoCard(index: i),
+                                texto: viewModel.exercicio.alternativas[i])
                         }
+                        .disabled(viewModel.estadoFeedback != .neutro)
                         .accessibilityIdentifier("card1_\(i)")
                     }
                 }
@@ -78,11 +77,12 @@ struct MultiplaEscolhaView: View {
             }
             .navigationBarBackButtonHidden()
         }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .overlay {
             if viewModel.estadoFeedback != .neutro {
                 BarraFeedback(
-                    mensagem: viewModel.mensagemErro,
                     estado: viewModel.estadoFeedback,
+                    explicacao: viewModel.exercicio.explicacao,
                     aoTocar: {
                         if viewModel.estadoFeedback == .acerto {
                             viewModel.onConcluirAtividade()
@@ -90,24 +90,32 @@ struct MultiplaEscolhaView: View {
                         withAnimation { viewModel.resetar() }
                     }
                 )
-                .ignoresSafeArea(edges: .bottom)
                 .transition(.move(edge: .bottom))
-                .frame(maxHeight: (viewModel.estadoFeedback == .acerto ? 80 : .infinity))
             }
         }
         .animation(.spring(response: 0.35), value: viewModel.estadoFeedback)
     }
 
+    func estadoDoCard(index: Int) -> CardAlternativaMultiplaEscolha.Estado {
+        switch viewModel.estadoFeedback {
+        case .neutro:
+            if viewModel.idSelecionado == index {
+                return .selecionado
+            } else {
+                return .normal
+            }
+        case .acerto:
+            if index == viewModel.resposta {
+                return .acerto
+            } else {
+                return .erro
+            }
+        case .erro:
+            if index == viewModel.idSelecionado {
+                return .erro
+            } else {
+                return .normal
+            }
+        }
+    }
 }
-
-//#Preview {
-//    MultiplaEscolhaView(
-//        idAtividade: "atv_exemplo",
-//        aoConcluirRodada: {},
-//        idExercicio: 0,
-//        numeroExercicios: 5,
-//        exercicioAtual: 1,
-//        resposta: 0,
-//        codigo: "num1 = 5"
-//    )
-//}

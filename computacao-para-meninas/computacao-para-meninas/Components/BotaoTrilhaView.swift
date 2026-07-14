@@ -1,10 +1,3 @@
-//
-//  BotaoTrilhaView.swift
-//  computacao-para-meninas
-//
-//  Created by Ana Macedo on 27/06/26.
-//
-
 import SwiftUI
 
 struct BotaoTrilhaView: View {

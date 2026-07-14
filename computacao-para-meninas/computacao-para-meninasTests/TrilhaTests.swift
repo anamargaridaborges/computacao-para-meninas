@@ -1,10 +1,3 @@
-//
-//  TrilhaTests.swift
-//  computacao-para-meninasTests
-//
-//  Created by Ana Macedo on 12/04/26.
-//
-
 import XCTest
 @testable import computacao_para_meninas
 
