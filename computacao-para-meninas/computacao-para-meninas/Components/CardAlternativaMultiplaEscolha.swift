@@ -1,24 +1,24 @@
 import SwiftUI
 
 struct CardAlternativaMultiplaEscolha: View {
-    let idx: Int
-    let idSelecionado: Int
-    let resposta: Int
-    let continuado: Bool
-    let texto: String
-
-    private var acertouEsta: Bool {
-        continuado && idSelecionado == idx && resposta == idx
+    enum Estado {
+        case normal
+        case selecionado
+        case acerto
+        case erro
     }
+    
+    let estado: Estado
+    let texto: String
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
-                .fill(acertouEsta ? Color("LightGreen") : Color("LightestGray"))
-                .stroke(strokeColor(), lineWidth: (idSelecionado == idx ? 4 : 2))
+                .fill(estado == .acerto ? Color("LightGreen") : Color("LightestGray"))
+                .stroke(strokeColor(), lineWidth: (estado == .selecionado ? 4 : 2))
                 .frame(width: 100, height: 80)
             Text(texto)
-                .foregroundStyle(acertouEsta ? Color("DarkGreen") : Color.black)
+                .foregroundStyle(estado == .acerto ? Color("DarkGreen") : Color.black)
                 .frame(width: 80)
                 .multilineTextAlignment(.leading)
                 .monospaced()
@@ -27,19 +27,15 @@ struct CardAlternativaMultiplaEscolha: View {
     }
 
     private func strokeColor() -> Color {
-        
-        if (idSelecionado != idx) {
+        switch(estado) {
+        case .selecionado:
+            return Color("AccentColor")
+        case .acerto:
+            return Color("DarkGreen")
+        case .erro:
+            return Color("Wrong")
+        case .normal:
             return Color("Gray")
         }
-        
-        if (continuado) {
-            if (resposta == idx) {
-                return Color("DarkGreen")
-            }
-            
-            return Color("Wrong")
-        }
-        
-        return Color("AccentColor")
     }
 }
