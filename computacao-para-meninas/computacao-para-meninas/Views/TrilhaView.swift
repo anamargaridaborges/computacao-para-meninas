@@ -52,7 +52,7 @@ struct TrilhaView: View {
 
     private var headerView: some View {
         HStack {
-            Text("Olá, Ana!")
+            Text("Olá!")
                 .font(.system(.title2, design: .rounded).weight(.bold))
                 .foregroundStyle(Color("Text"))
             
