@@ -69,6 +69,11 @@ class RelacionarColunasViewModel {
         }
     }
 
+    func resetar() {
+        estadoFeedback = .neutro
+        selecao.deselecionar()
+    }
+
     func checkAcerto() async {
         if estadoFeedback != .neutro {
             return

@@ -71,6 +71,7 @@ struct ExercicioGeralView: View {
 
                 }
             }
+            .toolbar(.hidden, for: .tabBar)
             .onChange(of: viewModel.concluido) { _, novo in
                 if novo { dismiss() }
             }

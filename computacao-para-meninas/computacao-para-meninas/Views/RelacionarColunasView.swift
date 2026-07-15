@@ -67,7 +67,7 @@ struct RelacionarColunasView: View {
                             if viewModel.estadoFeedback == .acerto {
                                 viewModel.aoConcluirRodada()
                             }
-                            withAnimation { viewModel.estadoFeedback = .neutro }
+                            withAnimation { viewModel.resetar() }
                         }
                     )
                     .transition(.move(edge: .bottom))

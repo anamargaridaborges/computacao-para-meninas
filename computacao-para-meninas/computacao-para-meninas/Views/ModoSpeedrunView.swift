@@ -20,6 +20,7 @@ struct ModoSpeedrunView: View {
                 },
                 aoSair: { dismiss() }
             )
+            .toolbar(.hidden, for: .tabBar)
         }
         else {
             ZStack {
@@ -54,6 +55,7 @@ struct ModoSpeedrunView: View {
                 }
             }
             .navigationBarBackButtonHidden(true)
+            .toolbar(.hidden, for: .tabBar)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: { dismiss() }) {
