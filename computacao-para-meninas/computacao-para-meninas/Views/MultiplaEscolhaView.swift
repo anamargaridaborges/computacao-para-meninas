@@ -108,7 +108,7 @@ struct MultiplaEscolhaView: View {
             if index == viewModel.resposta {
                 return .acerto
             } else {
-                return .erro
+                return .normal
             }
         case .erro:
             if index == viewModel.idSelecionado {
